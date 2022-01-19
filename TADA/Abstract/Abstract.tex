@@ -1,0 +1,86 @@
+\documentclass[a4paper, 12pt]{article} %
+\usepackage{graphicx,amssymb} %
+\usepackage{url}			       % For \url
+\usepackage{xcolor}
+\usepackage[left=1cm, top=2cm, bottom = 2cm, right=1cm, nohead, nofoot]{geometry}
+\usepackage{hyperref}
+
+%\textwidth=15cm \hoffset=-1.0cm %
+%\textheight=25cm \voffset=-1.5cm %
+
+\pagestyle{empty} %
+
+\date{} %
+
+\def\keywords#1{\begin{center}{\bf Keywords}\\{#1}\end{center}} %
+
+% Please, do not change any of the above lines
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\begin{document}
+
+% Type down your paper title
+\title{Reinforcement Bias in Online Communities}
+
+\vspace{0.5cm}
+% Authors
+\author{ Cason Konzer \\ %
+       University of Michigan - Flint \\ % Affiliation 1
+       % Add authors and affiliation as needed 
+       \textit{\color{violet}
+       \href{mailto:casonk@umich.edu}{casonk@umich.edu}} % Only one corresponding e-mail
+       }
+
+\maketitle
+
+\thispagestyle{empty}
+
+% The abstract
+%\vspace{2.5cm}
+
+\begin{abstract}
+\vspace{0.5cm}
+% \default
+
+    In today’s social media society there is an increasing presence of online communities and group information exchange. 
+Through our community analysis tooling, we aim to address the evolution of radicalized communities, such as radically political, pseudoscience, or conspiracy theory based. 
+We are concerned with intercommunity communication and recommendations. 
+Research today has investigated the echo-chamber phenomenon of radicalized communities that thrive on confirmation bias. 
+We would like to address reinforcement bias between similar communities. 
+Do echo-chambers span across multiple communities? 
+If so, is there a framework or hierarchy of linked ideologies. 
+In recent news, the narrative of misinformation within the media has become highly relevant. 
+Many actors have made claims taken up by the public that were either lacking evidence or outright wrong. 
+Research questions to ponder are: do users within radical communities suggest other radical communities as reference or recommendation? 
+Are there trends present within highly active users in radical communities? 
+Is there a motive for users frequently posting misinformation? 
+    Our current project utilizes a public API based data warehouse for Reddit posts, pushshift.io. 
+We have developed python scripting to automate data collection for communities based on time frame and post type. 
+To address our research questions, we have scripted authorship analysis and reference analysis by community. 
+From the tooling we can address those most active users within communities, and those communities most referenced. 
+We have verified echo-chamber activity such that the most referenced community is itself. 
+Within the communities we have researched $[$ AntiVax, FlatEarth, ConspiracyTheories, \& TrumpVirus $]$, 
+we have found Trump to be the most referenced community on political actors, at approximately 2 times the occurrence of current president Biden. 
+Additionally, we have found 1 in 602 posts to reference the radical group Q-anon. 
+As work continues, we are interested in employing sentiment analysis within post titles and bodies, such as to extract the motive behind communal referencing. 
+Other aspects of research include radical community moderation and cross-discussion.
+
+
+\vspace{5.5cm}
+
+% \color{violet}
+% \textbf{Resource Management} : 
+% \textit{Monitoring and Modeling Effects of Aquatic Barriers on River Ecosystems}
+% \color{black}
+
+\end{abstract}
+
+\keywords{Reinforcement Bias, Social Media} % Write down at least 3 Keywords
+
+% \section{Introduction}
+
+\end{document}
