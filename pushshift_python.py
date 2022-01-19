@@ -17,8 +17,6 @@ import os
 import csv
 
 
-
-
 @dataclass
 class query:
     """
@@ -70,8 +68,6 @@ class query:
             self.post_type = post_type
 
 
-
-
 @dataclass
 class pushshift_file_query(query):
     """
@@ -101,32 +97,36 @@ class pushshift_file_query(query):
         """
         Initilization of query object.
         """
-        super().__init__(
-            query_type, query, time_range, time_format, post_type
-            )
-        self.submission_folder_path = Path('F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Submissions/RS/2019+/')
-        self.comment_folder_path = Path('F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Comments/RC/2019+/')
+        super().__init__(query_type, query, time_range, time_format, post_type)
+        self.submission_folder_path = Path(
+            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Submissions/RS/2019+/"
+        )
+        self.comment_folder_path = Path(
+            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Comments/RC/2019+/"
+        )
         self.line_counter = 0
         self.post_counter = 0
         self.file_counter = 0
         self.errors = 0
 
     def set_parent_folders(self, submission_folder_path, comment_folder_path):
-        '''
+        """
         Set paths to pushshift files.
-        '''
+        """
         self.submission_folder_path = Path(submission_folder_path)
         self.comment_folder_path = Path(comment_folder_path)
 
     def read_lines_zst(self):
-        '''
-        Helper function for reading from ztandandard compressed ndjson files. 
-        '''
-        with open(self.working_file, 'rb') as file_handle:
-            buffer = ''
-            reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(file_handle)
+        """
+        Helper function for reading from ztandandard compressed ndjson files.
+        """
+        with open(self.working_file, "rb") as file_handle:
+            buffer = ""
+            reader = zstandard.ZstdDecompressor(max_window_size=2 ** 31).stream_reader(
+                file_handle
+            )
             while True:
-                chunk = reader.read(2**27).decode()
+                chunk = reader.read(2 ** 27).decode()
                 if not chunk:
                     break
                 lines = (buffer + chunk).split("\n")
@@ -136,7 +136,7 @@ class pushshift_file_query(query):
 
                 buffer = lines[-1]
             reader.close()
-        
+
     def make_query(self):
         """
         Initialize the query.
@@ -217,15 +217,17 @@ class pushshift_file_query(query):
         def search_sumissions(self):
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
-                if self.line_counter%1000000 == 0:
-                    print('  >> Processed {} Posts, Found {} Posts'.format(
-                        self.line_counter, self.post_counter)
+                if self.line_counter % 1000000 == 0:
+                    print(
+                        "  >> Processed {} Posts, Found {} Posts".format(
+                            self.line_counter, self.post_counter
                         )
+                    )
                 try:
-                    post = json.loads(line) 
-                    if self.type == 'subreddit':
-                        if int(post['created_utc']) >= int(self.after):
-                            if int(post['created_utc']) <= int(self.before):
+                    post = json.loads(line)
+                    if self.type == "subreddit":
+                        if int(post["created_utc"]) >= int(self.after):
+                            if int(post["created_utc"]) <= int(self.before):
                                 if post["subreddit"] == self.query:
                                     self.post_counter += 1
                                     (
@@ -282,15 +284,17 @@ class pushshift_file_query(query):
         def search_comments(self):
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
-                if self.line_counter%1000000 == 0:
-                    print('  >> Processed {} Posts, Found {} Posts'.format(
-                        self.line_counter, self.post_counter)
+                if self.line_counter % 1000000 == 0:
+                    print(
+                        "  >> Processed {} Posts, Found {} Posts".format(
+                            self.line_counter, self.post_counter
                         )
+                    )
                 try:
                     post = json.loads(line)
-                    if self.type == 'subreddit':
-                        if int(post['created_utc']) >= int(self.after):
-                            if int(post['created_utc']) <= int(self.before):
+                    if self.type == "subreddit":
+                        if int(post["created_utc"]) >= int(self.after):
+                            if int(post["created_utc"]) <= int(self.before):
                                 if post["subreddit"] == self.query:
                                     self.post_counter += 1
                                     (
@@ -343,7 +347,7 @@ class pushshift_file_query(query):
                             # elif self.query_type == 'keyword':
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
-        
+
         def make_time_list(self):
             first = self.after_dt
             last = self.before_dt
@@ -357,7 +361,9 @@ class pushshift_file_query(query):
 
         make_time_list(self=self)
 
-        all_submission_files = [submission_file for submission_file in self.submission_folder_path.iterdir()]
+        all_submission_files = [
+            submission_file for submission_file in self.submission_folder_path.iterdir()
+        ]
         if self.post_type == "comment":
             pass
         else:
@@ -366,7 +372,7 @@ class pushshift_file_query(query):
                     for time in self.time_list:
                         if time in file.name:
                             self.working_file = str(file.as_posix())
-                            print('> Parsing : {}'.format(file.name))
+                            print("> Parsing : {}".format(file.name))
                             try:
                                 search_sumissions(self=self)
                             except KeyboardInterrupt:
@@ -375,8 +381,13 @@ class pushshift_file_query(query):
                                 )
                                 break
                             self.file_counter += 1
-                            print('   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}'.format
-                            (self.file_counter, self.line_counter, self.post_counter, self.errors)
+                            print(
+                                "   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}".format(
+                                    self.file_counter,
+                                    self.line_counter,
+                                    self.post_counter,
+                                    self.errors,
+                                )
                             )
                 except KeyboardInterrupt:
                     print(
@@ -384,7 +395,9 @@ class pushshift_file_query(query):
                     )
                     break
 
-        all_comment_files = [comment_file for comment_file in self.comment_folder_path.iterdir()]
+        all_comment_files = [
+            comment_file for comment_file in self.comment_folder_path.iterdir()
+        ]
         if self.post_type == "submission":
             pass
         else:
@@ -393,7 +406,7 @@ class pushshift_file_query(query):
                     for time in self.time_list:
                         if time in file.name:
                             self.working_file = str(file.as_posix())
-                            print('> Parsing : {}'.format(file.name))
+                            print("> Parsing : {}".format(file.name))
                             try:
                                 search_comments(self=self)
                             except KeyboardInterrupt:
@@ -402,8 +415,13 @@ class pushshift_file_query(query):
                                 )
                                 break
                             self.file_counter += 1
-                            print('   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}'.format
-                            (self.file_counter, self.line_counter, self.post_counter, self.errors)
+                            print(
+                                "   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}".format(
+                                    self.file_counter,
+                                    self.line_counter,
+                                    self.post_counter,
+                                    self.errors,
+                                )
                             )
                 except KeyboardInterrupt:
                     print(
@@ -412,7 +430,7 @@ class pushshift_file_query(query):
                     break
 
         self.df = self.submissions.append(self.comments)
-    
+
     def export(self, path, to_export="df", export_format=".pkl"):
         """
         Easily save and export your data for future analytics.
@@ -426,7 +444,7 @@ class pushshift_file_query(query):
             'comments'- only comment data.
         export_format:
             '.pkl'- default, exports to pickle.
-            '.csv'- export to comma seperated file. 
+            '.csv'- export to comma seperated file.
         """
         if to_export == "df":
             if export_format == ".pkl":
@@ -443,8 +461,6 @@ class pushshift_file_query(query):
                 self.comments.to_pickle(path=path)
             elif export_format == ".csv":
                 self.comments.to_csv(path_or_buf=path)
-
-
 
 
 @dataclass
@@ -475,9 +491,7 @@ class pushshift_web_query(query):
         """
         Initilization of query object.
         """
-        super().__init__(
-            query_type, query, time_range, time_format, post_type
-            )
+        super().__init__(query_type, query, time_range, time_format, post_type)
         self.api_hit_counter = 0
 
     def update_url(self):
@@ -812,7 +826,7 @@ class pushshift_web_query(query):
             'comments'- only comment data.
         export_format:
             '.pkl'- default, exports to pickle.
-            '.csv'- export to comma seperated file. 
+            '.csv'- export to comma seperated file.
         """
         if to_export == "df":
             if export_format == ".pkl":
@@ -831,11 +845,16 @@ class pushshift_web_query(query):
                 self.comments.to_csv(path_or_buf=path)
 
 
-
-
 @dataclass
 class community:
-    def __init__(self, name='community', path=None, dataframe=None, columns=None, file_format=None):
+    def __init__(
+        self,
+        name="community",
+        path=None,
+        dataframe=None,
+        columns=None,
+        file_format=None,
+    ):
         """
         Initilization of object, created DataFrame for provided community.
         ----------
@@ -853,14 +872,12 @@ class community:
             self.df = dataframe
         elif file_format == "csv":
             self.df = pd.read_csv(
-                filepath_or_buffer=path, 
-                usecols=columns, 
-                low_memory=False
+                filepath_or_buffer=path, usecols=columns, low_memory=False
             )
         elif file_format == "pkl":
             self.df = pd.read_pickle(filepath_or_buffer=path)
-        submission_mask = self.df['post_type'] == 'submission'
-        comment_mask = self.df['post_type'] == 'comment'
+        submission_mask = self.df["post_type"] == "submission"
+        comment_mask = self.df["post_type"] == "comment"
         self.submissions = self.df[submission_mask]
         self.comments = self.df[comment_mask]
 
@@ -893,7 +910,7 @@ class community:
             find_urls(frame=self.df[submission_mask])
 
     def make_authors(self):
-        indx = self.df['author'].unique()
+        indx = self.df["author"].unique()
         self.authors = pd.DataFrame(
             columns=[
                 "total_submissions",
@@ -902,50 +919,54 @@ class community:
                 "total_comments",
                 "total_comment_score",
                 "total_posts",
-                "total_post_score"
+                "total_post_score",
             ],
-            index=indx
+            index=indx,
         )
-        type_mask = self.df['post_type'] == 'submission'
-        total_submissions = self.df[type_mask].groupby('author').size()
-        self.authors['total_submissions'] = total_submissions
-        total_submission_score = self.df[type_mask].groupby('author')['score'].sum()
-        self.authors['total_submission_score'] = total_submission_score
-        total_submission_comments = self.df[type_mask].groupby('author')['num_comments'].sum()
-        self.authors['total_submission_comments'] = total_submission_comments
-        total_comments = self.df[~type_mask].groupby('author').size()
-        self.authors['total_comments'] = total_comments
-        total_comment_score = self.df[~type_mask].groupby('author')['score'].sum()
-        self.authors['total_comment_score'] = total_comment_score
+        type_mask = self.df["post_type"] == "submission"
+        total_submissions = self.df[type_mask].groupby("author").size()
+        self.authors["total_submissions"] = total_submissions
+        total_submission_score = self.df[type_mask].groupby("author")["score"].sum()
+        self.authors["total_submission_score"] = total_submission_score
+        total_submission_comments = (
+            self.df[type_mask].groupby("author")["num_comments"].sum()
+        )
+        self.authors["total_submission_comments"] = total_submission_comments
+        total_comments = self.df[~type_mask].groupby("author").size()
+        self.authors["total_comments"] = total_comments
+        total_comment_score = self.df[~type_mask].groupby("author")["score"].sum()
+        self.authors["total_comment_score"] = total_comment_score
         self.authors = self.authors.apply(lambda x: x.fillna(0), axis=1)
-        self.authors['total_posts'] = self.authors['total_submissions'] + self.authors['total_comments'] 
-        self.authors['total_post_score'] = self.authors['total_submission_score'] + self.authors['total_comment_score']
-        self.authors.index.name = 'author'
+        self.authors["total_posts"] = (
+            self.authors["total_submissions"] + self.authors["total_comments"]
+        )
+        self.authors["total_post_score"] = (
+            self.authors["total_submission_score"] + self.authors["total_comment_score"]
+        )
+        self.authors.index.name = "author"
 
     def compare_authors(self, community):
         """
-        Perform outer and inner joins on the two community authors. 
+        Perform outer and inner joins on the two community authors.
         returns a tuple containing: (outer join DataFrame, inner join DataFrame)
         """
         outer = pd.merge(
-            self.authors[['total_submissions', 'total_comments', 'total_posts']], 
-            community.authors[['total_submissions', 'total_comments', 'total_posts']], 
-            how='outer', 
-            left_index=True, 
-            right_index=True, 
-            suffixes=('_'+self.name, '_'+community.name)
-            ).fillna(0)
+            self.authors[["total_submissions", "total_comments", "total_posts"]],
+            community.authors[["total_submissions", "total_comments", "total_posts"]],
+            how="outer",
+            left_index=True,
+            right_index=True,
+            suffixes=("_" + self.name, "_" + community.name),
+        ).fillna(0)
         inner = pd.merge(
-            self.authors[['total_submissions', 'total_comments', 'total_posts']], 
-            community.authors[['total_submissions', 'total_comments', 'total_posts']], 
-            how='inner', 
-            left_index=True, 
-            right_index=True, 
-            suffixes=('_'+self.name, '_'+community.name)
-            ).fillna(0)
+            self.authors[["total_submissions", "total_comments", "total_posts"]],
+            community.authors[["total_submissions", "total_comments", "total_posts"]],
+            how="inner",
+            left_index=True,
+            right_index=True,
+            suffixes=("_" + self.name, "_" + community.name),
+        ).fillna(0)
         return outer, inner
-        
-
 
 
 @dataclass
@@ -1085,6 +1106,3 @@ class subreddits:
             & min_date_time_mask
             & max_date_time_mask
         ]
-
-
-
