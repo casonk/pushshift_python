@@ -57,14 +57,13 @@ class query:
         defaults to query both comments and submissions.
     """
 
-
-
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
     ):
         """
         Initilization of query object.
         """
+
         self.type = query_type.lower()
         self.query = query.lower()
         if time_format == "datetime":
@@ -114,14 +113,13 @@ class pushshift_file_query(query):
         defaults to query both comments and submissions.
     """
 
-
-
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
     ):
         """
         Initilization of query object.
         """
+
         super().__init__(query_type, query, time_range, time_format, post_type)
         self.submission_folder_path = Path(
             "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Submissions/RS/2019+/"
@@ -140,6 +138,7 @@ class pushshift_file_query(query):
         """
         Set paths to pushshift files.
         """
+
         self.submission_folder_path = Path(submission_folder_path)
         self.comment_folder_path = Path(comment_folder_path)
 
@@ -149,6 +148,7 @@ class pushshift_file_query(query):
         """
         Helper function for reading from ztandandard compressed ndjson files.
         """
+
         with open(self.working_file, "rb") as file_handle:
             buffer = ""
             reader = zstandard.ZstdDecompressor(max_window_size=2 ** 31).stream_reader(
@@ -172,6 +172,7 @@ class pushshift_file_query(query):
         """
         Initialize the query.
         """
+
         self.df = pd.DataFrame(
             columns=[
                 "post_type",
@@ -198,6 +199,7 @@ class pushshift_file_query(query):
             """
             Helper function to collect values common between both comments and submissions.
             """
+
             try:
                 subreddit = post["subreddit"]
                 post_id = post["id"]
@@ -251,6 +253,10 @@ class pushshift_file_query(query):
 
 
         def search_sumissions(self):
+            """
+            Helper function to parse submission json objects.
+            """
+            
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
                 if self.line_counter % 1000000 == 0:
@@ -319,6 +325,10 @@ class pushshift_file_query(query):
 
 
         def search_comments(self):
+            """
+            Helper function to parse comment json objects.
+            """
+            
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
                 if self.line_counter % 1000000 == 0:
@@ -387,6 +397,10 @@ class pushshift_file_query(query):
 
 
         def make_time_list(self):
+            """
+            Helper function to create time lists to use for parsing pushshift.io downloaded files.
+            """
+            
             first = self.after_dt
             last = self.before_dt
             while first <= last:
@@ -486,6 +500,7 @@ class pushshift_file_query(query):
             '.pkl'- default, exports to pickle.
             '.csv'- export to comma seperated file.
         """
+
         if to_export == "df":
             if export_format == "pkl":
                 self.df.to_pickle(path=path)
@@ -528,8 +543,6 @@ class pushshift_web_query(query):
         defaults to query both comments and submissions.
     """
 
-
-
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
     ):
@@ -545,6 +558,7 @@ class pushshift_web_query(query):
         """
         Helper function to update timestamp after each API request.
         """
+
         try:
             if self.type == "subreddit":
                 self.comment_url = "https://api.pushshift.io/reddit/search/{}/?after={}&before={}&subreddit={}&size={}".format(
@@ -585,6 +599,7 @@ class pushshift_web_query(query):
         """
         Initialize the query.
         """
+
         self.df = pd.DataFrame(
             columns=[
                 "post_type",
@@ -615,6 +630,7 @@ class pushshift_web_query(query):
             ----------
             url: provide either self.submission_url or self.comment_url depending on post type.
             """
+
             try:
                 self.api_hit_counter += 1
                 try:
@@ -658,6 +674,7 @@ class pushshift_web_query(query):
             """
             Helper function to collect values common between both comments and submissions.
             """
+
             try:
                 subreddit = post["subreddit"]
                 post_id = post["id"]
@@ -714,6 +731,7 @@ class pushshift_web_query(query):
             """
             Helper function to save submissions to self.submissions.
             """
+
             for post in self.web_data["data"]:
                 (
                     subreddit,
@@ -770,6 +788,7 @@ class pushshift_web_query(query):
             """
             Helper function to save comments to self.comments.
             """
+
             for post in self.web_data["data"]:
                 (
                     subreddit,
@@ -824,6 +843,7 @@ class pushshift_web_query(query):
             """
             Master function to chain previous helper functions and collect the requested data for submissions.
             """
+
             self.current_time = self.after
             if self.post_type == "comment":
                 pass
@@ -847,6 +867,7 @@ class pushshift_web_query(query):
             """
             Master function to chain previous helper functions and collect the requested data for comments.
             """
+
             self.current_time = self.after
             if self.post_type == "submission":
                 pass
@@ -886,6 +907,7 @@ class pushshift_web_query(query):
             '.pkl'- default, exports to pickle.
             '.csv'- export to comma seperated file.
         """
+
         if to_export == "df":
             if export_format == "pkl":
                 self.df.to_pickle(path=path)
@@ -928,6 +950,7 @@ class community:
             "csv"- for passing DataFrame stored as csv.
             "pkl"- for passing a pickled DataFrame.
         """
+
         self.name = name
         if path == None:
             self.df = dataframe
@@ -937,6 +960,7 @@ class community:
             )
         elif file_format == "pkl":
             self.df = pd.read_pickle(filepath_or_buffer=path)
+        self.df.set_index("id", inplace=True)
         submission_mask = self.df["post_type"] == "submission"
         comment_mask = self.df["post_type"] == "comment"
         self.submissions = self.df[submission_mask]
@@ -944,7 +968,7 @@ class community:
 
 
 
-    def make_urls(self, column=None, post_type=None):
+    def make_urls(self, column='body', post_type=None):
         """
         Qurey posts for url embeddings in posts.
         ----------
@@ -968,6 +992,7 @@ class community:
             self.text_urls.index = self.text_urls.index.str.replace(r"\\_", r"_", regex=True)
             self.text_url_references = pd.DataFrame(self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts())
             self.text_url_references.columns = ['count']
+            self.text_url_references.index.name = "url"
 
         if post_type == None:
             find_urls(frame=self.df)
@@ -980,7 +1005,48 @@ class community:
 
 
 
+    def make_references(self, column='body', post_type=None):
+        '''
+        Qurey posts for r/subreddit reference embeddings in posts.
+        ----------
+        paramaters
+        ----------
+        column: DataFrame column to query on, body or title.
+        post_type: option to restrict posts to only comments or submissions.
+        Note* submissions usuallly contain a seperate embedded url field.
+        '''
+
+        find_r_slash_refs = re.compile(r"r/[\w]+")
+        stop_words = ['it', 'they', 'and', 'the']
+        subreddits = []
+
+        def find_references(frame):
+            for matches in frame[column].dropna().str.findall(find_r_slash_refs):
+                if matches == []:
+                    pass
+                for match in matches:
+                    if match[2:] not in stop_words:
+                        subreddits.append(match[2:])
+            self.r_slash_references = pd.DataFrame(pd.Series(subreddits).value_counts())
+            self.r_slash_references.columns = ['count']
+            self.r_slash_references.index.name = 'r/subreddit'
+
+        if post_type == None:
+            find_references(frame=self.df)
+        elif post_type == "comment":
+            comment_mask = self.df["post_type"] == "comment"
+            find_references(frame=self.df[comment_mask])
+        elif post_type == "submission":
+            submission_mask = self.df["post_type"] == "submission"
+            find_references(frame=self.df[submission_mask])
+
+
+
     def make_authors(self):
+        '''
+        Create author referencing DataFrame for the community of interest.
+        '''
+
         indx = self.df["author"].unique()
         self.authors = pd.DataFrame(
             columns=[
@@ -1023,6 +1089,7 @@ class community:
         Perform outer and inner joins on the two community authors.
         returns a tuple containing: (outer join DataFrame, inner join DataFrame)
         """
+
         outer = pd.merge(
             self.authors[["total_submissions", "total_comments", "total_posts"]],
             community.authors[["total_submissions", "total_comments", "total_posts"]],
@@ -1051,8 +1118,6 @@ class subreddits:
     Class for making queries based on subreddit type.
     The resulting DataFrame is meant to be used as a selection matrix based on subreddit.
     """
-
-
 
     def __init__(self, path=None, file_format=None):
         """
@@ -1085,6 +1150,7 @@ class subreddits:
         """
         Create attributes containig masked DataFrames for Not Safe / Safe For Work subreddits.
         """
+
         nsfw_mask = self.master["NSFW_BOOL"] == True
         self.nsfw = self.master[nsfw_mask]
         self.sfw = self.master[~nsfw_mask]
@@ -1100,6 +1166,7 @@ class subreddits:
         min_subscribers: minimum number of allowed subscribers to a subreddit.
         max_subscribers: maximum number of allowed subscribers to a subreddit.
         """
+
         min_size_mask = self.master["#_Subscribers"] >= min_subscribers
         max_size_mask = self.master["#_Subscribers"] <= max_subscribers
         self.sized = self.master[min_size_mask & max_size_mask]
@@ -1117,6 +1184,7 @@ class subreddits:
         min_unix_timestamp: earliest allowed date of creation in unix ephoch timestamp.
         max_unix_timestamp: latest allowed date of creation in unix ephoch timestamp.
         """
+
         min_unix_time_mask = self.master["Creation_UTC"] >= min_unix_timestamp
         max_unix_time_mask = self.master["Creation_UTC"] <= max_unix_timestamp
         self.sized = self.master[min_unix_time_mask & max_unix_time_mask]
@@ -1134,6 +1202,7 @@ class subreddits:
         min_datetime: earliest allowed date of creation in datetime format.
         max_datetime: latest allowed date of creation in datetime format.
         """
+
         min_date_time_mask = self.master["Creation_DateTime"] >= min_datetime
         max_date_time_mask = self.master["Creation_DateTime"] <= max_datetime
         self.sized = self.master[min_date_time_mask & max_date_time_mask]
@@ -1151,6 +1220,7 @@ class subreddits:
         unix_times: dictionary input {'min_unix_timestamp' : minimum_timestamp, 'max_unix_timestamp' : maximum_timestamp}
         date_times: dictionary input {'min_datetime' : 'minimum_datetime', 'max_datetime' : 'maximum_datetime}
         """
+        
         if nsfw == None:
             nsfw_mask = [True for _ in self.master.index]
         else:
