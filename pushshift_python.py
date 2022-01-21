@@ -1,3 +1,12 @@
+'''
+Witten by: Cason Konzer
+
+pushshift_python is a wrapper for reddit community analytics. 
+
+read the docs at: https://github.com/casonk/pushshift_python/blob/master/documentation.ipynb
+'''
+
+# Import relative libraries
 from dateutil.relativedelta import relativedelta
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
@@ -16,7 +25,13 @@ import re
 import os
 import csv
 
+# Setup default plotter
+plt.style.use('dark_background') 
+plt.rcParams['figure.figsize'] = [16, 9]
+plt.rcParams.update({'font.size': 18})
+plt.rcParams.update({'text.usetex': False})
 
+# Create query superclass
 @dataclass
 class query:
     """
@@ -67,7 +82,7 @@ class query:
         except:
             self.post_type = post_type
 
-
+# Create pushshift file query object
 @dataclass
 class pushshift_file_query(query):
     """
@@ -465,7 +480,7 @@ class pushshift_file_query(query):
             elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
 
-
+# Create pushshift web query object
 @dataclass
 class pushshift_web_query(query):
     """
@@ -849,7 +864,7 @@ class pushshift_web_query(query):
             elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
 
-
+# Create community object
 @dataclass
 class community:
     def __init__(
@@ -973,7 +988,7 @@ class community:
         ).fillna(0)
         return outer, inner
 
-
+# Create subreddit reference object
 @dataclass
 class subreddits:
     """
