@@ -434,7 +434,7 @@ class pushshift_file_query(query):
 
         self.df = self.submissions.append(self.comments)
 
-    def export(self, path, to_export="df", export_format=".pkl"):
+    def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
         ----------
@@ -450,19 +450,19 @@ class pushshift_file_query(query):
             '.csv'- export to comma seperated file.
         """
         if to_export == "df":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.df.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.df.to_csv(path_or_buf=path)
         elif to_export == "submissions":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.submissions.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.submissions.to_csv(path_or_buf=path)
         elif to_export == "comments":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.comments.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
 
 
@@ -819,7 +819,7 @@ class pushshift_web_query(query):
 
         self.df = self.submissions.append(self.comments)
 
-    def export(self, path, to_export="df", export_format=".pkl"):
+    def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
         ----------
@@ -835,19 +835,19 @@ class pushshift_web_query(query):
             '.csv'- export to comma seperated file.
         """
         if to_export == "df":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.df.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.df.to_csv(path_or_buf=path)
         elif to_export == "submissions":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.submissions.to_pickle(path=path)
             elif export_format == ".csv":
                 self.submissions.to_csv(path_or_buf=path)
         elif to_export == "comments":
-            if export_format == ".pkl":
+            if export_format == "pkl":
                 self.comments.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
 
 
