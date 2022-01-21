@@ -780,7 +780,6 @@ class pushshift_web_query(query):
                 while self.current_time < self.before:
                     self.update_url()
                     web_hit(self=self, url=self.submission_url)
-                    # print(self.web_data)
                     if len(self.web_data["data"]) == 0:
                         break
                     else:
