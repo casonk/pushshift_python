@@ -31,6 +31,9 @@ plt.rcParams['figure.figsize'] = [16, 9]
 plt.rcParams.update({'font.size': 18})
 plt.rcParams.update({'text.usetex': False})
 
+
+
+
 # Create query superclass
 @dataclass
 class query:
@@ -53,6 +56,8 @@ class query:
         'submission'- only query submission.
         defaults to query both comments and submissions.
     """
+
+
 
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
@@ -82,6 +87,9 @@ class query:
         except:
             self.post_type = post_type
 
+
+
+
 # Create pushshift file query object
 @dataclass
 class pushshift_file_query(query):
@@ -106,6 +114,8 @@ class pushshift_file_query(query):
         defaults to query both comments and submissions.
     """
 
+
+
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
     ):
@@ -124,12 +134,16 @@ class pushshift_file_query(query):
         self.file_counter = 0
         self.errors = 0
 
+
+
     def set_parent_folders(self, submission_folder_path, comment_folder_path):
         """
         Set paths to pushshift files.
         """
         self.submission_folder_path = Path(submission_folder_path)
         self.comment_folder_path = Path(comment_folder_path)
+
+
 
     def read_lines_zst(self):
         """
@@ -151,6 +165,8 @@ class pushshift_file_query(query):
 
                 buffer = lines[-1]
             reader.close()
+
+
 
     def make_query(self):
         """
@@ -176,6 +192,7 @@ class pushshift_file_query(query):
         )
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
+
 
         def create_common_data(post):
             """
@@ -231,6 +248,7 @@ class pushshift_file_query(query):
                 )
             except KeyboardInterrupt:
                 pass
+
 
         def search_sumissions(self):
             for line, file_bytes_processed in self.read_lines_zst():
@@ -299,6 +317,7 @@ class pushshift_file_query(query):
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
 
+
         def search_comments(self):
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
@@ -365,6 +384,7 @@ class pushshift_file_query(query):
                             # elif self.query_type == 'keyword':
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
+
 
         def make_time_list(self):
             first = self.after_dt
@@ -449,6 +469,8 @@ class pushshift_file_query(query):
 
         self.df = self.submissions.append(self.comments)
 
+
+
     def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
@@ -480,6 +502,9 @@ class pushshift_file_query(query):
             elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
 
+
+
+
 # Create pushshift web query object
 @dataclass
 class pushshift_web_query(query):
@@ -503,6 +528,8 @@ class pushshift_web_query(query):
         defaults to query both comments and submissions.
     """
 
+
+
     def __init__(
         self, query_type, query, time_range, time_format="unix", post_type=None
     ):
@@ -511,6 +538,8 @@ class pushshift_web_query(query):
         """
         super().__init__(query_type, query, time_range, time_format, post_type)
         self.api_hit_counter = 0
+
+
 
     def update_url(self):
         """
@@ -550,6 +579,8 @@ class pushshift_web_query(query):
         except KeyboardInterrupt:
             pass
 
+
+
     def make_query(self):
         """
         Initialize the query.
@@ -574,6 +605,7 @@ class pushshift_web_query(query):
         )
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
+
 
         def web_hit(self, url):
             """
@@ -620,6 +652,7 @@ class pushshift_web_query(query):
                 time.sleep(1)
             except KeyboardInterrupt:
                 pass
+
 
         def create_common_data(post):
             """
@@ -676,6 +709,7 @@ class pushshift_web_query(query):
             except KeyboardInterrupt:
                 pass
 
+
         def save_submissions(self):
             """
             Helper function to save submissions to self.submissions.
@@ -731,6 +765,7 @@ class pushshift_web_query(query):
                     )
                     break
 
+
         def save_comments(self):
             """
             Helper function to save comments to self.comments.
@@ -784,6 +819,7 @@ class pushshift_web_query(query):
                     )
                     break
 
+
         def collect_submissions(self):
             """
             Master function to chain previous helper functions and collect the requested data for submissions.
@@ -805,6 +841,7 @@ class pushshift_web_query(query):
                                 "Keyboard Interrupt Detected, your object's values are secure"
                             )
                             break
+
 
         def collect_comments(self):
             """
@@ -830,8 +867,9 @@ class pushshift_web_query(query):
 
         collect_submissions(self=self)
         collect_comments(self=self)
-
         self.df = self.submissions.append(self.comments)
+
+
 
     def export(self, path, to_export="df", export_format="pkl"):
         """
@@ -863,6 +901,9 @@ class pushshift_web_query(query):
                 self.comments.to_pickle(path=path)
             elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
+
+
+
 
 # Create community object
 @dataclass
@@ -901,6 +942,8 @@ class community:
         self.submissions = self.df[submission_mask]
         self.comments = self.df[comment_mask]
 
+
+
     def make_urls(self, column=None, post_type=None):
         """
         Qurey posts for url embeddings in posts.
@@ -911,14 +954,20 @@ class community:
         post_type: option to restrict posts to only comments or submissions.
         Note* submissions usuallly contain a seperate embedded url field.
         """
+
         url_pattern = re.compile("((www\.[^\s]+)|(https://[^\s]+))")
+        subreddit_pattern = re.compile(r"(.*reddit.com/r/)([\w]+)(/.*)")
 
         def find_urls(frame):
             mask = frame[column].str.match(url_pattern, na=False)
-            self.url_df = frame[mask]
-            self.urls = pd.DataFrame(
-                self.url_df[column].str.extract(url_pattern)[0].rename("url")
+            self.text_url_df = frame[mask]
+            self.text_urls = pd.DataFrame(
+                (self.text_url_df[column].str.extract(url_pattern)[0].rename("url")).value_counts()
             )
+            self.text_urls.columns = ['count']
+            self.text_urls.index = self.text_urls.index.str.replace(r"\\_", r"_", regex=True)
+            self.text_url_references = pd.DataFrame(self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts())
+            self.text_url_references.columns = ['count']
 
         if post_type == None:
             find_urls(frame=self.df)
@@ -928,6 +977,8 @@ class community:
         elif post_type == "submission":
             submission_mask = self.df["post_type"] == "submission"
             find_urls(frame=self.df[submission_mask])
+
+
 
     def make_authors(self):
         indx = self.df["author"].unique()
@@ -965,6 +1016,8 @@ class community:
         )
         self.authors.index.name = "author"
 
+
+
     def compare_authors(self, community):
         """
         Perform outer and inner joins on the two community authors.
@@ -988,6 +1041,9 @@ class community:
         ).fillna(0)
         return outer, inner
 
+
+
+
 # Create subreddit reference object
 @dataclass
 class subreddits:
@@ -995,6 +1051,8 @@ class subreddits:
     Class for making queries based on subreddit type.
     The resulting DataFrame is meant to be used as a selection matrix based on subreddit.
     """
+
+
 
     def __init__(self, path=None, file_format=None):
         """
@@ -1021,6 +1079,8 @@ class subreddits:
             for utc in self.master["Creation_UTC"]
         ]
 
+
+
     def split_nsfw(self):
         """
         Create attributes containig masked DataFrames for Not Safe / Safe For Work subreddits.
@@ -1028,6 +1088,8 @@ class subreddits:
         nsfw_mask = self.master["NSFW_BOOL"] == True
         self.nsfw = self.master[nsfw_mask]
         self.sfw = self.master[~nsfw_mask]
+
+
 
     def split_size(self, min_subscribers=0, max_subscribers=9999999999):
         """
@@ -1041,6 +1103,8 @@ class subreddits:
         min_size_mask = self.master["#_Subscribers"] >= min_subscribers
         max_size_mask = self.master["#_Subscribers"] <= max_subscribers
         self.sized = self.master[min_size_mask & max_size_mask]
+
+
 
     def split_creation_time_unix(
         self, min_unix_timestamp=0000000000, max_unix_timestamp=9999999999
@@ -1057,6 +1121,8 @@ class subreddits:
         max_unix_time_mask = self.master["Creation_UTC"] <= max_unix_timestamp
         self.sized = self.master[min_unix_time_mask & max_unix_time_mask]
 
+
+
     def split_creation_time_date(
         self, min_datetime="2000-01-01", max_datetime="2022-02-02"
     ):
@@ -1071,6 +1137,8 @@ class subreddits:
         min_date_time_mask = self.master["Creation_DateTime"] >= min_datetime
         max_date_time_mask = self.master["Creation_DateTime"] <= max_datetime
         self.sized = self.master[min_date_time_mask & max_date_time_mask]
+
+
 
     def split_multi(self, nsfw=None, sizes=None, unix_times=None, date_times=None):
         """
