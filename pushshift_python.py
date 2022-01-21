@@ -181,7 +181,10 @@ class pushshift_file_query(query):
                     url = post["url"]
                 except KeyError:
                     url = "nan"
-                permalink = post["permalink"]
+                try:
+                    permalink = post["permalink"]
+                except:
+                    permalink = "nan"
                 created_utc = post["created_utc"]
                 t = datetime.datetime.fromtimestamp(created_utc)
                 date = t.strftime("%m/%d/%Y")
@@ -622,7 +625,10 @@ class pushshift_web_query(query):
                     url = post["url"]
                 except KeyError:
                     url = "nan"
-                permalink = post["permalink"]
+                try:
+                    permalink = post["permalink"]
+                except:
+                    permalink = "nan"
                 created_utc = post["created_utc"]
                 t = datetime.datetime.fromtimestamp(created_utc)
                 date = t.strftime("%m/%d/%Y")
