@@ -258,7 +258,10 @@ class pushshift_file_query(query):
                     title = "nan"
                 author = post["author"]
                 author = r"{}".format(author)
-                author_premium = post["author_premium"]
+                try:
+                    author_premium = post["author_premium"]
+                except:
+                    author_premium = "nan"
                 return (
                     subreddit,
                     post_id,
@@ -789,7 +792,10 @@ class pushshift_web_query(query):
                     title = "nan"
                 author = post["author"]
                 author = r"{}".format(author)
-                author_premium = post["author_premium"]
+                try:
+                    author_premium = post["author_premium"]
+                except:
+                    author_premium = "nan"
                 return (
                     subreddit,
                     post_id,
