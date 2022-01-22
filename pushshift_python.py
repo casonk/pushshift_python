@@ -185,10 +185,17 @@ class pushshift_file_query(query):
                 "created_utc",
                 "datetime",
                 "score",
+                "upvote_ratio",
                 "num_comments",
+                "controversiality",
+                "total_awards_received",
+                "post_hint",
+                "is_self",
+                "is_video",
                 "title",
                 "body",
                 "author",
+                "author_premium"
             ]
         )
         self.submissions = self.df.copy()
@@ -224,9 +231,34 @@ class pushshift_file_query(query):
                 date = t.strftime("%m/%d/%Y")
                 score = post["score"]
                 try:
+                    upvote_ratio = post["upvote_ratio"]
+                except KeyError:
+                    upvote_ratio = "nan"
+                try:
                     num_comments = post["num_comments"]
                 except KeyError:
                     num_comments = "nan"
+                try:
+                    controversiality = post["controversiality"]
+                except:
+                    controversiality = "nan"
+                try:
+                    total_awards_received = post["total_awards_received"]
+                except:
+                    total_awards_received = "nan"
+                stickied = post["stickied"]
+                try:
+                    post_hint = post["post_hint"]
+                except:
+                    post_hint = "nan"
+                try:
+                    is_self = post["is_self"]
+                except KeyError:
+                    is_self = "nan"
+                try:
+                    is_video = post["is_video"]
+                except KeyError:
+                    is_video = "nan"
                 try:
                     title = post["title"]
                     title = r"{}".format(title)
@@ -234,6 +266,7 @@ class pushshift_file_query(query):
                     title = "nan"
                 author = post["author"]
                 author = r"{}".format(author)
+                author_premium = post["author_premium"]
                 return (
                     subreddit,
                     post_id,
@@ -244,9 +277,17 @@ class pushshift_file_query(query):
                     date,
                     created_utc,
                     score,
+                    upvote_ratio,
                     num_comments,
+                    controversiality,
+                    total_awards_received,
+                    stickied,
+                    post_hint,
+                    is_self,
+                    is_video,
                     title,
                     author,
+                    author_premium
                 )
             except KeyboardInterrupt:
                 pass
@@ -282,9 +323,17 @@ class pushshift_file_query(query):
                                         date,
                                         created_utc,
                                         score,
+                                        upvote_ratio,
                                         num_comments,
+                                        controversiality,
+                                        total_awards_received,
+                                        stickied,
+                                        post_hint,
+                                        is_self,
+                                        is_video,
                                         title,
                                         author,
+                                        author_premium
                                     ) = create_common_data(post=post)
                                     try:
                                         body = post["selftext"]
@@ -302,10 +351,18 @@ class pushshift_file_query(query):
                                         "created_utc": created_utc,
                                         "datetime": date,
                                         "score": score,
+                                        "upvote_ratio": upvote_ratio,
                                         "num_comments": num_comments,
+                                        "controversiality": controversiality,
+                                        "total_awards_received": total_awards_received,
+                                        "stickied": stickied,
+                                        "post_hint": post_hint,
+                                        "is_self": is_self,
+                                        "is_video": is_video,
                                         "title": title,
                                         "body": body,
                                         "author": author,
+                                        "author_premium": author_premium
                                     }
                                     try:
                                         self.submissions = self.submissions.append(
@@ -354,9 +411,17 @@ class pushshift_file_query(query):
                                         date,
                                         created_utc,
                                         score,
+                                        upvote_ratio,
                                         num_comments,
+                                        controversiality,
+                                        total_awards_received,
+                                        stickied,
+                                        post_hint,
+                                        is_self,
+                                        is_video,
                                         title,
                                         author,
+                                        author_premium
                                     ) = create_common_data(post=post)
                                     try:
                                         body = post["body"]
@@ -374,10 +439,18 @@ class pushshift_file_query(query):
                                         "created_utc": created_utc,
                                         "datetime": date,
                                         "score": score,
+                                        "upvote_ratio": upvote_ratio,
                                         "num_comments": num_comments,
+                                        "controversiality": controversiality,
+                                        "total_awards_received": total_awards_received,
+                                        "stickied": stickied,
+                                        "post_hint": post_hint,
+                                        "is_self": is_self,
+                                        "is_video": is_video,
                                         "title": title,
                                         "body": body,
                                         "author": author,
+                                        "author_premium": author_premium
                                     }
                                     try:
                                         self.comments = self.comments.append(
@@ -699,9 +772,34 @@ class pushshift_web_query(query):
                 date = t.strftime("%m/%d/%Y")
                 score = post["score"]
                 try:
+                    upvote_ratio = post["upvote_ratio"]
+                except KeyError:
+                    upvote_ratio = "nan"
+                try:
                     num_comments = post["num_comments"]
                 except KeyError:
                     num_comments = "nan"
+                try:
+                    controversiality = post["controversiality"]
+                except:
+                    controversiality = "nan"
+                try:
+                    total_awards_received = post["total_awards_received"]
+                except:
+                    total_awards_received = "nan"
+                stickied = post["stickied"]
+                try:
+                    post_hint = post["post_hint"]
+                except:
+                    post_hint = "nan"
+                try:
+                    is_self = post["is_self"]
+                except KeyError:
+                    is_self = "nan"
+                try:
+                    is_video = post["is_video"]
+                except KeyError:
+                    is_video = "nan"
                 try:
                     title = post["title"]
                     title = r"{}".format(title)
@@ -709,6 +807,7 @@ class pushshift_web_query(query):
                     title = "nan"
                 author = post["author"]
                 author = r"{}".format(author)
+                author_premium = post["author_premium"]
                 return (
                     subreddit,
                     post_id,
@@ -719,9 +818,17 @@ class pushshift_web_query(query):
                     date,
                     created_utc,
                     score,
+                    upvote_ratio,
                     num_comments,
+                    controversiality,
+                    total_awards_received,
+                    stickied,
+                    post_hint,
+                    is_self,
+                    is_video,
                     title,
                     author,
+                    author_premium
                 )
             except KeyboardInterrupt:
                 pass
@@ -743,9 +850,17 @@ class pushshift_web_query(query):
                     date,
                     created_utc,
                     score,
+                    upvote_ratio,
                     num_comments,
+                    controversiality,
+                    total_awards_received,
+                    stickied,
+                    post_hint,
+                    is_self,
+                    is_video,
                     title,
                     author,
+                    author_premium
                 ) = create_common_data(post=post)
                 try:
                     body = post["selftext"]
@@ -763,10 +878,18 @@ class pushshift_web_query(query):
                     "created_utc": created_utc,
                     "datetime": date,
                     "score": score,
+                    "upvote_ratio": upvote_ratio,
                     "num_comments": num_comments,
+                    "controversiality": controversiality,
+                    "total_awards_received": total_awards_received,
+                    "stickied": stickied,
+                    "post_hint": post_hint,
+                    "is_self": is_self,
+                    "is_video": is_video,
                     "title": title,
                     "body": body,
                     "author": author,
+                    "author_premium": author_premium
                 }
                 try:
                     self.submissions = self.submissions.append(
@@ -800,9 +923,17 @@ class pushshift_web_query(query):
                     date,
                     created_utc,
                     score,
+                    upvote_ratio,
                     num_comments,
+                    controversiality,
+                    total_awards_received,
+                    stickied,
+                    post_hint,
+                    is_self,
+                    is_video,
                     title,
                     author,
+                    author_premium
                 ) = create_common_data(post=post)
                 try:
                     body = post["body"]
@@ -820,10 +951,18 @@ class pushshift_web_query(query):
                     "created_utc": created_utc,
                     "datetime": date,
                     "score": score,
+                    "upvote_ratio": upvote_ratio,
                     "num_comments": num_comments,
+                    "controversiality": controversiality,
+                    "total_awards_received": total_awards_received,
+                    "stickied": stickied,
+                    "post_hint": post_hint,
+                    "is_self": is_self,
+                    "is_video": is_video,
                     "title": title,
                     "body": body,
                     "author": author,
+                    "author_premium": author_premium
                 }
                 try:
                     self.comments = self.comments.append(post_data, ignore_index=True)
