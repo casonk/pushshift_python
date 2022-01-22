@@ -1,10 +1,10 @@
-'''
+"""
 Witten by: Cason Konzer
 
 pushshift_python is a wrapper for reddit community analytics. 
 
 read the docs at: https://github.com/casonk/pushshift_python/blob/master/documentation.ipynb
-'''
+"""
 
 # Import relative libraries
 from dateutil.relativedelta import relativedelta
@@ -26,12 +26,10 @@ import os
 import csv
 
 # Setup default plotter
-plt.style.use('dark_background') 
-plt.rcParams['figure.figsize'] = [16, 9]
-plt.rcParams.update({'font.size': 18})
-plt.rcParams.update({'text.usetex': False})
-
-
+plt.style.use("dark_background")
+plt.rcParams["figure.figsize"] = [16, 9]
+plt.rcParams.update({"font.size": 18})
+plt.rcParams.update({"text.usetex": False})
 
 
 # Create query superclass
@@ -87,8 +85,6 @@ class query:
             self.post_type = post_type
 
 
-
-
 # Create pushshift file query object
 @dataclass
 class pushshift_file_query(query):
@@ -132,8 +128,6 @@ class pushshift_file_query(query):
         self.file_counter = 0
         self.errors = 0
 
-
-
     def set_parent_folders(self, submission_folder_path, comment_folder_path):
         """
         Set paths to pushshift files.
@@ -141,8 +135,6 @@ class pushshift_file_query(query):
 
         self.submission_folder_path = Path(submission_folder_path)
         self.comment_folder_path = Path(comment_folder_path)
-
-
 
     def read_lines_zst(self):
         """
@@ -165,8 +157,6 @@ class pushshift_file_query(query):
 
                 buffer = lines[-1]
             reader.close()
-
-
 
     def make_query(self):
         """
@@ -195,12 +185,11 @@ class pushshift_file_query(query):
                 "title",
                 "body",
                 "author",
-                "author_premium"
+                "author_premium",
             ]
         )
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
-
 
         def create_common_data(post):
             """
@@ -246,7 +235,10 @@ class pushshift_file_query(query):
                     total_awards_received = post["total_awards_received"]
                 except:
                     total_awards_received = "nan"
-                stickied = post["stickied"]
+                try:
+                    stickied = post["stickied"]
+                except:
+                    stickied = "nan"
                 try:
                     post_hint = post["post_hint"]
                 except:
@@ -287,17 +279,16 @@ class pushshift_file_query(query):
                     is_video,
                     title,
                     author,
-                    author_premium
+                    author_premium,
                 )
             except KeyboardInterrupt:
                 pass
-
 
         def search_sumissions(self):
             """
             Helper function to parse submission json objects.
             """
-            
+
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
                 if self.line_counter % 1000000 == 0:
@@ -333,7 +324,7 @@ class pushshift_file_query(query):
                                         is_video,
                                         title,
                                         author,
-                                        author_premium
+                                        author_premium,
                                     ) = create_common_data(post=post)
                                     try:
                                         body = post["selftext"]
@@ -362,7 +353,7 @@ class pushshift_file_query(query):
                                         "title": title,
                                         "body": body,
                                         "author": author,
-                                        "author_premium": author_premium
+                                        "author_premium": author_premium,
                                     }
                                     try:
                                         self.submissions = self.submissions.append(
@@ -380,12 +371,11 @@ class pushshift_file_query(query):
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
 
-
         def search_comments(self):
             """
             Helper function to parse comment json objects.
             """
-            
+
             for line, file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
                 if self.line_counter % 1000000 == 0:
@@ -421,7 +411,7 @@ class pushshift_file_query(query):
                                         is_video,
                                         title,
                                         author,
-                                        author_premium
+                                        author_premium,
                                     ) = create_common_data(post=post)
                                     try:
                                         body = post["body"]
@@ -450,7 +440,7 @@ class pushshift_file_query(query):
                                         "title": title,
                                         "body": body,
                                         "author": author,
-                                        "author_premium": author_premium
+                                        "author_premium": author_premium,
                                     }
                                     try:
                                         self.comments = self.comments.append(
@@ -468,12 +458,11 @@ class pushshift_file_query(query):
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
 
-
         def make_time_list(self):
             """
             Helper function to create time lists to use for parsing pushshift.io downloaded files.
             """
-            
+
             first = self.after_dt
             last = self.before_dt
             while first <= last:
@@ -556,8 +545,6 @@ class pushshift_file_query(query):
 
         self.df = self.submissions.append(self.comments)
 
-
-
     def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
@@ -591,8 +578,6 @@ class pushshift_file_query(query):
                 self.comments.to_csv(path_or_buf=path)
 
 
-
-
 # Create pushshift web query object
 @dataclass
 class pushshift_web_query(query):
@@ -624,8 +609,6 @@ class pushshift_web_query(query):
         """
         super().__init__(query_type, query, time_range, time_format, post_type)
         self.api_hit_counter = 0
-
-
 
     def update_url(self):
         """
@@ -666,8 +649,6 @@ class pushshift_web_query(query):
         except KeyboardInterrupt:
             pass
 
-
-
     def make_query(self):
         """
         Initialize the query.
@@ -693,7 +674,6 @@ class pushshift_web_query(query):
         )
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
-
 
         def web_hit(self, url):
             """
@@ -742,7 +722,6 @@ class pushshift_web_query(query):
             except KeyboardInterrupt:
                 pass
 
-
         def create_common_data(post):
             """
             Helper function to collect values common between both comments and submissions.
@@ -787,7 +766,10 @@ class pushshift_web_query(query):
                     total_awards_received = post["total_awards_received"]
                 except:
                     total_awards_received = "nan"
-                stickied = post["stickied"]
+                try:
+                    stickied = post["stickied"]
+                except:
+                    stickied = "nan"
                 try:
                     post_hint = post["post_hint"]
                 except:
@@ -828,11 +810,10 @@ class pushshift_web_query(query):
                     is_video,
                     title,
                     author,
-                    author_premium
+                    author_premium,
                 )
             except KeyboardInterrupt:
                 pass
-
 
         def save_submissions(self):
             """
@@ -860,7 +841,7 @@ class pushshift_web_query(query):
                     is_video,
                     title,
                     author,
-                    author_premium
+                    author_premium,
                 ) = create_common_data(post=post)
                 try:
                     body = post["selftext"]
@@ -889,7 +870,7 @@ class pushshift_web_query(query):
                     "title": title,
                     "body": body,
                     "author": author,
-                    "author_premium": author_premium
+                    "author_premium": author_premium,
                 }
                 try:
                     self.submissions = self.submissions.append(
@@ -905,7 +886,6 @@ class pushshift_web_query(query):
                         "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                     )
                     break
-
 
         def save_comments(self):
             """
@@ -933,7 +913,7 @@ class pushshift_web_query(query):
                     is_video,
                     title,
                     author,
-                    author_premium
+                    author_premium,
                 ) = create_common_data(post=post)
                 try:
                     body = post["body"]
@@ -962,7 +942,7 @@ class pushshift_web_query(query):
                     "title": title,
                     "body": body,
                     "author": author,
-                    "author_premium": author_premium
+                    "author_premium": author_premium,
                 }
                 try:
                     self.comments = self.comments.append(post_data, ignore_index=True)
@@ -976,7 +956,6 @@ class pushshift_web_query(query):
                         "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                     )
                     break
-
 
         def collect_submissions(self):
             """
@@ -1000,7 +979,6 @@ class pushshift_web_query(query):
                                 "Keyboard Interrupt Detected, your object's values are secure"
                             )
                             break
-
 
         def collect_comments(self):
             """
@@ -1028,8 +1006,6 @@ class pushshift_web_query(query):
         collect_submissions(self=self)
         collect_comments(self=self)
         self.df = self.submissions.append(self.comments)
-
-
 
     def export(self, path, to_export="df", export_format="pkl"):
         """
@@ -1062,8 +1038,6 @@ class pushshift_web_query(query):
                 self.comments.to_pickle(path=path)
             elif export_format == "csv":
                 self.comments.to_csv(path_or_buf=path)
-
-
 
 
 # Create community object
@@ -1105,9 +1079,7 @@ class community:
         self.submissions = self.df[submission_mask]
         self.comments = self.df[comment_mask]
 
-
-
-    def make_urls(self, column='body', post_type=None):
+    def make_urls(self, column="body", post_type=None):
         """
         Qurey posts for url embeddings in posts.
         ----------
@@ -1124,6 +1096,10 @@ class community:
         subreddit_pattern = re.compile(r"(.*reddit.com/r/)([\w]+)(/.*)")
 
         def find_urls(frame):
+            """
+            Helper function to parse regex findall on urls.
+            """
+
             mask = frame[column].str.match(url_pattern, na=False)
             self.text_url_df = frame[mask]
             subreddits = []
@@ -1138,10 +1114,14 @@ class community:
                 for match in matches:
                     subreddits.append(match[:])
             self.text_urls = pd.DataFrame(pd.Series(subreddits).value_counts())
-            self.text_urls.columns = ['count']
-            self.text_urls.index = self.text_urls.index.str.replace(r"\\_", r"_", regex=True)
-            self.text_url_references = pd.DataFrame(self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts())
-            self.text_url_references.columns = ['count']
+            self.text_urls.columns = ["count"]
+            self.text_urls.index = self.text_urls.index.str.replace(
+                r"\\_", r"_", regex=True
+            )
+            self.text_url_references = pd.DataFrame(
+                self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts()
+            )
+            self.text_url_references.columns = ["count"]
             self.text_url_references.index.name = "url"
 
         if post_type == None:
@@ -1153,10 +1133,8 @@ class community:
             submission_mask = self.df["post_type"] == "submission"
             find_urls(frame=self.df[submission_mask])
 
-
-
-    def make_references(self, column='body', post_type=None):
-        '''
+    def make_references(self, column="body", post_type=None):
+        """
         Qurey posts for r/subreddit reference embeddings in posts.
         ----------
         paramaters
@@ -1164,10 +1142,10 @@ class community:
         column: DataFrame column to query on, body or title.
         post_type: option to restrict posts to only comments or submissions.
         Note* submissions usuallly contain a seperate embedded url field.
-        '''
+        """
 
         find_r_slash_refs = re.compile(r"r/[\w]+")
-        stop_words = ['it', 'they', 'and', 'the']
+        stop_words = ["it", "they", "and", "the"]
         subreddits = []
 
         def find_references(frame):
@@ -1178,8 +1156,8 @@ class community:
                     if match[2:] not in stop_words:
                         subreddits.append(match[2:])
             self.r_slash_references = pd.DataFrame(pd.Series(subreddits).value_counts())
-            self.r_slash_references.columns = ['count']
-            self.r_slash_references.index.name = 'r/subreddit'
+            self.r_slash_references.columns = ["count"]
+            self.r_slash_references.index.name = "r/subreddit"
 
         if post_type == None:
             find_references(frame=self.df)
@@ -1190,12 +1168,10 @@ class community:
             submission_mask = self.df["post_type"] == "submission"
             find_references(frame=self.df[submission_mask])
 
-
-
     def make_authors(self):
-        '''
+        """
         Create author referencing DataFrame for the community of interest.
-        '''
+        """
 
         indx = self.df["author"].unique()
         self.authors = pd.DataFrame(
@@ -1232,8 +1208,6 @@ class community:
         )
         self.authors.index.name = "author"
 
-
-
     def compare_authors(self, community):
         """
         Perform outer and inner joins on the two community authors.
@@ -1259,8 +1233,6 @@ class community:
         return outer, inner
 
 
-
-
 # Create subreddit reference object
 @dataclass
 class subreddits:
@@ -1280,6 +1252,7 @@ class subreddits:
             "csv"- if provided path points to .csv file.
             "pkl"- if provided path points to pickled DataFrame.
         """
+
         if path == None:
             self.master = pd.read_csv(
                 "F:\Research\Funded\Ethical_Reccomendations\Python\Data\Docs\subreddit_list.csv"
@@ -1294,8 +1267,6 @@ class subreddits:
             for utc in self.master["Creation_UTC"]
         ]
 
-
-
     def split_nsfw(self):
         """
         Create attributes containig masked DataFrames for Not Safe / Safe For Work subreddits.
@@ -1304,8 +1275,6 @@ class subreddits:
         nsfw_mask = self.master["NSFW_BOOL"] == True
         self.nsfw = self.master[nsfw_mask]
         self.sfw = self.master[~nsfw_mask]
-
-
 
     def split_size(self, min_subscribers=0, max_subscribers=9999999999):
         """
@@ -1320,8 +1289,6 @@ class subreddits:
         min_size_mask = self.master["#_Subscribers"] >= min_subscribers
         max_size_mask = self.master["#_Subscribers"] <= max_subscribers
         self.sized = self.master[min_size_mask & max_size_mask]
-
-
 
     def split_creation_time_unix(
         self, min_unix_timestamp=0000000000, max_unix_timestamp=9999999999
@@ -1339,8 +1306,6 @@ class subreddits:
         max_unix_time_mask = self.master["Creation_UTC"] <= max_unix_timestamp
         self.sized = self.master[min_unix_time_mask & max_unix_time_mask]
 
-
-
     def split_creation_time_date(
         self, min_datetime="2000-01-01", max_datetime="2022-02-02"
     ):
@@ -1357,8 +1322,6 @@ class subreddits:
         max_date_time_mask = self.master["Creation_DateTime"] <= max_datetime
         self.sized = self.master[min_date_time_mask & max_date_time_mask]
 
-
-
     def split_multi(self, nsfw=None, sizes=None, unix_times=None, date_times=None):
         """
         Query based subreddit selction based on NSFW status, subscriber count, and creation time.
@@ -1370,7 +1333,7 @@ class subreddits:
         unix_times: dictionary input {'min_unix_timestamp' : minimum_timestamp, 'max_unix_timestamp' : maximum_timestamp}
         date_times: dictionary input {'min_datetime' : 'minimum_datetime', 'max_datetime' : 'maximum_datetime}
         """
-        
+
         if nsfw == None:
             nsfw_mask = [True for _ in self.master.index]
         else:
@@ -1414,6 +1377,3 @@ class subreddits:
             & min_date_time_mask
             & max_date_time_mask
         ]
-
-
-
