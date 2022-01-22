@@ -979,15 +979,26 @@ class community:
         Note* submissions usuallly contain a seperate embedded url field.
         """
 
-        url_pattern = re.compile("((www\.[^\s]+)|(https://[^\s]+))")
+        url_pattern = re.compile(r"((www\.[^\s]+)|(https://[^\s]+))")
+        url_pattern1 = re.compile(r"^www\.[^\s]+")
+        url_pattern2 = re.compile(r"https://[^\s]+")
         subreddit_pattern = re.compile(r"(.*reddit.com/r/)([\w]+)(/.*)")
 
         def find_urls(frame):
             mask = frame[column].str.match(url_pattern, na=False)
             self.text_url_df = frame[mask]
-            self.text_urls = pd.DataFrame(
-                (self.text_url_df[column].str.extract(url_pattern)[0].rename("url")).value_counts()
-            )
+            subreddits = []
+            for matches in self.text_url_df[column].str.findall(url_pattern1):
+                if matches == []:
+                    pass
+                for match in matches:
+                    subreddits.append(match[:])
+            for matches in self.text_url_df[column].str.findall(url_pattern2):
+                if matches == []:
+                    pass
+                for match in matches:
+                    subreddits.append(match[:])
+            self.text_urls = pd.DataFrame(pd.Series(subreddits).value_counts())
             self.text_urls.columns = ['count']
             self.text_urls.index = self.text_urls.index.str.replace(r"\\_", r"_", regex=True)
             self.text_url_references = pd.DataFrame(self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts())
@@ -1264,3 +1275,6 @@ class subreddits:
             & min_date_time_mask
             & max_date_time_mask
         ]
+
+
+
