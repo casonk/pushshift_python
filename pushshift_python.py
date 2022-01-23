@@ -794,7 +794,7 @@ class pushshift_web_query(query):
                             self.comments = self.comments.append(
                                 post_data, ignore_index=True
                             )
-                            self.current_time = post_data["created_utc"]
+                        self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
@@ -802,7 +802,7 @@ class pushshift_web_query(query):
                             self.comments = self.comments.append(
                                 post_data, ignore_index=True
                             )
-                            self.current_time = post_data["created_utc"]
+                        self.current_time = post_data["created_utc"]
                         print(
                             "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                         )
@@ -815,7 +815,7 @@ class pushshift_web_query(query):
                             self.submissions = self.submissions.append(
                                 post_data, ignore_index=True
                             )
-                            self.current_time = post_data["created_utc"]
+                        self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
@@ -823,7 +823,7 @@ class pushshift_web_query(query):
                             self.submissions = self.submissions.append(
                                 post_data, ignore_index=True
                             )
-                            self.current_time = post_data["created_utc"]
+                        self.current_time = post_data["created_utc"]
                         print(
                             "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                         )
