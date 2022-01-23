@@ -195,7 +195,7 @@ class query:
         except:
             self.post_type = post_type
 
-    def create_common_data(post, post_type):
+    def create_common_data(self, p_type_, post):
         """
         Helper function to collect values common between both comments and submissions.
         """
@@ -266,18 +266,19 @@ class query:
                 author_premium = post["author_premium"]
             except:
                 author_premium = "nan"
-            if post_type == "comment":
+            if p_type_ == "comment":
                 try:
                     body = post["body"]
                     body = r"{}".format(body)
                 except KeyError:
                     body = "nan"
-            elif post_type == "submission":
+            elif p_type_ == "submission":
                 try:
                     body = post["selftext"]
                     body = r"{}".format(body)
                 except KeyError:
                     body = "nan"
+            post_type = p_type_
             post_data = {
                 "post_type": post_type,
                 "subreddit": subreddit,
@@ -412,13 +413,13 @@ class pushshift_file_query(query):
         if self.oversized:
             self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
-            self.csv_writer = csv.writer(self.write_path, delimiter=",")
+            self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
 
-        def search(self, post_type):
+        def search(self, _post_type):
             """
             Helper function to parse comment json objects.
             """
@@ -432,13 +433,13 @@ class pushshift_file_query(query):
                         )
                     )
                 try:
-                    post = json.loads(line)
+                    _post = json.loads(line)
                     if self.type == "subreddit":
-                        if int(post["created_utc"]) >= int(self.after):
-                            if int(post["created_utc"]) <= int(self.before):
-                                if post["subreddit"] == self.query:
+                        if int(_post["created_utc"]) >= int(self.after):
+                            if int(_post["created_utc"]) <= int(self.before):
+                                if _post["subreddit"] == self.query:
                                     self.post_counter += 1
-                                    post_data = self.create_common_data(post=post, post_type=post_type)
+                                    post_data = self.create_common_data(p_type_=_post_type, post=_post)
                                     if post_data == "comment":
                                         try:
                                             if self.oversized:
@@ -511,7 +512,7 @@ class pushshift_file_query(query):
                             self.working_file = str(file.as_posix())
                             print("> Parsing : {}".format(file.name))
                             try:
-                                search(self=self, post_type="submission", oversized=self.oversized)
+                                search(self=self, _post_type="submission")
                             except KeyboardInterrupt:
                                 print(
                                     "Keyboard Interrupt Detected, your object's values are secure"
@@ -545,7 +546,7 @@ class pushshift_file_query(query):
                             self.working_file = str(file.as_posix())
                             print("> Parsing : {}".format(file.name))
                             try:
-                                search(self=self, post_type="comment", oversized=self.oversized)
+                                search(self=self, _post_type="comment")
                             except KeyboardInterrupt:
                                 print(
                                     "Keyboard Interrupt Detected, your object's values are secure"
@@ -706,7 +707,7 @@ class pushshift_web_query(query):
         if self.oversized:
             self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
-            self.csv_writer = csv.writer(self.write_path, delimiter=",")
+            self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
@@ -760,14 +761,14 @@ class pushshift_web_query(query):
                 pass
 
 
-        def save(self, post_type):
+        def save(self, _post_type):
             """
             Helper function to save comments to self.comments.
             """
-
-            for post in self.web_data["data"]:
-                post_data = self.create_common_data(post=post, post_type=post_type)
-                if post_type == "comment":
+            print(_post_type)
+            for _post in self.web_data["data"]:
+                post_data = self.create_common_data(p_type_=_post_type, post=_post)
+                if _post_type == "comment":
                     try:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
@@ -786,7 +787,7 @@ class pushshift_web_query(query):
                             "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                         )
                         break
-                elif post_type == "submission":
+                elif _post_type == "submission":
                     try:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
@@ -822,7 +823,7 @@ class pushshift_web_query(query):
                         break
                     else:
                         try:
-                            save(post_type="submission")
+                            save(self=self, _post_type="submission")
                         except KeyboardInterrupt:
                             print(
                                 "Keyboard Interrupt Detected, your object's values are secure"
@@ -845,7 +846,7 @@ class pushshift_web_query(query):
                         break
                     else:
                         try:
-                            save(post_type="comment")
+                            save(self=self, _post_type="comment")
                         except KeyboardInterrupt:
                             print(
                                 "Keyboard Interrupt Detected, your object's values are secure"
