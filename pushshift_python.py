@@ -10,6 +10,7 @@ read the docs at: https://github.com/casonk/pushshift_python/blob/master/documen
 from dateutil.relativedelta import relativedelta
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
+from datetime import datetime
 from pathlib import Path
 import networkx as nx
 import seaborn as sns
@@ -17,7 +18,6 @@ import pandas as pd
 import numpy as np
 import zstandard
 import requests
-import datetime
 import time
 import math
 import json
@@ -29,7 +29,118 @@ import csv
 plt.style.use("dark_background")
 plt.rcParams["figure.figsize"] = [16, 9]
 plt.rcParams.update({"font.size": 18})
-plt.rcParams.update({"text.usetex": False})
+plt.rcParams.update({"text.usetex": True})
+
+
+# Create object for direct reddit api queries
+@dataclass
+class api_agent:
+    """
+    Class object for making various reddit API requests. 
+    ----------
+    paramaters
+    ----------
+    api_credentials: dictionary containing your api application credentials...
+        {
+            "user_agent" : "user_agent",
+            "user_pass" : "user_pass",
+            "client_id" : "client_id",
+            "client_secret" : "client_secret",
+            "application_name" : "application_name"
+        }
+    """
+
+    def __init__(self, api_credentials):
+        self.user_agent = api_credentials["user_agent"]
+        self.user_pass = api_credentials["user_pass"]
+        self.client_id = api_credentials["client_id"]
+        self.client_secret = api_credentials["client_secret"]
+        self.application_name = api_credentials["application_name"]
+
+    def renew_auth_token(self):
+        auth = requests.auth.HTTPBasicAuth(self.client_id, self.client_secret)
+        data = {
+            'grant_type': 'password',
+            'username': self.user_agent,
+            'password': self.user_pass
+            }
+        self.headers = {'User-Agent': '{}}/0.0.0'.format(self.application_name)}
+        request = requests.post(
+            'https://www.reddit.com/api/v1/access_token',
+            auth=auth, 
+            data=data, 
+            headers=self.headers
+            )
+        TOKEN = request.json()['access_token']
+        self.headers['Authorization'] = f'bearer {TOKEN}'
+
+    def get_top_subreddits(self, payload):
+        def hit():
+            try:
+                r = requests.get('https://oauth.reddit.com/subreddits/new', headers=self.headers, params=payload)
+                status = r.status_code
+                print('> http response is:', status)
+            except:
+                r = ''
+                status = ' NO HANDSHAKE '
+                print('> http response is:', status)
+            return r, status
+            
+        multiplier = 0
+        while True:
+            r, status = hit()
+            if status == 200:
+                break
+            multiplier += 1
+            time.sleep(5*multiplier)
+            print(' >> rety_#: {}'.format(multiplier))
+            if multiplier % 3 == 0:
+                self.renew_auth_token()
+                print('\nAUTH_RENEWED\n')
+        subreddits = json.loads(r.text, strict=False)
+        return subreddits
+
+    def make_subreddits(self, path='subreddit_list.csv'):
+        self.renew_auth_token()
+        self.subreddits_path = path
+        with open(self.subreddits_path, 'w', newline='', encoding='utf-8') as _red_list:
+            _red_writer = csv.writer(_red_list, delimiter=',')
+            _headers = ['subreddit', 'num_subscribers', 'creation_utc', 'nsfw_bool']
+            _red_writer.writerow(_headers)
+            _payload = {'limit': '100'}
+            _subreddits = self.get_top_subreddits(_payload)
+            _before = ''
+            while len(_subreddits) > 0:
+                for key in _subreddits['data']['children']:
+                    try:
+                        _title = str(key['data']['title'])
+                    except:
+                        _title = 'NA'
+                    try:
+                        _subscribers = str(key['data']['subscribers'])
+                    except:
+                        _subscribers = 'NA'
+                    try:
+                        _created_utc = str(key['data']['created_utc'])
+                    except:
+                        _created_utc = 'NA'
+                    try:
+                        _over18 = str(key['data']['over18'])
+                    except:
+                        _over18 = 'NA'
+                    _after = key['data']['name']
+                    _rho = [_title,_subscribers,_created_utc,_over18]
+                    _red_writer.writerow(_rho)
+                    _payload = {'limit': '100', 'after' : _after}
+                if _before == _after:
+                    break
+                else:
+                    print('   >>> after : {}'.format(_after))
+                    _subreddits = self.get_top_subreddits(_payload)
+                    _before = _after
+        self.subreddits_df = pd.read_csv(self.subreddits_path, low_memory=False)
+        self.subreddits_df = self.subreddits_df.sort_values(by='num_subscribers', ascending=False)
+        self.subreddits_df.to_csv(path_or_buf=self.subreddits_path, sep=',', na_rep='nan', index='subreddit')
 
 
 # Create query superclass
@@ -66,23 +177,134 @@ class query:
         self.query = query.lower()
         if time_format == "datetime":
             time_range["before"] = int(
-                datetime.datetime.timestamp(
-                    datetime.datetime.strptime(time_range["before"], "%Y-%m-%d")
+                datetime.timestamp(
+                    datetime.strptime(time_range["before"], "%Y-%m-%d")
                 )
             )
             time_range["after"] = int(
-                datetime.datetime.timestamp(
-                    datetime.datetime.strptime(time_range["after"], "%Y-%m-%d")
+                datetime.timestamp(
+                    datetime.strptime(time_range["after"], "%Y-%m-%d")
                 )
             )
         self.before = int(time_range["before"])
-        self.before_dt = datetime.datetime.fromtimestamp(self.before)
+        self.before_dt = datetime.fromtimestamp(self.before)
         self.after = int(time_range["after"])
-        self.after_dt = datetime.datetime.fromtimestamp(self.after)
+        self.after_dt = datetime.fromtimestamp(self.after)
         try:
             self.post_type = post_type.lower()
         except:
             self.post_type = post_type
+
+    def create_common_data(post, post_type):
+        """
+        Helper function to collect values common between both comments and submissions.
+        """
+
+        try:
+            subreddit = post["subreddit"]
+            post_id = post["id"]
+            try:
+                parent_id = post["parent_id"]
+            except KeyError:
+                parent_id = "nan"
+            try:
+                link_id = post["link_id"]
+            except KeyError:
+                link_id = "nan"
+            try:
+                url = post["url"]
+            except KeyError:
+                url = "nan"
+            try:
+                permalink = post["permalink"]
+            except:
+                permalink = "nan"
+            created_utc = post["created_utc"]
+            t = datetime.fromtimestamp(created_utc)
+            date = t.strftime("%m/%d/%Y")
+            score = post["score"]
+            try:
+                upvote_ratio = post["upvote_ratio"]
+            except KeyError:
+                upvote_ratio = "nan"
+            try:
+                num_comments = post["num_comments"]
+            except KeyError:
+                num_comments = "nan"
+            try:
+                controversiality = post["controversiality"]
+            except:
+                controversiality = "nan"
+            try:
+                total_awards_received = post["total_awards_received"]
+            except:
+                total_awards_received = "nan"
+            try:
+                stickied = post["stickied"]
+            except:
+                stickied = "nan"
+            try:
+                post_hint = post["post_hint"]
+            except:
+                post_hint = "nan"
+            try:
+                is_self = post["is_self"]
+            except KeyError:
+                is_self = "nan"
+            try:
+                is_video = post["is_video"]
+            except KeyError:
+                is_video = "nan"
+            try:
+                title = post["title"]
+                title = r"{}".format(title)
+            except KeyError:
+                title = "nan"
+            author = post["author"]
+            author = r"{}".format(author)
+            try:
+                author_premium = post["author_premium"]
+            except:
+                author_premium = "nan"
+            if post_type == "comment":
+                try:
+                    body = post["body"]
+                    body = r"{}".format(body)
+                except KeyError:
+                    body = "nan"
+            elif post_type == "submission":
+                try:
+                    body = post["selftext"]
+                    body = r"{}".format(body)
+                except KeyError:
+                    body = "nan"
+            post_data = {
+                "post_type": post_type,
+                "subreddit": subreddit,
+                "id": post_id,
+                "parent_id": parent_id,
+                "link_id": link_id,
+                "url": url,
+                "permalink": permalink,
+                "created_utc": created_utc,
+                "datetime": date,
+                "score": score,
+                "upvote_ratio": upvote_ratio,
+                "num_comments": num_comments,
+                "controversiality": controversiality,
+                "total_awards_received": total_awards_received,
+                "stickied": stickied,
+                "post_hint": post_hint,
+                "is_self": is_self,
+                "is_video": is_video,
+                "title": title,
+                "body": body,
+                "author": author,
+                "author_premium": author_premium,
+            }
+            return post_data
+        except KeyboardInterrupt:
+            pass
 
 
 # Create pushshift file query object
@@ -118,10 +340,10 @@ class pushshift_file_query(query):
 
         super().__init__(query_type, query, time_range, time_format, post_type)
         self.submission_folder_path = Path(
-            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Submissions/RS/2019+/"
+            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/RS/2019+/"
         )
         self.comment_folder_path = Path(
-            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/Comments/RC/2019+/"
+            "F:/Research/Funded/Ethical_Reccomendations/Python/Push_File/RC/2019+/"
         )
         self.line_counter = 0
         self.post_counter = 0
@@ -158,223 +380,45 @@ class pushshift_file_query(query):
                 buffer = lines[-1]
             reader.close()
 
-    def make_query(self):
+    def make_query(self, oversized=False):
         """
         Initialize the query.
         """
 
-        self.df = pd.DataFrame(
-            columns=[
-                "post_type",
-                "subreddit",
-                "id",
-                "parent_id",
-                "link_id",
-                "url",
-                "permalink",
-                "created_utc",
-                "datetime",
-                "score",
-                "upvote_ratio",
-                "num_comments",
-                "controversiality",
-                "total_awards_received",
-                "post_hint",
-                "is_self",
-                "is_video",
-                "title",
-                "body",
-                "author",
-                "author_premium",
+        self.oversized = oversized
+        self.headers = [
+            "post_type",
+            "subreddit",
+            "id",
+            "parent_id",
+            "link_id",
+            "url",
+            "permalink",
+            "created_utc",
+            "datetime",
+            "score",
+            "upvote_ratio",
+            "num_comments",
+            "controversiality",
+            "total_awards_received",
+            "post_hint",
+            "is_self",
+            "is_video",
+            "title",
+            "body",
+            "author",
+            "author_premium"
             ]
-        )
+        if self.oversized:
+            self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
+            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
+            self.csv_writer = csv.writer(self.write_path, delimiter=",")
+            self.csv_writer.writerow(self.headers)
+        self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
 
-        def create_common_data(post):
-            """
-            Helper function to collect values common between both comments and submissions.
-            """
-
-            try:
-                subreddit = post["subreddit"]
-                post_id = post["id"]
-                try:
-                    parent_id = post["parent_id"]
-                except KeyError:
-                    parent_id = "nan"
-                try:
-                    link_id = post["link_id"]
-                except KeyError:
-                    link_id = "nan"
-                try:
-                    url = post["url"]
-                except KeyError:
-                    url = "nan"
-                try:
-                    permalink = post["permalink"]
-                except:
-                    permalink = "nan"
-                created_utc = post["created_utc"]
-                t = datetime.datetime.fromtimestamp(created_utc)
-                date = t.strftime("%m/%d/%Y")
-                score = post["score"]
-                try:
-                    upvote_ratio = post["upvote_ratio"]
-                except KeyError:
-                    upvote_ratio = "nan"
-                try:
-                    num_comments = post["num_comments"]
-                except KeyError:
-                    num_comments = "nan"
-                try:
-                    controversiality = post["controversiality"]
-                except:
-                    controversiality = "nan"
-                try:
-                    total_awards_received = post["total_awards_received"]
-                except:
-                    total_awards_received = "nan"
-                try:
-                    stickied = post["stickied"]
-                except:
-                    stickied = "nan"
-                try:
-                    post_hint = post["post_hint"]
-                except:
-                    post_hint = "nan"
-                try:
-                    is_self = post["is_self"]
-                except KeyError:
-                    is_self = "nan"
-                try:
-                    is_video = post["is_video"]
-                except KeyError:
-                    is_video = "nan"
-                try:
-                    title = post["title"]
-                    title = r"{}".format(title)
-                except KeyError:
-                    title = "nan"
-                author = post["author"]
-                author = r"{}".format(author)
-                try:
-                    author_premium = post["author_premium"]
-                except:
-                    author_premium = "nan"
-                return (
-                    subreddit,
-                    post_id,
-                    parent_id,
-                    link_id,
-                    url,
-                    permalink,
-                    date,
-                    created_utc,
-                    score,
-                    upvote_ratio,
-                    num_comments,
-                    controversiality,
-                    total_awards_received,
-                    stickied,
-                    post_hint,
-                    is_self,
-                    is_video,
-                    title,
-                    author,
-                    author_premium,
-                )
-            except KeyboardInterrupt:
-                pass
-
-        def search_sumissions(self):
-            """
-            Helper function to parse submission json objects.
-            """
-
-            for line, file_bytes_processed in self.read_lines_zst():
-                self.line_counter += 1
-                if self.line_counter % 1000000 == 0:
-                    print(
-                        "  >> Processed {} Posts, Found {} Posts".format(
-                            self.line_counter, self.post_counter
-                        )
-                    )
-                try:
-                    post = json.loads(line)
-                    if self.type == "subreddit":
-                        if int(post["created_utc"]) >= int(self.after):
-                            if int(post["created_utc"]) <= int(self.before):
-                                if post["subreddit"] == self.query:
-                                    self.post_counter += 1
-                                    (
-                                        subreddit,
-                                        post_id,
-                                        parent_id,
-                                        link_id,
-                                        url,
-                                        permalink,
-                                        date,
-                                        created_utc,
-                                        score,
-                                        upvote_ratio,
-                                        num_comments,
-                                        controversiality,
-                                        total_awards_received,
-                                        stickied,
-                                        post_hint,
-                                        is_self,
-                                        is_video,
-                                        title,
-                                        author,
-                                        author_premium,
-                                    ) = create_common_data(post=post)
-                                    try:
-                                        body = post["selftext"]
-                                        body = r"{}".format(body)
-                                    except KeyError:
-                                        body = "nan"
-                                    post_data = {
-                                        "post_type": "submission",
-                                        "subreddit": subreddit,
-                                        "id": post_id,
-                                        "parent_id": parent_id,
-                                        "link_id": link_id,
-                                        "url": url,
-                                        "permalink": permalink,
-                                        "created_utc": created_utc,
-                                        "datetime": date,
-                                        "score": score,
-                                        "upvote_ratio": upvote_ratio,
-                                        "num_comments": num_comments,
-                                        "controversiality": controversiality,
-                                        "total_awards_received": total_awards_received,
-                                        "stickied": stickied,
-                                        "post_hint": post_hint,
-                                        "is_self": is_self,
-                                        "is_video": is_video,
-                                        "title": title,
-                                        "body": body,
-                                        "author": author,
-                                        "author_premium": author_premium,
-                                    }
-                                    try:
-                                        self.submissions = self.submissions.append(
-                                            post_data, ignore_index=True
-                                        )
-                                    except KeyboardInterrupt:
-                                        self.submissions = self.submissions.append(
-                                            post_data, ignore_index=True
-                                        )
-                                        print(
-                                            "Keyboard Interrupt Detected, please Interrupt again to break parent function."
-                                        )
-                                        break
-                            # elif self.query_type == 'keyword':
-                except (KeyError, json.JSONDecodeError):
-                    self.errors += 1
-
-        def search_comments(self):
+        def search(self, post_type):
             """
             Helper function to parse comment json objects.
             """
@@ -394,70 +438,45 @@ class pushshift_file_query(query):
                             if int(post["created_utc"]) <= int(self.before):
                                 if post["subreddit"] == self.query:
                                     self.post_counter += 1
-                                    (
-                                        subreddit,
-                                        post_id,
-                                        parent_id,
-                                        link_id,
-                                        url,
-                                        permalink,
-                                        date,
-                                        created_utc,
-                                        score,
-                                        upvote_ratio,
-                                        num_comments,
-                                        controversiality,
-                                        total_awards_received,
-                                        stickied,
-                                        post_hint,
-                                        is_self,
-                                        is_video,
-                                        title,
-                                        author,
-                                        author_premium,
-                                    ) = create_common_data(post=post)
-                                    try:
-                                        body = post["body"]
-                                        body = r"{}".format(body)
-                                    except KeyError:
-                                        body = "nan"
-                                    post_data = {
-                                        "post_type": "comment",
-                                        "subreddit": subreddit,
-                                        "id": post_id,
-                                        "parent_id": parent_id,
-                                        "link_id": link_id,
-                                        "url": url,
-                                        "permalink": permalink,
-                                        "created_utc": created_utc,
-                                        "datetime": date,
-                                        "score": score,
-                                        "upvote_ratio": upvote_ratio,
-                                        "num_comments": num_comments,
-                                        "controversiality": controversiality,
-                                        "total_awards_received": total_awards_received,
-                                        "stickied": stickied,
-                                        "post_hint": post_hint,
-                                        "is_self": is_self,
-                                        "is_video": is_video,
-                                        "title": title,
-                                        "body": body,
-                                        "author": author,
-                                        "author_premium": author_premium,
-                                    }
-                                    try:
-                                        self.comments = self.comments.append(
-                                            post_data, ignore_index=True
-                                        )
-                                    except KeyboardInterrupt:
-                                        self.comments = self.comments.append(
-                                            post_data, ignore_index=True
-                                        )
-                                        print(
-                                            "Keyboard Interrupt Detected, please Interrupt again to break parent function."
-                                        )
-                                        break
-                            # elif self.query_type == 'keyword':
+                                    post_data = self.create_common_data(post=post, post_type=post_type)
+                                    if post_data == "comment":
+                                        try:
+                                            if self.oversized:
+                                                self.csv_writer.writerow(list(post_data.values()))
+                                            else:
+                                                self.comments = self.comments.append(
+                                                    post_data, ignore_index=True
+                                                )
+                                        except KeyboardInterrupt:
+                                            if self.oversized:
+                                                self.csv_writer.writerow(list(post_data.values()))
+                                            else:
+                                                self.comments = self.comments.append(
+                                                    post_data, ignore_index=True
+                                                )
+                                            print(
+                                                "Keyboard Interrupt Detected, please Interrupt again to break parent function."
+                                            )
+                                            break
+                                    elif post_data == "submission":
+                                        try:
+                                            if self.oversized:
+                                                self.csv_writer.writerow(list(post_data.values()))
+                                            else:
+                                                self.submissions = self.submissions.append(
+                                                    post_data, ignore_index=True
+                                                )
+                                        except KeyboardInterrupt:
+                                            if self.oversized:
+                                                self.csv_writer.writerow(list(post_data.values()))
+                                            else:
+                                                self.submissions = self.submissions.append(
+                                                    post_data, ignore_index=True
+                                                )
+                                            print(
+                                                "Keyboard Interrupt Detected, please Interrupt again to break parent function."
+                                            )
+                                            break
                 except (KeyError, json.JSONDecodeError):
                     self.errors += 1
 
@@ -465,9 +484,10 @@ class pushshift_file_query(query):
             """
             Helper function to create time lists to use for parsing pushshift.io downloaded files.
             """
-
+            
             first = self.after_dt
             last = self.before_dt
+            self.time_list = []
             while first <= last:
                 self.time_list.append(first.strftime("%Y-%m"))
                 first += relativedelta(months=1)
@@ -491,7 +511,7 @@ class pushshift_file_query(query):
                             self.working_file = str(file.as_posix())
                             print("> Parsing : {}".format(file.name))
                             try:
-                                search_sumissions(self=self)
+                                search(self=self, post_type="submission", oversized=self.oversized)
                             except KeyboardInterrupt:
                                 print(
                                     "Keyboard Interrupt Detected, your object's values are secure"
@@ -525,7 +545,7 @@ class pushshift_file_query(query):
                             self.working_file = str(file.as_posix())
                             print("> Parsing : {}".format(file.name))
                             try:
-                                search_comments(self=self)
+                                search(self=self, post_type="comment", oversized=self.oversized)
                             except KeyboardInterrupt:
                                 print(
                                     "Keyboard Interrupt Detected, your object's values are secure"
@@ -546,8 +566,10 @@ class pushshift_file_query(query):
                     )
                     break
 
-        self.df = self.submissions.append(self.comments)
-
+        if self.oversized:
+            self.df = pd.read_csv(self.write_path, low_memory=False)
+        else:
+            self.df = self.submissions.append(self.comments)
     def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
@@ -652,29 +674,41 @@ class pushshift_web_query(query):
         except KeyboardInterrupt:
             pass
 
-    def make_query(self):
+    def make_query(self, oversized=False):
         """
         Initialize the query.
         """
 
-        self.df = pd.DataFrame(
-            columns=[
-                "post_type",
-                "subreddit",
-                "id",
-                "parent_id",
-                "link_id",
-                "url",
-                "permalink",
-                "created_utc",
-                "datetime",
-                "score",
-                "num_comments",
-                "title",
-                "body",
-                "author",
+        self.oversized = oversized
+        self.headers = [
+            "post_type",
+            "subreddit",
+            "id",
+            "parent_id",
+            "link_id",
+            "url",
+            "permalink",
+            "created_utc",
+            "datetime",
+            "score",
+            "upvote_ratio",
+            "num_comments",
+            "controversiality",
+            "total_awards_received",
+            "post_hint",
+            "is_self",
+            "is_video",
+            "title",
+            "body",
+            "author",
+            "author_premium"
             ]
-        )
+        if self.oversized:
+            self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
+            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
+            self.csv_writer = csv.writer(self.write_path, delimiter=",")
+            self.csv_writer.writerow(self.headers)
+        self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
         self.comments = self.df.copy()
 
@@ -718,250 +752,59 @@ class pushshift_web_query(query):
                 print(" >> Web Hit On", self.query, "# :", self.api_hit_counter)
                 print(
                     "  >>> Current Post Time :",
-                    str(datetime.datetime.fromtimestamp(self.current_time)),
+                    str(datetime.fromtimestamp(self.current_time)),
                 )
                 self.web_data = json.loads(r.text, strict=False)
                 time.sleep(1)
             except KeyboardInterrupt:
                 pass
 
-        def create_common_data(post):
-            """
-            Helper function to collect values common between both comments and submissions.
-            """
 
-            try:
-                subreddit = post["subreddit"]
-                post_id = post["id"]
-                try:
-                    parent_id = post["parent_id"]
-                except KeyError:
-                    parent_id = "nan"
-                try:
-                    link_id = post["link_id"]
-                except KeyError:
-                    link_id = "nan"
-                try:
-                    url = post["url"]
-                except KeyError:
-                    url = "nan"
-                try:
-                    permalink = post["permalink"]
-                except:
-                    permalink = "nan"
-                created_utc = post["created_utc"]
-                t = datetime.datetime.fromtimestamp(created_utc)
-                date = t.strftime("%m/%d/%Y")
-                score = post["score"]
-                try:
-                    upvote_ratio = post["upvote_ratio"]
-                except KeyError:
-                    upvote_ratio = "nan"
-                try:
-                    num_comments = post["num_comments"]
-                except KeyError:
-                    num_comments = "nan"
-                try:
-                    controversiality = post["controversiality"]
-                except:
-                    controversiality = "nan"
-                try:
-                    total_awards_received = post["total_awards_received"]
-                except:
-                    total_awards_received = "nan"
-                try:
-                    stickied = post["stickied"]
-                except:
-                    stickied = "nan"
-                try:
-                    post_hint = post["post_hint"]
-                except:
-                    post_hint = "nan"
-                try:
-                    is_self = post["is_self"]
-                except KeyError:
-                    is_self = "nan"
-                try:
-                    is_video = post["is_video"]
-                except KeyError:
-                    is_video = "nan"
-                try:
-                    title = post["title"]
-                    title = r"{}".format(title)
-                except KeyError:
-                    title = "nan"
-                author = post["author"]
-                author = r"{}".format(author)
-                try:
-                    author_premium = post["author_premium"]
-                except:
-                    author_premium = "nan"
-                return (
-                    subreddit,
-                    post_id,
-                    parent_id,
-                    link_id,
-                    url,
-                    permalink,
-                    date,
-                    created_utc,
-                    score,
-                    upvote_ratio,
-                    num_comments,
-                    controversiality,
-                    total_awards_received,
-                    stickied,
-                    post_hint,
-                    is_self,
-                    is_video,
-                    title,
-                    author,
-                    author_premium,
-                )
-            except KeyboardInterrupt:
-                pass
-
-        def save_submissions(self):
-            """
-            Helper function to save submissions to self.submissions.
-            """
-
-            for post in self.web_data["data"]:
-                (
-                    subreddit,
-                    post_id,
-                    parent_id,
-                    link_id,
-                    url,
-                    permalink,
-                    date,
-                    created_utc,
-                    score,
-                    upvote_ratio,
-                    num_comments,
-                    controversiality,
-                    total_awards_received,
-                    stickied,
-                    post_hint,
-                    is_self,
-                    is_video,
-                    title,
-                    author,
-                    author_premium,
-                ) = create_common_data(post=post)
-                try:
-                    body = post["selftext"]
-                    body = r"{}".format(body)
-                except KeyError:
-                    body = "nan"
-                post_data = {
-                    "post_type": "submission",
-                    "subreddit": subreddit,
-                    "id": post_id,
-                    "parent_id": parent_id,
-                    "link_id": link_id,
-                    "url": url,
-                    "permalink": permalink,
-                    "created_utc": created_utc,
-                    "datetime": date,
-                    "score": score,
-                    "upvote_ratio": upvote_ratio,
-                    "num_comments": num_comments,
-                    "controversiality": controversiality,
-                    "total_awards_received": total_awards_received,
-                    "stickied": stickied,
-                    "post_hint": post_hint,
-                    "is_self": is_self,
-                    "is_video": is_video,
-                    "title": title,
-                    "body": body,
-                    "author": author,
-                    "author_premium": author_premium,
-                }
-                try:
-                    self.submissions = self.submissions.append(
-                        post_data, ignore_index=True
-                    )
-                    self.current_time = created_utc
-                except KeyboardInterrupt:
-                    self.submissions = self.submissions.append(
-                        post_data, ignore_index=True
-                    )
-                    self.current_time = created_utc
-                    print(
-                        "Keyboard Interrupt Detected, please Interrupt again to break parent function."
-                    )
-                    break
-
-        def save_comments(self):
+        def save(self, post_type):
             """
             Helper function to save comments to self.comments.
             """
 
             for post in self.web_data["data"]:
-                (
-                    subreddit,
-                    post_id,
-                    parent_id,
-                    link_id,
-                    url,
-                    permalink,
-                    date,
-                    created_utc,
-                    score,
-                    upvote_ratio,
-                    num_comments,
-                    controversiality,
-                    total_awards_received,
-                    stickied,
-                    post_hint,
-                    is_self,
-                    is_video,
-                    title,
-                    author,
-                    author_premium,
-                ) = create_common_data(post=post)
-                try:
-                    body = post["body"]
-                    body = r"{}".format(body)
-                except KeyError:
-                    body = "nan"
-                post_data = {
-                    "post_type": "comment",
-                    "subreddit": subreddit,
-                    "id": post_id,
-                    "parent_id": parent_id,
-                    "link_id": link_id,
-                    "url": url,
-                    "permalink": permalink,
-                    "created_utc": created_utc,
-                    "datetime": date,
-                    "score": score,
-                    "upvote_ratio": upvote_ratio,
-                    "num_comments": num_comments,
-                    "controversiality": controversiality,
-                    "total_awards_received": total_awards_received,
-                    "stickied": stickied,
-                    "post_hint": post_hint,
-                    "is_self": is_self,
-                    "is_video": is_video,
-                    "title": title,
-                    "body": body,
-                    "author": author,
-                    "author_premium": author_premium,
-                }
-                try:
-                    self.comments = self.comments.append(post_data, ignore_index=True)
-                    self.current_time = created_utc
-                except KeyboardInterrupt:
-                    self.submissions = self.submissions.append(
-                        post_data, ignore_index=True
-                    )
-                    self.current_time = created_utc
-                    print(
-                        "Keyboard Interrupt Detected, please Interrupt again to break parent function."
-                    )
-                    break
+                post_data = self.create_common_data(post=post, post_type=post_type)
+                if post_type == "comment":
+                    try:
+                        if self.oversized:
+                            self.csv_writer.writerow(list(post_data.values()))
+                        else:
+                            self.comments = self.comments.append(post_data, ignore_index=True)
+                            self.current_time = post_data["created_utc"]
+                    except KeyboardInterrupt:
+                        if self.oversized:
+                            self.csv_writer.writerow(list(post_data.values()))
+                        else:
+                            self.comments = self.comments.append(
+                                post_data, ignore_index=True
+                            )
+                            self.current_time = post_data["created_utc"]
+                        print(
+                            "Keyboard Interrupt Detected, please Interrupt again to break parent function."
+                        )
+                        break
+                elif post_type == "submission":
+                    try:
+                        if self.oversized:
+                            self.csv_writer.writerow(list(post_data.values()))
+                        else:
+                            self.submissions = self.submissions.append(post_data, ignore_index=True)
+                            self.current_time = post_data["created_utc"]
+                    except KeyboardInterrupt:
+                        if self.oversized:
+                            self.csv_writer.writerow(list(post_data.values()))
+                        else:
+                            self.submissions = self.submissions.append(
+                                post_data, ignore_index=True
+                            )
+                            self.current_time = post_data["created_utc"]
+                        print(
+                            "Keyboard Interrupt Detected, please Interrupt again to break parent function."
+                        )
+                        break
 
         def collect_submissions(self):
             """
@@ -979,7 +822,7 @@ class pushshift_web_query(query):
                         break
                     else:
                         try:
-                            save_submissions(self=self)
+                            save(post_type="submission")
                         except KeyboardInterrupt:
                             print(
                                 "Keyboard Interrupt Detected, your object's values are secure"
@@ -1002,7 +845,7 @@ class pushshift_web_query(query):
                         break
                     else:
                         try:
-                            save_comments(self=self)
+                            save(post_type="comment")
                         except KeyboardInterrupt:
                             print(
                                 "Keyboard Interrupt Detected, your object's values are secure"
@@ -1011,7 +854,10 @@ class pushshift_web_query(query):
 
         collect_submissions(self=self)
         collect_comments(self=self)
-        self.df = self.submissions.append(self.comments)
+        if self.oversized:
+            self.df = pd.read_csv(self.write_path, low_memory=False)
+        else:
+            self.df = self.submissions.append(self.comments)
 
     def export(self, path, to_export="df", export_format="pkl"):
         """
@@ -1260,25 +1106,50 @@ class subreddits:
         """
 
         if path == None:
-            self.master = pd.read_csv(
-                "F:\Research\Funded\Ethical_Reccomendations\Python\Data\Docs\subreddit_list.csv"
-            )
+            self.path = "F:\Research\Funded\Ethical_Reccomendations\Python\Data\Docs\subreddit_list.csv"
+            self.master = pd.read_csv(self.path)
         else:
+            self.path = path
             if file_format == "csv":
-                self.master = pd.read_csv(path)
+                self.master = pd.read_csv(self.path)
             elif file_format == "pkl":
-                self.master = pd.read_pickle(path)
+                self.master = pd.read_pickle(self.path)
         self.master["Creation_DateTime"] = [
-            datetime.datetime.fromtimestamp(int(utc))
+            datetime.fromtimestamp(int(utc))
             for utc in self.master["Creation_UTC"]
         ]
+
+    def make_subreddits(self, api_credentials, path=None):
+        """
+        Helper function to create up to date list of all subreddits. 
+        ----------
+        paramaters
+        ----------
+        api_credentials: dictionary containing your api_credentials...
+            {
+                "user_agent" : "user_agent",
+                "user_pass" : "user_pass",
+                "client_id" : "client_id",
+                "client_secret" : "client_secret",
+                "application_name" : "application_name"
+            }
+        path: output path for the data
+            note: if None data will be stored as a DataFrame in self.master but not written to file. 
+        """
+
+        api_handle = api_agent(api_credentials)
+        if path == None:
+            api_handle.make_subreddits()
+        else:
+            api_handle.make_subreddits(path=path)
+        self.master = api_handle.subreddits_df
 
     def split_nsfw(self):
         """
         Create attributes containig masked DataFrames for Not Safe / Safe For Work subreddits.
         """
 
-        nsfw_mask = self.master["NSFW_BOOL"] == True
+        nsfw_mask = self.master["nsfw_bool"] == True
         self.nsfw = self.master[nsfw_mask]
         self.sfw = self.master[~nsfw_mask]
 
@@ -1292,8 +1163,8 @@ class subreddits:
         max_subscribers: maximum number of allowed subscribers to a subreddit.
         """
 
-        min_size_mask = self.master["#_Subscribers"] >= min_subscribers
-        max_size_mask = self.master["#_Subscribers"] <= max_subscribers
+        min_size_mask = self.master["num_subscribers"] >= min_subscribers
+        max_size_mask = self.master["num_subscribers"] <= max_subscribers
         self.sized = self.master[min_size_mask & max_size_mask]
 
     def split_creation_time_unix(
@@ -1308,8 +1179,8 @@ class subreddits:
         max_unix_timestamp: latest allowed date of creation in unix ephoch timestamp.
         """
 
-        min_unix_time_mask = self.master["Creation_UTC"] >= min_unix_timestamp
-        max_unix_time_mask = self.master["Creation_UTC"] <= max_unix_timestamp
+        min_unix_time_mask = self.master["creation_utc"] >= min_unix_timestamp
+        max_unix_time_mask = self.master["creation_utc"] <= max_unix_timestamp
         self.sized = self.master[min_unix_time_mask & max_unix_time_mask]
 
     def split_creation_time_date(
@@ -1324,8 +1195,8 @@ class subreddits:
         max_datetime: latest allowed date of creation in datetime format.
         """
 
-        min_date_time_mask = self.master["Creation_DateTime"] >= min_datetime
-        max_date_time_mask = self.master["Creation_DateTime"] <= max_datetime
+        min_date_time_mask = self.master["creation_datetime"] >= min_datetime
+        max_date_time_mask = self.master["creation_datetime"] <= max_datetime
         self.sized = self.master[min_date_time_mask & max_date_time_mask]
 
     def split_multi(self, nsfw=None, sizes=None, unix_times=None, date_times=None):
@@ -1344,34 +1215,34 @@ class subreddits:
             nsfw_mask = [True for _ in self.master.index]
         else:
             if nsfw == True:
-                nsfw_mask = self.master["NSFW_BOOL"] == True
+                nsfw_mask = self.master["nsfw_bool"] == True
             elif nsfw == False:
-                nsfw_mask = self.master["NSFW_BOOL"] == False
+                nsfw_mask = self.master["nsfw_bool"] == False
         if sizes == None:
             min_size_mask = [True for _ in self.master.index]
             max_size_mask = [True for _ in self.master.index]
         else:
-            min_size_mask = self.master["#_Subscribers"] >= sizes["min_subscribers"]
-            max_size_mask = self.master["#_Subscribers"] <= sizes["max_subscribers"]
+            min_size_mask = self.master["num_subscribers"] >= sizes["min_subscribers"]
+            max_size_mask = self.master["num_subscribers"] <= sizes["max_subscribers"]
         if unix_times == None:
             min_unix_time_mask = [True for _ in self.master.index]
             max_unix_time_mask = [True for _ in self.master.index]
         else:
             min_unix_time_mask = (
-                self.master["Creation_UTC"] >= unix_times["min_unix_timestamp"]
+                self.master["creation_utc"] >= unix_times["min_unix_timestamp"]
             )
             max_unix_time_mask = (
-                self.master["Creation_UTC"] <= unix_times["max_unix_timestamp"]
+                self.master["creation_utc"] <= unix_times["max_unix_timestamp"]
             )
         if date_times == None:
             min_date_time_mask = [True for _ in self.master.index]
             max_date_time_mask = [True for _ in self.master.index]
         else:
             min_date_time_mask = (
-                self.master["Creation_DateTime"] >= date_times["min_datetime"]
+                self.master["creation_datetime"] >= date_times["min_datetime"]
             )
             max_date_time_mask = (
-                self.master["Creation_DateTime"] <= date_times["max_datetime"]
+                self.master["creation_datetime"] <= date_times["max_datetime"]
             )
 
         self.multi = self.master[
