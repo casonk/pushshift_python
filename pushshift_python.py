@@ -36,7 +36,7 @@ plt.rcParams.update({"text.usetex": True})
 @dataclass
 class api_agent:
     """
-    Class object for making various reddit API requests. 
+    Class object for making various reddit API requests.
     ----------
     paramaters
     ----------
@@ -60,87 +60,95 @@ class api_agent:
     def renew_auth_token(self):
         auth = requests.auth.HTTPBasicAuth(self.client_id, self.client_secret)
         data = {
-            'grant_type': 'password',
-            'username': self.user_agent,
-            'password': self.user_pass
-            }
-        self.headers = {'User-Agent': '{}}/0.0.0'.format(self.application_name)}
+            "grant_type": "password",
+            "username": self.user_agent,
+            "password": self.user_pass,
+        }
+        self.headers = {"User-Agent": "{}}/0.0.0".format(self.application_name)}
         request = requests.post(
-            'https://www.reddit.com/api/v1/access_token',
-            auth=auth, 
-            data=data, 
-            headers=self.headers
-            )
-        TOKEN = request.json()['access_token']
-        self.headers['Authorization'] = f'bearer {TOKEN}'
+            "https://www.reddit.com/api/v1/access_token",
+            auth=auth,
+            data=data,
+            headers=self.headers,
+        )
+        TOKEN = request.json()["access_token"]
+        self.headers["Authorization"] = f"bearer {TOKEN}"
 
     def get_top_subreddits(self, payload):
         def hit():
             try:
-                r = requests.get('https://oauth.reddit.com/subreddits/new', headers=self.headers, params=payload)
+                r = requests.get(
+                    "https://oauth.reddit.com/subreddits/new",
+                    headers=self.headers,
+                    params=payload,
+                )
                 status = r.status_code
-                print('> http response is:', status)
+                print("> http response is:", status)
             except:
-                r = ''
-                status = ' NO HANDSHAKE '
-                print('> http response is:', status)
+                r = ""
+                status = " NO HANDSHAKE "
+                print("> http response is:", status)
             return r, status
-            
+
         multiplier = 0
         while True:
             r, status = hit()
             if status == 200:
                 break
             multiplier += 1
-            time.sleep(5*multiplier)
-            print(' >> rety_#: {}'.format(multiplier))
+            time.sleep(5 * multiplier)
+            print(" >> rety_#: {}".format(multiplier))
             if multiplier % 3 == 0:
                 self.renew_auth_token()
-                print('\nAUTH_RENEWED\n')
+                print("\nAUTH_RENEWED\n")
         subreddits = json.loads(r.text, strict=False)
         return subreddits
 
-    def make_subreddits(self, path='subreddit_list.csv'):
+    def make_subreddits(self, path="subreddit_list.csv"):
         self.renew_auth_token()
         self.subreddits_path = path
-        with open(self.subreddits_path, 'w', newline='', encoding='utf-8') as _red_list:
-            _red_writer = csv.writer(_red_list, delimiter=',')
-            _headers = ['subreddit', 'num_subscribers', 'creation_utc', 'nsfw_bool']
+        with open(self.subreddits_path, "w", newline="", encoding="utf-8") as _red_list:
+            _red_writer = csv.writer(_red_list, delimiter=",")
+            _headers = ["subreddit", "num_subscribers", "creation_utc", "nsfw_bool"]
             _red_writer.writerow(_headers)
-            _payload = {'limit': '100'}
+            _payload = {"limit": "100"}
             _subreddits = self.get_top_subreddits(_payload)
-            _before = ''
+            _before = ""
             while len(_subreddits) > 0:
-                for key in _subreddits['data']['children']:
+                for key in _subreddits["data"]["children"]:
                     try:
-                        _title = str(key['data']['title'])
+                        _title = str(key["data"]["title"])
                     except:
-                        _title = 'NA'
+                        _title = "NA"
                     try:
-                        _subscribers = str(key['data']['subscribers'])
+                        _subscribers = str(key["data"]["subscribers"])
                     except:
-                        _subscribers = 'NA'
+                        _subscribers = "NA"
                     try:
-                        _created_utc = str(key['data']['created_utc'])
+                        _created_utc = str(key["data"]["created_utc"])
                     except:
-                        _created_utc = 'NA'
+                        _created_utc = "NA"
                     try:
-                        _over18 = str(key['data']['over18'])
+                        _over18 = str(key["data"]["over18"])
                     except:
-                        _over18 = 'NA'
-                    _after = key['data']['name']
-                    _rho = [_title,_subscribers,_created_utc,_over18]
+                        _over18 = "NA"
+                    _after = key["data"]["name"]
+                    _rho = [_title, _subscribers, _created_utc, _over18]
                     _red_writer.writerow(_rho)
-                    _payload = {'limit': '100', 'after' : _after}
+                    _payload = {"limit": "100", "after": _after}
                 if _before == _after:
                     break
                 else:
-                    print('   >>> after : {}'.format(_after))
+                    print("   >>> after : {}".format(_after))
                     _subreddits = self.get_top_subreddits(_payload)
                     _before = _after
         self.subreddits_df = pd.read_csv(self.subreddits_path, low_memory=False)
-        self.subreddits_df = self.subreddits_df.sort_values(by='num_subscribers', ascending=False)
-        self.subreddits_df.to_csv(path_or_buf=self.subreddits_path, sep=',', na_rep='nan', index='subreddit')
+        self.subreddits_df = self.subreddits_df.sort_values(
+            by="num_subscribers", ascending=False
+        )
+        self.subreddits_df.to_csv(
+            path_or_buf=self.subreddits_path, sep=",", na_rep="nan", index="subreddit"
+        )
 
 
 # Create query superclass
@@ -177,14 +185,10 @@ class query:
         self.query = query.lower()
         if time_format == "datetime":
             time_range["before"] = int(
-                datetime.timestamp(
-                    datetime.strptime(time_range["before"], "%Y-%m-%d")
-                )
+                datetime.timestamp(datetime.strptime(time_range["before"], "%Y-%m-%d"))
             )
             time_range["after"] = int(
-                datetime.timestamp(
-                    datetime.strptime(time_range["after"], "%Y-%m-%d")
-                )
+                datetime.timestamp(datetime.strptime(time_range["after"], "%Y-%m-%d"))
             )
         self.before = int(time_range["before"])
         self.before_dt = datetime.fromtimestamp(self.before)
@@ -408,10 +412,10 @@ class pushshift_file_query(query):
             "title",
             "body",
             "author",
-            "author_premium"
-            ]
+            "author_premium",
+        ]
         if self.oversized:
-            self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
+            self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
@@ -439,18 +443,24 @@ class pushshift_file_query(query):
                             if int(_post["created_utc"]) <= int(self.before):
                                 if _post["subreddit"] == self.query:
                                     self.post_counter += 1
-                                    post_data = self.create_common_data(p_type_=_post_type, post=_post)
+                                    post_data = self.create_common_data(
+                                        p_type_=_post_type, post=_post
+                                    )
                                     if post_data == "comment":
                                         try:
                                             if self.oversized:
-                                                self.csv_writer.writerow(list(post_data.values()))
+                                                self.csv_writer.writerow(
+                                                    list(post_data.values())
+                                                )
                                             else:
                                                 self.comments = self.comments.append(
                                                     post_data, ignore_index=True
                                                 )
                                         except KeyboardInterrupt:
                                             if self.oversized:
-                                                self.csv_writer.writerow(list(post_data.values()))
+                                                self.csv_writer.writerow(
+                                                    list(post_data.values())
+                                                )
                                             else:
                                                 self.comments = self.comments.append(
                                                     post_data, ignore_index=True
@@ -462,17 +472,25 @@ class pushshift_file_query(query):
                                     elif post_data == "submission":
                                         try:
                                             if self.oversized:
-                                                self.csv_writer.writerow(list(post_data.values()))
+                                                self.csv_writer.writerow(
+                                                    list(post_data.values())
+                                                )
                                             else:
-                                                self.submissions = self.submissions.append(
-                                                    post_data, ignore_index=True
+                                                self.submissions = (
+                                                    self.submissions.append(
+                                                        post_data, ignore_index=True
+                                                    )
                                                 )
                                         except KeyboardInterrupt:
                                             if self.oversized:
-                                                self.csv_writer.writerow(list(post_data.values()))
+                                                self.csv_writer.writerow(
+                                                    list(post_data.values())
+                                                )
                                             else:
-                                                self.submissions = self.submissions.append(
-                                                    post_data, ignore_index=True
+                                                self.submissions = (
+                                                    self.submissions.append(
+                                                        post_data, ignore_index=True
+                                                    )
                                                 )
                                             print(
                                                 "Keyboard Interrupt Detected, please Interrupt again to break parent function."
@@ -485,7 +503,7 @@ class pushshift_file_query(query):
             """
             Helper function to create time lists to use for parsing pushshift.io downloaded files.
             """
-            
+
             first = self.after_dt
             last = self.before_dt
             self.time_list = []
@@ -571,6 +589,7 @@ class pushshift_file_query(query):
             self.df = pd.read_csv(self.write_path, low_memory=False)
         else:
             self.df = self.submissions.append(self.comments)
+
     def export(self, path, to_export="df", export_format="pkl"):
         """
         Easily save and export your data for future analytics.
@@ -702,10 +721,10 @@ class pushshift_web_query(query):
             "title",
             "body",
             "author",
-            "author_premium"
-            ]
+            "author_premium",
+        ]
         if self.oversized:
-            self.write_path = os.getcwd() + '\\{}.csv'.format(self.query)
+            self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
@@ -760,12 +779,11 @@ class pushshift_web_query(query):
             except KeyboardInterrupt:
                 pass
 
-
         def save(self, _post_type):
             """
             Helper function to save comments to self.comments.
             """
-            print(_post_type)
+
             for _post in self.web_data["data"]:
                 post_data = self.create_common_data(p_type_=_post_type, post=_post)
                 if _post_type == "comment":
@@ -773,7 +791,9 @@ class pushshift_web_query(query):
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.comments = self.comments.append(post_data, ignore_index=True)
+                            self.comments = self.comments.append(
+                                post_data, ignore_index=True
+                            )
                             self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
@@ -792,7 +812,9 @@ class pushshift_web_query(query):
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.submissions = self.submissions.append(post_data, ignore_index=True)
+                            self.submissions = self.submissions.append(
+                                post_data, ignore_index=True
+                            )
                             self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
@@ -1116,13 +1138,12 @@ class subreddits:
             elif file_format == "pkl":
                 self.master = pd.read_pickle(self.path)
         self.master["Creation_DateTime"] = [
-            datetime.fromtimestamp(int(utc))
-            for utc in self.master["Creation_UTC"]
+            datetime.fromtimestamp(int(utc)) for utc in self.master["Creation_UTC"]
         ]
 
     def make_subreddits(self, api_credentials, path=None):
         """
-        Helper function to create up to date list of all subreddits. 
+        Helper function to create up to date list of all subreddits.
         ----------
         paramaters
         ----------
@@ -1135,7 +1156,7 @@ class subreddits:
                 "application_name" : "application_name"
             }
         path: output path for the data
-            note: if None data will be stored as a DataFrame in self.master but not written to file. 
+            note: if None data will be stored as a DataFrame in self.master but not written to file.
         """
 
         api_handle = api_agent(api_credentials)
