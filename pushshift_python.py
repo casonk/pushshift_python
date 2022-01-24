@@ -90,15 +90,15 @@ class api_agent:
                 print("> http response is:", status)
             return r, status
 
-        multiplier = 0
+        retry = 0
         while True:
+            retry += 1
             r, status = hit()
             if status == 200:
                 break
-            multiplier += 1
-            time.sleep(5 * multiplier)
-            print(" >> rety_#: {}".format(multiplier))
-            if multiplier % 3 == 0:
+            time.sleep(5 * retry)
+            print(" >> rety_#: {}".format(retry))
+            if retry % 3 == 0:
                 self.renew_auth_token()
                 print("\nAUTH_RENEWED\n")
         subreddits = json.loads(r.text, strict=False)
@@ -759,7 +759,7 @@ class pushshift_web_query(query):
                             retry,
                             "<<\n",
                         )
-                        time.sleep(15 * retry)
+                        time.sleep(5 * retry)
                         try:
                             r = requests.get(url)
                             status = r.status_code
@@ -775,7 +775,7 @@ class pushshift_web_query(query):
                     str(datetime.fromtimestamp(self.current_time)),
                 )
                 self.web_data = json.loads(r.text, strict=False)
-                time.sleep(1)
+                time.sleep(0.5)
             except KeyboardInterrupt:
                 pass
 
