@@ -944,7 +944,7 @@ class community:
             self.df = dataframe
         elif file_format == "csv":
             self.df = pd.read_csv(
-                filepath_or_buffer=path, usecols=columns, low_memory=False
+                filepath_or_buffer=path, usecols=columns, index_col=False, low_memory=False
             )
         elif file_format == "pkl":
             self.df = pd.read_pickle(filepath_or_buffer=path)
