@@ -1129,7 +1129,7 @@ class subreddits:
         """
 
         if path == None:
-            self.path = "F:\Research\Funded\Ethical_Reccomendations\Python\Data\Docs\subreddit_list.csv"
+            self.path = "data/subreddit_list.csv"
             self.master = pd.read_csv(self.path)
         else:
             self.path = path
@@ -1137,8 +1137,8 @@ class subreddits:
                 self.master = pd.read_csv(self.path)
             elif file_format == "pkl":
                 self.master = pd.read_pickle(self.path)
-        self.master["Creation_DateTime"] = [
-            datetime.fromtimestamp(int(utc)) for utc in self.master["Creation_UTC"]
+        self.master["creation_datetime"] = [
+            datetime.fromtimestamp(int(utc)) for utc in self.master["creation_utc"]
         ]
 
     def make_subreddits(self, api_credentials, path=None):
