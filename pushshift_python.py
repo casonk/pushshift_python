@@ -906,7 +906,7 @@ class pushshift_web_query(query):
         elif to_export == "submissions":
             if export_format == "pkl":
                 self.submissions.to_pickle(path=path)
-            elif export_format == ".csv":
+            elif export_format == "csv":
                 self.submissions.to_csv(path_or_buf=path)
         elif to_export == "comments":
             if export_format == "pkl":
