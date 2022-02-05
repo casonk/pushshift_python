@@ -694,7 +694,7 @@ class pushshift_web_query(query):
         except KeyboardInterrupt:
             pass
 
-    def make_query(self, oversized=False):
+    def make_query(self, oversized=False, _path=None):
         """
         Initialize the query.
         """
@@ -724,7 +724,10 @@ class pushshift_web_query(query):
             "author_premium",
         ]
         if self.oversized:
-            self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
+            if _path == None:
+                self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
+            else: 
+                self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
