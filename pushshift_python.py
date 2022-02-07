@@ -728,7 +728,7 @@ class pushshift_web_query(query):
         if self.oversized:
             if _path == None:
                 self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
-            else: 
+            else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
@@ -949,7 +949,10 @@ class community:
             self.df = dataframe
         elif file_format == "csv":
             self.df = pd.read_csv(
-                filepath_or_buffer=path, usecols=columns, index_col=False, low_memory=False
+                filepath_or_buffer=path,
+                usecols=columns,
+                index_col=False,
+                low_memory=False,
             )
         elif file_format == "pkl":
             self.df = pd.read_pickle(filepath_or_buffer=path)
@@ -1111,6 +1114,41 @@ class community:
             suffixes=("_" + self.name, "_" + community.name),
         ).fillna(0)
         return outer, inner
+
+    def gini(self):
+        """
+        Calculate Gini Coefficient for Community Authors.
+        """
+        
+        def make_gini(df, column, min_val=1, drop=False):
+            gini_base = df[column].loc[~(df[column] < (min_val))]
+            if drop != False:
+                gini_base.drop(drop, inplace=True)
+            users = gini_base.index
+            n = len(users)
+            numer = 0
+            for u in users:
+                numer += np.sum(np.abs(gini_base - gini_base[u]))
+            gini = numer / (2 * n * gini_base.sum())
+            return gini
+
+        gini_cols = [
+            "total_submissions",
+            "total_submission_score",
+            "total_comments",
+            "total_comment_score",
+        ]
+        try:
+            gini_dict = {
+                col: make_gini(self.authors, col, drop="[deleted]") for col in gini_cols
+            }
+        except:
+            self.make_authors()
+            gini_dict = {
+                col: make_gini(self.authors, col, drop="[deleted]") for col in gini_cols
+            }
+        self.gini = pd.DataFrame(data=gini_dict, index=[self.name])
+        return self.gini
 
 
 # Create subreddit reference object
