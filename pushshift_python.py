@@ -1358,7 +1358,7 @@ class file_handler:
         self.written = 0
         with open(self.path_out, 'w', newline='', encoding='utf-8') as out_file:
             writer = csv.writer(out_file, delimiter=',')
-            if self.headers == None:
+            if self.headers != None:
                 writer.writerow(self.headers)
             if self.files == None:
                 print('file list is empty! please specify files=["file_1", ... , "file_n"]')
