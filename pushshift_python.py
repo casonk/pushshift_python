@@ -1178,10 +1178,8 @@ class community:
         Calculate Gini Coefficient for Community Authors.
         """
 
-        def make_gini(df, column, min_val=1, drop=False):
+        def make_gini(df, column, min_val=1):
             gini_base = df[column].loc[~(df[column] < (min_val))]
-            if drop != False:
-                gini_base.drop(drop, inplace=True)
             users = gini_base.index
             n = len(users)
             numer = 0
@@ -1199,13 +1197,13 @@ class community:
         ]
         try:
             gini_dict = {
-                col + "_gini": make_gini(self.authors, col, drop="[deleted]")
+                col + "_gini": make_gini(self.authors, col)
                 for col in gini_cols
             }
         except:
             self.authors()
             gini_dict = {
-                col + "_gini": make_gini(self.authors, col, drop="[deleted]")
+                col + "_gini": make_gini(self.authors, col)
                 for col in gini_cols
             }
         self.gini = pd.DataFrame(data=gini_dict, index=[self.name])
@@ -1217,10 +1215,8 @@ class community:
         Calculate Simpson-Gini Index for Community Authors.
         """
 
-        def make_simpson(df, column, min_val=1, drop=False):
+        def make_simpson(df, column, min_val=1):
             simpson_base = df[column].loc[~(df[column] < (min_val))]
-            if drop != False:
-                simpson_base.drop(drop, inplace=True)
             simpson = 1 - ((simpson_base) * (simpson_base - 1)).sum() / (
                 (simpson_base.sum()) * (simpson_base.sum() - 1)
             )
@@ -1235,13 +1231,13 @@ class community:
         ]
         try:
             simpson_dict = {
-                col + "_simpson": make_simpson(self.authors, col, drop="[deleted]")
+                col + "_simpson": make_simpson(self.authors, col)
                 for col in simpson_cols
             }
         except:
             self.authors()
             simpson_dict = {
-                col + "_simpson": make_simpson(self.authors, col, drop="[deleted]")
+                col + "_simpson": make_simpson(self.authors, col)
                 for col in simpson_cols
             }
         self.simpson = pd.DataFrame(data=simpson_dict, index=[self.name])
@@ -1253,10 +1249,8 @@ class community:
         Calculate Shannon Entropy for Community Authors.
         """
 
-        def make_shannon(df, column, min_val=1, drop=False):
+        def make_shannon(df, column, min_val=1):
             shannon_base = df[column].loc[(df[column] >= (min_val))]
-            if drop != False:
-                shannon_base.drop(drop, inplace=True)
             p = shannon_base / shannon_base.sum()
             p = -p * np.log2(p)
             shannon = p.sum()
@@ -1271,13 +1265,13 @@ class community:
         ]
         try:
             shannon_dict = {
-                col + "_shannon": make_shannon(self.authors, col, drop="[deleted]")
+                col + "_shannon": make_shannon(self.authors, col)
                 for col in shannon_cols
             }
         except:
             self.authors()
             shannon_dict = {
-                col + "_shannon": make_shannon(self.authors, col, drop="[deleted]")
+                col + "_shannon": make_shannon(self.authors, col)
                 for col in shannon_cols
             }
         self.shannon = pd.DataFrame(data=shannon_dict, index=[self.name])
@@ -1330,7 +1324,9 @@ class community:
         self.features["post_type"] = self.df["post_type"].copy()
         self.features["post_type"].replace("submission", 1, inplace=True)
         self.features["post_type"].replace("comment", 0, inplace=True)
-        self.features["year"] = pd.to_datetime(self.df["datetime"]).dt.year
+        self.features["year"] = (
+            (pd.to_datetime(self.df["datetime"]).dt.year - 2005) / 17
+        )
         self.features["day_of_year"] = (
             pd.to_datetime(self.df["datetime"]).dt.dayofyear / 365
         )
@@ -1387,7 +1383,6 @@ class community:
             "author_community_total_submission_comments",
             "author_community_total_comments",
             "author_community_total_comment_score",
-            "year",
             "total_submissions_shannon",
             "total_submission_score_shannon",
             "total_comments_shannon",
@@ -1469,7 +1464,7 @@ class modeling:
     Class for predictive modeling.
     """
 
-    def __init__(self, df, rs=0, timeseries=True):
+    def __init__(self, df, rs=0, timeseries=False):
         """
         Initilization of object, splits into train-test.
         ----------
@@ -1479,16 +1474,18 @@ class modeling:
         rs: random state for reproducability
         timeseries: default True, split data sequentially. If False split by random sample.
         """
-
+        if timeseries:
+            self.df = self.df.sort_values(['year', 'day_of_year', 'time_of_day'], ascending=[False, False, False])
         self.rs = rs
         self.y = df.label
         self.X = df.drop("label", axis=1)
         if timeseries:
             l = len(self.y)
-            self.y_train = self.y[: (3 * l / 4)]
-            self.y_test = self.y[(3 * l / 4) :]
-            self.X_train = self.X[: (3 * l / 4)]
-            self.X_test = self.X[(3 * l / 4) :]
+            cut = int(np.ceil(l))
+            self.y_train = self.y.iloc[:cut]
+            self.y_test = self.y.iloc[cut:]
+            self.X_train = self.X.iloc[:cut]
+            self.X_test = self.X.iloc[cut:]
         else:
             self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
                 self.X, self.y, random_state=rs
