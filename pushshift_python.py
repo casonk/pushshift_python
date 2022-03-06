@@ -983,6 +983,7 @@ class community:
         dataframe=None,
         columns=None,
         file_format=None,
+        set_id=True
     ):
         """
         Initilization of object, created DataFrame for provided community.
@@ -1009,7 +1010,8 @@ class community:
             )
         elif file_format == "pkl":
             self.df = pd.read_pickle(filepath_or_buffer=path)
-        self.df.set_index("id", inplace=True)
+        if set_id:
+            self.df.set_index("id", inplace=True)
         submission_mask = self.df["post_type"] == "submission"
         comment_mask = self.df["post_type"] == "comment"
         self.submissions = self.df[submission_mask]
@@ -1374,6 +1376,7 @@ class community:
             self.features[feature] = boolean_scaler(feature, self.df)
 
         numeric_features = [
+            "year",
             "score",
             "num_comments",
             "controversiality",
@@ -1474,14 +1477,14 @@ class modeling:
         rs: random state for reproducability
         timeseries: default True, split data sequentially. If False split by random sample.
         """
-        if timeseries:
-            self.df = self.df.sort_values(['year', 'day_of_year', 'time_of_day'], ascending=[False, False, False])
+
+        self.df = df
         self.rs = rs
-        self.y = df.label
-        self.X = df.drop("label", axis=1)
+        self.y = self.df.label
+        self.X = self.df.drop("label", axis=1)
         if timeseries:
             l = len(self.y)
-            cut = int(np.ceil(l))
+            cut = int(np.ceil(3*l/4))
             self.y_train = self.y.iloc[:cut]
             self.y_test = self.y.iloc[cut:]
             self.X_train = self.X.iloc[:cut]
