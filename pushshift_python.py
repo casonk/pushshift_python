@@ -21,7 +21,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import roc_curve
 from sklearn.metrics import f1_score
-from sklearn.metrics import SCORERS
+# from sklearn.metrics import SCORERS
 from sklearn.metrics import auc
 from sklearn.utils import resample
 from dataclasses import dataclass
@@ -29,17 +29,17 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from pathlib import Path
 from zlib import crc32
-import networkx as nx
-import seaborn as sns
+# import networkx as nx
+# import seaborn as sns
 import pandas as pd
 import numpy as np
 import zstandard
 import requests
 import time
-import math
+# import math
 import json
 import csv
-import sys
+# import sys
 import re
 import os
 
