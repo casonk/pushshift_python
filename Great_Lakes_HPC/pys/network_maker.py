@@ -8,7 +8,7 @@ import pandas as pd
 import networkx as nx
 from networkx.algorithms.link_analysis.pagerank_alg import pagerank
 
-quarters = pd.read_csv('/nfs/turbo/flnt-mmani/pushshift_python/Great_Lakes_HPC/Resources/Data/yearly_quarters.csv')
+quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
 quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].astype('str')
 
 def authorize_network_features(df):
