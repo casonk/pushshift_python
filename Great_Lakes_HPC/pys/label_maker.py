@@ -5,10 +5,7 @@
 
 import os
 import pandas as pd
-import datetime
 import re
-
-start = datetime.datetime.now()
 
 os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 for file in os.listdir():
