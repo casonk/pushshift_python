@@ -15,11 +15,8 @@ quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].ast
 os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 try:
     comm = pd.read_csv(filepath_or_buffer='epstein.csv', low_memory=False,)
-    print(file)
 
     df = comm.tail(1000)
-
-    df = df[lower_utc & upper_utc]
 
     Authors = list()
     Posts = list()
@@ -112,7 +109,7 @@ try:
                 
 except Exception as e:
     print('exception as :', e)
-    continue     
+    # continue     
 # for file in os.listdir():
 #     if file.endswith('.csv'):
         # print(file)
