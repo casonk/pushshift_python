@@ -102,26 +102,26 @@ for file in os.listdir():
             comm = pd.read_csv(filepath_or_buffer=file, low_memory=False,)
 
             for i in range(len(quarters)):
-                        df = comm.copy()
-                        
-                        lower_utc = df['utc'].astype('int64') >= quarters.iloc[i]['Start_Epoch'].astype('int64')
-                        upper_utc = df['utc'].astype('int64') <= quarters.iloc[i]['End_Epoch'].astype('int64')
+                df = comm.copy()
+                
+                lower_utc = df['utc'].astype('int64') >= quarters.iloc[i]['Start_Epoch'].astype('int64')
+                upper_utc = df['utc'].astype('int64') <= quarters.iloc[i]['End_Epoch'].astype('int64')
 
-                        df = df[lower_utc & upper_utc]
-                        
-                        if len(df) <= 100:
-                            continue 
+                df = df[lower_utc & upper_utc]
+                
+                if len(df) <= 100:
+                    continue 
 
-                        G, network_features = authorize_network_features(df)
+                G, network_features = authorize_network_features(df)
 
-                        try:
-                            network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
-                            nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + 'network_G_' + file)
-                        except:
-                            os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'])
-                            os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'])
-                            network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
-                            nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + 'network_G_' + file)
+                try:
+                    network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
+                    nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + 'network_G_' + file)
+                except:
+                    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'])
+                    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'])
+                    network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
+                    nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + 'network_G_' + file)
                         
         except Exception as e:
             continue     
