@@ -4,7 +4,6 @@
 #|||||||||||||||||||||||#
 
 import os
-os.chdir('/home/casonk/pushshift_python/Python')
 import pandas as pd
 import datetime
 import re
