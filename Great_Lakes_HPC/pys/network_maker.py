@@ -12,8 +12,8 @@ os.chdir('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data
 quarters = pd.read_csv('yearly_quarters.csv')
 quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].astype('str')
 
-os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/')
-for file in os.listdir('csvz'):
+os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
+for file in os.listdir(''):
     if file.endswith('.csv'):
         print(file)
         try:
