@@ -113,7 +113,7 @@ for file in os.listdir('csvz'):
                     network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
                     nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-3] + '.pkl')
                 except:
-                    print('making dir :' quarters.iloc[i]['IDX'])
+                    print('making dir :', quarters.iloc[i]['IDX'])
                     os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'])
                     os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'])
                     network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
