@@ -36,6 +36,7 @@ for file in os.listdir():
             label_data['title_ref'] = comm.title_ref
             label_data.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/label_'+file)
         except Exception as e:
+            print('exception as :', e)
             continue     
 
 exit()

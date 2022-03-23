@@ -36,12 +36,12 @@ echo -e "Job ID $SLURM_JOBID"
 echo -e "Running on $SLURM_JOB_NODELIST"
 echo -e "Running in $(pwd) \n"
 
-cd /nfs/turbo/flnt-mmani/pushshift_python/Great_Lakes_HPC/pys
+cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
 python label_maker.py
 
 echo -e "backing up data to turbo buffer"
 
-cd /nfs/turbo/flnt-mmani/pushshift_python/Great_Lakes_HPC/maintenance
+cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance
 ./backup_labelz_from_scratch.sh
 
 echo -e "spinning down at: $(date)" 
