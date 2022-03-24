@@ -3,6 +3,9 @@
 # Load  Python  modules #
 #|||||||||||||||||||||||#
 
+import pkg_resources
+pkg_resources.require("decorator==5.0.9")
+
 import os
 import pandas as pd
 import networkx as nx
@@ -17,7 +20,7 @@ try:
     comm = pd.read_csv(filepath_or_buffer='epstein.csv', low_memory=False,)
     print(file)
 
-    df = comm.tail(1000)
+    df = comm.iloc[:-500]
 
     df = df[lower_utc & upper_utc]
 
