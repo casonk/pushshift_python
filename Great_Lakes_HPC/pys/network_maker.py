@@ -19,7 +19,7 @@ os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 try:
     comm = pd.read_csv(filepath_or_buffer='epstein.csv', low_memory=False,)
 
-    df = comm.iloc[:-500]
+    df = comm
 
     Authors = list()
     Posts = list()
