@@ -2,7 +2,7 @@
 
 ###### SLURM  preable ######
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=networkanalysis
+#SBATCH --job-name=networks
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
