@@ -22,13 +22,13 @@ echo
 
 i=0
 
-csvz=($source_csvz)
+csvz=($source_csvz*)
 for file in "${csvz[@]}"
 
 do 
 	f="$(basename -- $file)"
 	echo "copying $f"
-	cp $file -fv -t $target_csvz
+	cp $file -frv -t $target_csvz
 	echo
 
 	let "i+=1" 
@@ -54,13 +54,13 @@ echo
 
 j=0
 
-pklz=($source_pklz)
+pklz=($source_pklz*)
 for file in "${pklz[@]}"
 
 do 
 	f="$(basename -- $file)"
 	echo "copying $f"
-	cp $file -fv -t $target_pklz
+	cp $file -frv -t $target_pklz
 	echo
 
 	let "j+=1" 
