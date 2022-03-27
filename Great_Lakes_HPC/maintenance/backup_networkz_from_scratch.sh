@@ -22,7 +22,7 @@ echo
 
 i=0
 
-csvz=($source_csvz*.csv*)
+csvz=($source_csvz)
 for file in "${csvz[@]}"
 
 do 
@@ -54,7 +54,7 @@ echo
 
 j=0
 
-pklz=($source_pklz*.pkl*)
+pklz=($source_pklz)
 for file in "${pklz[@]}"
 
 do 

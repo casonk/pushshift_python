@@ -15,19 +15,19 @@ print('initialization of python script \n\n')
 
 os.chdir('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/')
 quarters = pd.read_csv('yearly_quarters.csv')
-print('quarters')
+print('quarters read\n')
 quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].astype('str')
 
 os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 
-print('trying')
+print('trying\n\n')
 for file in os.listdir():
     if file.endswith('.csv'):
-        print(file)
+        print(file+'\n')
         try:
             comm = pd.read_csv(filepath_or_buffer=file, low_memory=False,)
             for i in range(len(quarters)):
-                print('quarters loop :', i)
+                print('\nquarters loop :', i)
                 try:
                     df = comm.copy()
                     
@@ -37,6 +37,7 @@ for file in os.listdir():
                     df = df[lower_utc & upper_utc]
                     
                     if len(df) <= 75:
+                        print('loop skipped, file too small')
                         continue 
 
                     Authors = list()
@@ -118,27 +119,33 @@ for file in os.listdir():
                         index=list(G.nodes())
                         )
 
-                    print('phase=4')
+                    try:
+                        print('phase=4')
 
-                    for aleph in [0.65,0.70,0.75,0.80,0.85,0.90,0.95]:
-                        ranks = pagerank(G, alpha=aleph)
-                        pr = [ranks[node] for node in G]
-                        col_label = str(aleph)[2:] + '_pagerank'
-                        network_features[col_label] = pr
+                        for aleph in [0.65,0.70,0.75,0.80,0.85,0.90,0.95]:
+                            ranks = pagerank(G, alpha=aleph)
+                            pr = [ranks[node] for node in G]
+                            col_label = str(aleph)[2:] + '_pagerank'
+                            network_features[col_label] = pr
+                    except Exception as e:
+                        print('page rank failed as :', e)
+
+                    print('file phase')
 
                     try:
                         network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
-                        nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-3] + '.pkl')
+                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-3] + '.pkl'))
+                        print('files written successfully')
                     except:
                         print('making dir :', quarters.iloc[i]['IDX'])
                         os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'])
                         os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'])
                         network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
-                        nx.write_gpickle(G, '/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-3] + '.pkl')
+                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-3] + '.pkl'))
                 except Exception as e:
                     print('quarters loop exception as :', e)
         except Exception as e:
-            print('exception as :', e)
+            print('file exception as :', e)
             continue     
 
 print('termination of python script \n\n')
