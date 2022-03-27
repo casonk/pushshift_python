@@ -2,9 +2,9 @@ root_script: network_maker.sbat
 
 /sw/arcts/centos7/python3.8-anaconda/2021.05/bin/python
 
-spinning up at: Sat Mar 26 22:45:41 EDT 2022
+spinning up at: Sat Mar 26 22:55:08 EDT 2022
 Job submitted by gl-login2.arc-ts.umich.edu
-Job ID 34156643
+Job ID 34156681
 Running on gl1019
 Running in /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
 
