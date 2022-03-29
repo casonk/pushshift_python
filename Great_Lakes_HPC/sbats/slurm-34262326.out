@@ -1,0 +1,359 @@
+root_script: network_maker.sbat
+
+/sw/arcts/centos7/python3.8-anaconda/2021.05/bin/python
+
+spinning up at: Tue Mar 29 00:00:51 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 34262326
+Running on gl1002
+Running in /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
+
+Traceback (most recent call last):
+  File "network_maker.py", line 7, in <module>
+    pkg_resources.require("decorator==5.1.0")
+  File "/sw/arcts/centos7/python3.8-anaconda/2021.05/lib/python3.8/site-packages/pkg_resources/__init__.py", line 886, in require
+    needed = self.resolve(parse_requirements(requirements))
+  File "/sw/arcts/centos7/python3.8-anaconda/2021.05/lib/python3.8/site-packages/pkg_resources/__init__.py", line 777, in resolve
+    raise VersionConflict(dist, req).with_context(dependent_req)
+pkg_resources.VersionConflict: (decorator 5.0.9 (/home/casonk/.local/lib/python3.8/site-packages), Requirement.parse('decorator==5.1.0'))
+backing up data to turbo buffer
+source_csvz := /scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/
+target_csvz := /nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/
+
+64 files to copy
+
+target_csvz directory purged
+
+copying 2007_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2007_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2007_Q1’
+
+1 of 64 files copied
+
+copying 2007_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2007_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2007_Q2’
+
+2 of 64 files copied
+
+copying 2007_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2007_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2007_Q3’
+
+3 of 64 files copied
+
+copying 2007_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2007_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2007_Q4’
+
+4 of 64 files copied
+
+copying 2008_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2008_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2008_Q1’
+
+5 of 64 files copied
+
+copying 2008_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2008_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2008_Q2’
+
+6 of 64 files copied
+
+copying 2008_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2008_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2008_Q3’
+
+7 of 64 files copied
+
+copying 2008_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2008_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2008_Q4’
+
+8 of 64 files copied
+
+copying 2009_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2009_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2009_Q1’
+
+9 of 64 files copied
+
+copying 2009_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2009_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2009_Q2’
+
+10 of 64 files copied
+
+copying 2009_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2009_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2009_Q3’
+
+11 of 64 files copied
+
+copying 2009_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2009_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2009_Q4’
+
+12 of 64 files copied
+
+copying 2010_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2010_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2010_Q1’
+
+13 of 64 files copied
+
+copying 2010_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2010_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2010_Q2’
+
+14 of 64 files copied
+
+copying 2010_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2010_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2010_Q3’
+
+15 of 64 files copied
+
+copying 2010_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2010_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2010_Q4’
+
+16 of 64 files copied
+
+copying 2011_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2011_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2011_Q1’
+
+17 of 64 files copied
+
+copying 2011_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2011_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2011_Q2’
+
+18 of 64 files copied
+
+copying 2011_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2011_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2011_Q3’
+
+19 of 64 files copied
+
+copying 2011_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2011_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2011_Q4’
+
+20 of 64 files copied
+
+copying 2012_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2012_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2012_Q1’
+
+21 of 64 files copied
+
+copying 2012_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2012_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2012_Q2’
+
+22 of 64 files copied
+
+copying 2012_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2012_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2012_Q3’
+
+23 of 64 files copied
+
+copying 2012_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2012_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2012_Q4’
+
+24 of 64 files copied
+
+copying 2013_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2013_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2013_Q1’
+
+25 of 64 files copied
+
+copying 2013_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2013_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2013_Q2’
+
+26 of 64 files copied
+
+copying 2013_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2013_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2013_Q3’
+
+27 of 64 files copied
+
+copying 2013_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2013_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2013_Q4’
+
+28 of 64 files copied
+
+copying 2014_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2014_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2014_Q1’
+
+29 of 64 files copied
+
+copying 2014_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2014_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2014_Q2’
+
+30 of 64 files copied
+
+copying 2014_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2014_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2014_Q3’
+
+31 of 64 files copied
+
+copying 2014_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2014_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2014_Q4’
+
+32 of 64 files copied
+
+copying 2015_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2015_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2015_Q1’
+
+33 of 64 files copied
+
+copying 2015_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2015_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2015_Q2’
+
+34 of 64 files copied
+
+copying 2015_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2015_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2015_Q3’
+
+35 of 64 files copied
+
+copying 2015_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2015_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2015_Q4’
+
+36 of 64 files copied
+
+copying 2016_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2016_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2016_Q1’
+
+37 of 64 files copied
+
+copying 2016_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2016_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2016_Q2’
+
+38 of 64 files copied
+
+copying 2016_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2016_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2016_Q3’
+
+39 of 64 files copied
+
+copying 2016_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2016_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2016_Q4’
+
+40 of 64 files copied
+
+copying 2017_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2017_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2017_Q1’
+
+41 of 64 files copied
+
+copying 2017_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2017_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2017_Q2’
+
+42 of 64 files copied
+
+copying 2017_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2017_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2017_Q3’
+
+43 of 64 files copied
+
+copying 2017_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2017_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2017_Q4’
+
+44 of 64 files copied
+
+copying 2018_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2018_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2018_Q1’
+
+45 of 64 files copied
+
+copying 2018_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2018_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2018_Q2’
+
+46 of 64 files copied
+
+copying 2018_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2018_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2018_Q3’
+
+47 of 64 files copied
+
+copying 2018_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2018_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2018_Q4’
+
+48 of 64 files copied
+
+copying 2019_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2019_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2019_Q1’
+
+49 of 64 files copied
+
+copying 2019_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2019_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2019_Q2’
+
+50 of 64 files copied
+
+copying 2019_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2019_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2019_Q3’
+
+51 of 64 files copied
+
+copying 2019_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2019_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2019_Q4’
+
+52 of 64 files copied
+
+copying 2020_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2020_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2020_Q1’
+
+53 of 64 files copied
+
+copying 2020_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2020_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2020_Q2’
+
+54 of 64 files copied
+
+copying 2020_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2020_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2020_Q3’
+
+55 of 64 files copied
+
+copying 2020_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2020_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2020_Q4’
+
+56 of 64 files copied
+
+copying 2021_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2021_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2021_Q1’
+
+57 of 64 files copied
+
+copying 2021_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2021_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2021_Q2’
+
+58 of 64 files copied
+
+copying 2021_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2021_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2021_Q3’
+
+59 of 64 files copied
+
+copying 2021_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2021_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2021_Q4’
+
+60 of 64 files copied
+
+copying 2022_Q1
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2022_Q1’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2022_Q1’
+
+61 of 64 files copied
+
+copying 2022_Q2
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2022_Q2’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2022_Q2’
+
+62 of 64 files copied
+
+copying 2022_Q3
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2022_Q3’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2022_Q3’
+
+63 of 64 files copied
+
+copying 2022_Q4
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2022_Q4’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_networkz/2022_Q4’
+
+64 of 64 files copied
+
+source_pklz := /scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/
+target_pklz := /nfs/turbo/flnt-mmani/Reddit_Communities/buffer/pkl_networkz/
+
+0 files to copy
+
+target directory purged
+
+copying *
+cp: cannot stat ‘/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/*’: No such file or directory
+
+1 of 0 files copied
+
+spinning down at: Tue Mar 29 00:00:57 EDT 2022
