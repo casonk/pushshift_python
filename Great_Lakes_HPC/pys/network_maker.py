@@ -3,13 +3,13 @@
 # Load  Python  modules #
 #|||||||||||||||||||||||#
 
-import pkg_resources
-pkg_resources.require("decorator==5.1.0")
+#import pkg_resources
+#pkg_resources.require("decorator==5.1.0")
 import os
 import pandas as pd
-pkg_resources.require("pandas==1.3.5")
+#pkg_resources.require("pandas==1.3.5")
 import networkx as nx
-pkg_resources.require("networkx==2.6.3")
+#pkg_resources.require("networkx==2.6.3")
 from networkx.algorithms.link_analysis.pagerank_alg import pagerank
 
 print('initialization of python script \n\n')
