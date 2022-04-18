@@ -10,7 +10,6 @@
 #SBATCH --time=72:00:00
 #SBATCH --partition=gpu
 #SBATCH --gpus=v100:2
-#SBATCH --partition=gpu
 #SBATCH --mail-user=casonk@umich.edu
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --account=mmani0
@@ -21,11 +20,12 @@ echo "root_script: network_maker.sbat"
 #||||||||||||||||||||||||||#
 
 module purge
-module load python3.8-anaconda/2021.05
+# module load python3.8-anaconda/2021.05
+module load python/3.9.7
 
-#pip install --user decorator==5.1.0
-#pip install --user networkx==2.6.3
-#pip install --user pandas==1.3.5
+pip install --user decorator==5.1.0
+pip install --user networkx==2.6.3
+pip install --user pandas==1.3.5
 
 # Current Python Interpter #
 #||||||||||||||||||||||||||#

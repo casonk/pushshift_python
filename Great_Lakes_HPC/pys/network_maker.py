@@ -14,8 +14,7 @@ from networkx.algorithms.link_analysis.pagerank_alg import pagerank
 
 print('initialization of python script \n\n')
 
-os.chdir('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/')
-quarters = pd.read_csv('yearly_quarters.csv')
+quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
 print('quarters read\n')
 quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].astype('str')
 
