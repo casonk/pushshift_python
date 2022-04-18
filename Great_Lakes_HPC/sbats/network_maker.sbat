@@ -2,16 +2,15 @@
 
 ###### SLURM  preable ######
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=networks
+#SBATCH --job-name=labelz
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=36
-#SBATCH --mem=180g
-#SBATCH --time=72:00:00
-#SBATCH --partition=gpu
-#SBATCH --gpus=v100:2
+#SBATCH --cpus-per-task=18
+#SBATCH --mem-per-cpu=3g
+#SBATCH --time=48:00:00
+#SBATCH --partition=standard
 #SBATCH --mail-user=casonk@umich.edu
-#SBATCH --mail-type=BEGIN,END
+#SBATCH --mail-type=NONE
 #SBATCH --account=mmani0
 
 echo "root_script: network_maker.sbat"

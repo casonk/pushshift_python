@@ -23,7 +23,6 @@ for file in os.listdir():
         try:
             comm = pd.read_csv(filepath_or_buffer=file, index_col=False, low_memory=False,)
             comm.set_index("id", inplace=True)
-            comm = comm.iloc[:5000,:]
             subreddit_pattern = re.compile(r"(.*reddit.com/r/)([\w]+)(/.*)")
             find_r_slash_refs = re.compile(r"(.*\br/)([\w]+)(\b.*)")
 
