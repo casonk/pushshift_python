@@ -41,7 +41,8 @@ echo -e "Job submitted by $SLURM_SUBMIT_HOST"
 echo -e "Job ID $SLURM_JOBID"
 echo -e "Running on $SLURM_JOB_NODELIST"
 
-cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
+#cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
+cd /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
 echo -e "Running in $(pwd) \n"
 python network_maker.py
 
