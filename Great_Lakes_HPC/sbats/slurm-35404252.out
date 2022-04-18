@@ -2,9 +2,9 @@ root_script: label_maker.sbat
 
 /sw/arcts/centos7/python3.8-anaconda/2021.05/bin/python
 
-spinning up at: Sun Apr 17 21:48:55 EDT 2022
-Job submitted by gl-login2.arc-ts.umich.edu
-Job ID 35403064
+spinning up at: Sun Apr 17 22:06:34 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 35404252
 Running on gl3013
 Running in /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
 
