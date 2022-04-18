@@ -1,36 +1,31 @@
 root_script: network_maker.sbat
-Collecting decorator==5.1.0
-  Using cached decorator-5.1.0-py3-none-any.whl (9.1 kB)
-Installing collected packages: decorator
-Successfully installed decorator-5.1.0
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
 WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
-Collecting networkx==2.6.3
-  Using cached networkx-2.6.3-py3-none-any.whl (1.9 MB)
-Installing collected packages: networkx
-Successfully installed networkx-2.6.3
+Requirement already satisfied: networkx==2.6.3 in /home/casonk/.local/lib/python3.9/site-packages (2.6.3)
 WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
-Collecting pandas==1.3.5
-  Downloading pandas-1.3.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.5 MB)
-Collecting pytz>=2017.3
-  Downloading pytz-2022.1-py2.py3-none-any.whl (503 kB)
-Collecting python-dateutil>=2.7.3
-  Using cached python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
-Collecting numpy>=1.17.3
-  Downloading numpy-1.22.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Requirement already satisfied: pandas==1.3.5 in /home/casonk/.local/lib/python3.9/site-packages (1.3.5)
+Requirement already satisfied: numpy>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (1.22.3)
+Requirement already satisfied: python-dateutil>=2.7.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2.8.2)
+Requirement already satisfied: pytz>=2017.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2022.1)
 Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.7.3->pandas==1.3.5) (1.16.0)
-Installing collected packages: pytz, python-dateutil, numpy, pandas
-Successfully installed numpy-1.22.3 pandas-1.3.5 python-dateutil-2.8.2 pytz-2022.1
+WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Collecting scipy==1.8.0
+  Downloading scipy-1.8.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (42.1 MB)
+Requirement already satisfied: numpy<1.25.0,>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from scipy==1.8.0) (1.22.3)
+Installing collected packages: scipy
+Successfully installed scipy-1.8.0
 WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
 
 /sw/arcts/centos7/python/3.9.7/bin/python
 
-spinning up at: Sun Apr 17 21:51:17 EDT 2022
-Job submitted by gl-login2.arc-ts.umich.edu
-Job ID 35403385
-Running on gl3021
+spinning up at: Sun Apr 17 22:08:18 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 35404256
+Running on gl3034
 Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
 
 initialization of python script 
@@ -109,7 +104,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 making dirs : 2011_Q4
 quarters loop exception as : [Errno 17] File exists: '/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/2011_Q4'
@@ -119,7 +113,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -128,7 +121,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -137,7 +129,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -146,7 +137,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -155,7 +145,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -164,7 +153,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -173,7 +161,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -182,7 +169,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -191,7 +177,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -200,7 +185,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -209,7 +193,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -218,7 +201,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -227,7 +209,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -236,7 +217,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -245,7 +225,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -254,7 +233,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -263,7 +241,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -272,7 +249,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -281,7 +257,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -290,7 +265,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -299,7 +273,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -308,7 +281,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -317,7 +289,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -326,7 +297,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -335,7 +305,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -344,7 +313,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -353,7 +321,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -362,7 +329,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -371,7 +337,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -380,7 +345,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -389,7 +353,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -398,7 +361,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -407,7 +369,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -416,7 +377,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -425,7 +385,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -434,7 +393,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -443,7 +401,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -452,7 +409,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -461,7 +417,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -470,7 +425,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -592,7 +546,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -601,7 +554,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -610,7 +562,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -619,7 +570,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -628,7 +578,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -637,7 +586,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -646,7 +594,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -655,7 +602,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -664,7 +610,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -673,7 +618,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -682,7 +626,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -691,7 +634,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -700,7 +642,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -709,7 +650,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -718,7 +658,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -727,7 +666,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -736,7 +674,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -745,7 +682,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -754,7 +690,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -763,7 +698,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -772,7 +706,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -781,7 +714,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -790,7 +722,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -799,7 +730,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -808,7 +738,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -817,7 +746,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -826,7 +754,6 @@ phase=1
 phase=2
 phase=3
 phase=4
-page rank failed as : No module named 'scipy'
 file phase
 quarters loop exception as : single positional indexer is out-of-bounds
 
@@ -1182,4 +1109,4 @@ cp: cannot stat ‘/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/*’:
 
 1 of 0 files copied
 
-spinning down at: Sun Apr 17 21:53:25 EDT 2022
+spinning down at: Sun Apr 17 22:10:27 EDT 2022

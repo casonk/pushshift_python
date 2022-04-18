@@ -81,6 +81,7 @@ for file in os.listdir():
                                     Data[Author].append([PostType, PostID, LinkID, ParentAuthor])
                     except Exception as e:
                         print('phase 1 failed as :', e)
+                        continue
 
                     try:
                         print('phase=2')
@@ -104,6 +105,7 @@ for file in os.listdir():
                         G = nx.DiGraph()
                     except Exception as e:
                         print('phase 2 failed as :', e)
+                        continue
 
                     try:
                         print('phase=3')
@@ -127,6 +129,7 @@ for file in os.listdir():
                             )
                     except Exception as e:
                         print('phase 3 failed as :', e)
+                        continue
 
                     try:
                         print('phase=4')
@@ -138,25 +141,31 @@ for file in os.listdir():
                             network_features[col_label] = pr
                     except Exception as e:
                         print('page rank failed as :', e)
+                        continue
 
                     print('file phase')
 
                     try:
+                        print('start try')
                         network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
                         nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-4] + '.pkl'))
                         print('files written successfully')
                     except:
+                        print('start except')
                         print('making dirs :', quarters.iloc[i]['IDX'])
                         os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'])
                         os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'])
                         network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i]['IDX'] + '/network_features_' + file)
                         nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i]['IDX'] + '/network_G_' + file[:-4] + '.pkl'))
+                        continue
                 except Exception as e:
                     print('quarters loop exception as :', e)
+                    continue
+                
         except Exception as e:
             print('file exception as :', e)
             continue     
 
-print('termination of python script \n\n')
+print('\n\ntermination of python script \n\n')
 
 exit()
