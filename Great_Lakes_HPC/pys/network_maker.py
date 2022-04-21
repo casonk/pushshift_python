@@ -32,8 +32,8 @@ for file in os.listdir():
                 try:
                     df = comm.copy()
                     
-                    lower_utc = df['created_utc'].astype('int64') >= quarters.iloc[i]['Start_Epoch'].astype('int64')
-                    upper_utc = df['created_utc'].astype('int64') <= quarters.iloc[i]['End_Epoch'].astype('int64')
+                    lower_utc = df['created_utc'].astype('int64') >= quarters.iloc[i,'Start_Epoch'].astype('int64')
+                    upper_utc = df['created_utc'].astype('int64') <= quarters.iloc[i,'End_Epoch'].astype('int64')
 
                     df = df[lower_utc & upper_utc]
                     
