@@ -16,15 +16,14 @@ print('initialization of python script \n\n')
 
 quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
 print('quarters read\n')
-quarters['IDX'] = quarters['Year'].astype('str') + '_' + quarters['Quarter'].astype('str')
 
-# os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
-os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_test/')
+os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
+# os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_test/')
 
 print('trying\n\n')
 for file in os.listdir():
     if file.endswith('.csv'):
-        print(file+'\n')
+        print('\nparsing: '+file+'\n')
         try:
             comm = pd.read_csv(filepath_or_buffer=file, low_memory=False,)
             for i in range(len(quarters)):
@@ -95,12 +94,12 @@ for file in os.listdir():
                                 
                         No_Self_Exchanges = {}
                         ls = list(Author_Exchanges.keys())
-                        i = 0
+                        j = 0
 
                         for author_pair, num_exchanges in Author_Exchanges.items():
                             if ls[i][0] != ls[i][1]:
                                 No_Self_Exchanges[author_pair] = num_exchanges
-                            i += 1
+                            j += 1
 
                         G = nx.DiGraph()
                     except Exception as e:
@@ -153,8 +152,8 @@ for file in os.listdir():
                     except:
                         print('start except')
                         print('making dirs :', quarters.iloc[i,6])
-                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6])
-                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6])
+                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/')
+                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/')
                         network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/network_features_' + file)
                         nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
                         continue
