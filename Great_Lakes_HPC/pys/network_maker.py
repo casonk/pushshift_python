@@ -97,7 +97,7 @@ for file in os.listdir():
                         j = 0
 
                         for author_pair, num_exchanges in Author_Exchanges.items():
-                            if ls[i][0] != ls[i][1]:
+                            if ls[j][0] != ls[j][1]:
                                 No_Self_Exchanges[author_pair] = num_exchanges
                             j += 1
 
