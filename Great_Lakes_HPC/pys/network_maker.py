@@ -36,7 +36,7 @@ for file in os.listdir():
 
                     df = df[lower_utc & upper_utc]
                     
-                    if len(df) <= 50:
+                    if len(df) <= 5:
                         print('loop skipped, file too small')
                         continue 
 
