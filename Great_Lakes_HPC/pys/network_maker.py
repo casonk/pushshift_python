@@ -20,12 +20,19 @@ print('quarters read\n')
 os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 # os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_test/')
 
+cols = ['post_type', 'subreddit', 'id', 'parent_id', 'link_id', 'url',
+       'permalink', 'created_utc', 'datetime', 'score', 'upvote_ratio',
+       'num_comments', 'controversiality', 'total_awards_received', 'stickied',
+       'post_hint', 'is_self', 'is_video', 'title', 'body', 'author',
+       'author_premium']
+
 print('trying\n\n')
 for file in os.listdir():
     if file.endswith('.csv'):
         print('\nparsing: '+file+'\n')
         try:
             comm = pd.read_csv(filepath_or_buffer=file, low_memory=False,)
+            comm = comm[cols]
             for i in range(len(quarters)):
                 print('\nquarters loop :', i)
                 try:
