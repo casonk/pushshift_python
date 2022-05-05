@@ -6,6 +6,7 @@ conspiracy_topic = [
     '911truth', 
     'actualconspiracies', 
     'conspiracy_commons',
+    'c_s_t',
     'conspiracy',
     'conspiracytheories',
     'conspiracyultra',
@@ -29,7 +30,6 @@ political_topic = [
     'wayofthebern', 
     ]
 neutral_topic = [
-    'c_s_t',
     'datasets',
     'ford',
     'highstrangness',
