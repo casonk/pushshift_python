@@ -20,8 +20,6 @@ mkdir $target
 echo "target directory purged"
 echo
 
-i=0
-
 csvz=($source*.csv*)
 for file in "${csvz[@]}"
 
@@ -29,9 +27,5 @@ do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -fv -t $target
-	echo
-
-	let "i+=1" 
-	echo "$i of $num_files files copied"
 	echo
 done

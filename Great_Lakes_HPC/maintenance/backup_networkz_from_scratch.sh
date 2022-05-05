@@ -20,8 +20,6 @@ mkdir $target_csvz
 echo "target_csvz directory purged"
 echo
 
-i=0
-
 csvz=($source_csvz*)
 for file in "${csvz[@]}"
 
@@ -29,10 +27,6 @@ do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -frv -t $target_csvz
-	echo
-
-	let "i+=1" 
-	echo "$i of $num_files files copied"
 	echo
 done
 
@@ -52,8 +46,6 @@ mkdir $target_pklz
 echo "target directory purged"
 echo
 
-j=0
-
 pklz=($source_pklz*)
 for file in "${pklz[@]}"
 
@@ -61,9 +53,5 @@ do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -frv -t $target_pklz
-	echo
-
-	let "j+=1" 
-	echo "$j of $num_files files copied"
 	echo
 done
