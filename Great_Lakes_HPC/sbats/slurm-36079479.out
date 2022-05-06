@@ -36,3 +36,336 @@ Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   gamma_frame['total'] = gamma_frame['off_topic'] + gamma_frame['on_topic']
+Topics Defined 
+
+Globals Defined 
+
+Functions Defined 
+
+
+outoftheloop.csv
+
+outoftheloop.csv completed for conspiracy 
+
+outoftheloop.csv completed for political 
+
+outoftheloop.csv completed for neutral 
+
+
+conspiracy.csv
+
+conspiracy.csv completed for conspiracy 
+
+conspiracy.csv completed for political 
+
+conspiracy.csv completed for neutral 
+
+
+linux.csv
+
+linux.csv completed for conspiracy 
+
+linux.csv completed for political 
+
+linux.csv completed for neutral 
+
+
+joerogan.csv
+
+joerogan.csv completed for conspiracy 
+
+joerogan.csv completed for political 
+
+joerogan.csv completed for neutral 
+
+
+hankaaronaward.csv
+
+hankaaronaward.csv completed for conspiracy 
+
+hankaaronaward.csv completed for political 
+
+hankaaronaward.csv completed for neutral 
+
+
+snowfall.csv
+
+snowfall.csv completed for conspiracy 
+
+snowfall.csv completed for political 
+
+snowfall.csv completed for neutral 
+
+
+conspiracyundone.csv
+
+conspiracyundone.csv completed for conspiracy 
+
+conspiracyundone.csv completed for political 
+
+conspiracyundone.csv completed for neutral 
+
+
+c_s_t.csv
+
+c_s_t.csv completed for conspiracy 
+
+c_s_t.csv completed for political 
+
+c_s_t.csv completed for neutral 
+
+
+unresolvedmysteries.csv
+
+unresolvedmysteries.csv completed for conspiracy 
+
+unresolvedmysteries.csv completed for political 
+
+unresolvedmysteries.csv completed for neutral 
+
+
+watchredditdie.csv
+
+watchredditdie.csv completed for conspiracy 
+
+watchredditdie.csv completed for political 
+
+watchredditdie.csv completed for neutral 
+
+
+globeskeptic.csv
+
+globeskeptic.csv completed for conspiracy 
+
+globeskeptic.csv completed for political 
+
+globeskeptic.csv completed for neutral 
+
+
+pushshift.csv
+
+pushshift.csv completed for conspiracy 
+
+pushshift.csv completed for political 
+
+pushshift.csv completed for neutral 
+
+
+ford.csv
+
+ford.csv completed for conspiracy 
+
+ford.csv completed for political 
+
+ford.csv completed for neutral 
+
+
+nonewnormal.csv
+
+nonewnormal.csv completed for conspiracy 
+
+nonewnormal.csv completed for political 
+
+nonewnormal.csv completed for neutral 
+
+
+math.csv
+
+math.csv completed for conspiracy 
+
+math.csv completed for political 
+
+math.csv completed for neutral 
+
+
+pedogate.csv
+
+pedogate.csv completed for conspiracy 
+
+pedogate.csv completed for political 
+
+pedogate.csv completed for neutral 
+
+
+volvo.csv
+
+volvo.csv completed for conspiracy 
+
+volvo.csv completed for political 
+
+volvo.csv completed for neutral 
+
+
+mandelaeffect.csv
+
+mandelaeffect.csv completed for conspiracy 
+
+mandelaeffect.csv completed for political 
+
+mandelaeffect.csv completed for neutral 
+
+
+wayofthebern.csv
+
+wayofthebern.csv completed for conspiracy 
+
+wayofthebern.csv completed for political 
+
+wayofthebern.csv completed for neutral 
+
+
+actualconspiracies.csv
+
+actualconspiracies.csv completed for conspiracy 
+
+actualconspiracies.csv completed for political 
+
+actualconspiracies.csv completed for neutral 
+
+
+flatearth.csv
+
+flatearth.csv completed for conspiracy 
+
+flatearth.csv completed for political 
+
+flatearth.csv completed for neutral 
+
+
+culturallayer.csv
+
+culturallayer.csv completed for conspiracy 
+
+culturallayer.csv completed for political 
+
+culturallayer.csv completed for neutral 
+
+
+the_donald.csv
+
+the_donald.csv completed for conspiracy 
+
+the_donald.csv completed for political 
+
+the_donald.csv completed for neutral 
+
+
+911truth.csv
+
+911truth.csv completed for conspiracy 
+
+911truth.csv completed for political 
+
+911truth.csv completed for neutral 
+
+
+undelete.csv
+
+undelete.csv completed for conspiracy 
+
+undelete.csv completed for political 
+
+undelete.csv completed for neutral 
+
+
+qult_headquarters.csv
+
+qult_headquarters.csv completed for conspiracy 
+
+qult_headquarters.csv completed for political 
+
+qult_headquarters.csv completed for neutral 
+
+
+narcos.csv
+
+narcos.csv completed for conspiracy 
+
+narcos.csv completed for political 
+
+narcos.csv completed for neutral 
+
+
+datasets.csv
+
+datasets.csv completed for conspiracy 
+
+datasets.csv completed for political 
+
+datasets.csv completed for neutral 
+
+
+highstrangeness.csv
+
+highstrangeness.csv completed for conspiracy 
+
+highstrangeness.csv completed for political 
+
+highstrangeness.csv completed for neutral 
+
+
+subredditdrama.csv
+
+subredditdrama.csv completed for conspiracy 
+
+subredditdrama.csv completed for political 
+
+subredditdrama.csv completed for neutral 
+
+
+conspiracyultra.csv
+
+conspiracyultra.csv completed for conspiracy 
+
+conspiracyultra.csv completed for political 
+
+conspiracyultra.csv completed for neutral 
+
+
+conspiracy_commons.csv
+
+conspiracy_commons.csv completed for conspiracy 
+
+conspiracy_commons.csv completed for political 
+
+conspiracy_commons.csv completed for neutral 
+
+
+epstein.csv
+
+epstein.csv completed for conspiracy 
+
+epstein.csv completed for political 
+
+epstein.csv completed for neutral 
+
+
+honda.csv
+
+honda.csv completed for conspiracy 
+
+honda.csv completed for political 
+
+honda.csv completed for neutral 
+
+
+conspiracytheories.csv
+
+conspiracytheories.csv completed for conspiracy 
+
+conspiracytheories.csv completed for political 
+
+conspiracytheories.csv completed for neutral 
+
+
+ufos.csv
+
+ufos.csv completed for conspiracy 
+
+ufos.csv completed for political 
+
+ufos.csv completed for neutral 
+
+backing up data to turbo buffer
+/var/spool/slurmd.spool/job36079479/slurm_script: line 52: ./backup_metricz_from_scratch.sh: Permission denied
+spinning down at: Thu May  5 07:56:42 EDT 2022

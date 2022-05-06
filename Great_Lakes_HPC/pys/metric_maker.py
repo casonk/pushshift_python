@@ -265,7 +265,7 @@ def meta_tricks(data, fname, topic_matter):
             })
 
     df.set_index('idx', inplace=True)
-    df.to_csv((out_dir + 'eko_' + fname + '.csv'))
+    df.to_csv((out_dir + 'eko_' + fname))
 
     print(fname, 'completed for', topic_matter, '\n')
     
