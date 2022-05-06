@@ -1,0 +1,38 @@
+root_script: metric_maker.sbat
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
+WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: networkx==2.6.3 in /home/casonk/.local/lib/python3.9/site-packages (2.6.3)
+WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: pandas==1.3.5 in /home/casonk/.local/lib/python3.9/site-packages (1.3.5)
+Requirement already satisfied: pytz>=2017.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2022.1)
+Requirement already satisfied: python-dateutil>=2.7.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2.8.2)
+Requirement already satisfied: numpy>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (1.22.3)
+Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.7.3->pandas==1.3.5) (1.16.0)
+WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: scipy==1.8.0 in /home/casonk/.local/lib/python3.9/site-packages (1.8.0)
+Requirement already satisfied: numpy<1.25.0,>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from scipy==1.8.0) (1.22.3)
+WARNING: You are using pip version 21.2.4; however, version 22.0.4 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+
+/sw/arcts/centos7/python/3.9.7/bin/python
+
+spinning up at: Wed May  4 21:36:01 EDT 2022
+Job submitted by gl-login2.arc-ts.umich.edu
+Job ID 36079479
+Running on gl3039
+Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
+
+/home/casonk/.local/lib/python3.9/site-packages/pandas/core/frame.py:4906: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  return super().drop(
+/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/metric_maker.py:192: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  gamma_frame['total'] = gamma_frame['off_topic'] + gamma_frame['on_topic']
