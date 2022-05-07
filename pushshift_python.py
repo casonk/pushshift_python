@@ -935,9 +935,9 @@ class pushshift_web_query(query):
 
         collect_submissions(self=self)
         collect_comments(self=self)
-        if self.oversized:
+        try:
             self.df = pd.read_csv(self.write_path, low_memory=False)
-        else:
+        except:
             self.df = self.submissions.append(self.comments)
 
     def export(self, path, to_export="df", export_format="pkl"):
