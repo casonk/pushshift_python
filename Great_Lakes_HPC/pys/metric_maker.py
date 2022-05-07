@@ -6,6 +6,7 @@ conspiracy_topic = [
     '911truth', 
     'actualconspiracies', 
     'conspiracy_commons',
+    'c_s_t',
     'conspiracy',
     'conspiracytheories',
     'conspiracyultra',
@@ -29,7 +30,6 @@ political_topic = [
     'wayofthebern', 
     ]
 neutral_topic = [
-    'c_s_t',
     'datasets',
     'ford',
     'highstrangness',
@@ -265,7 +265,7 @@ def meta_tricks(data, fname, topic_matter):
             })
 
     df.set_index('idx', inplace=True)
-    df.to_csv((out_dir + 'eko_' + fname + '.csv'))
+    df.to_csv((out_dir + 'eko_' + fname))
 
     print(fname, 'completed for', topic_matter, '\n')
     
