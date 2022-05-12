@@ -834,6 +834,9 @@ class pushshift_web_query(query):
                 )
                 self.web_data = json.loads(r.text, strict=False)
                 time.sleep(0.5)
+                if (status % 2) == 0:
+                    self.current_time = self.current_time + (60*10)
+                    self.update_url()
             except KeyboardInterrupt:
                 pass
 
@@ -935,9 +938,9 @@ class pushshift_web_query(query):
 
         collect_submissions(self=self)
         collect_comments(self=self)
-        if self.oversized:
+        try:
             self.df = pd.read_csv(self.write_path, low_memory=False)
-        else:
+        except:
             self.df = self.submissions.append(self.comments)
 
     def export(self, path, to_export="df", export_format="pkl"):
