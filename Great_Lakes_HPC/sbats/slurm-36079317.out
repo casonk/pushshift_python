@@ -25,3 +25,4 @@ Job ID 36079317
 Running on gl3030
 Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
 
+slurmstepd: error: *** JOB 36079317 ON gl3030 CANCELLED AT 2022-05-09T00:31:08 DUE TO TIME LIMIT ***
