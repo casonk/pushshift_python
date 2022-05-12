@@ -835,7 +835,8 @@ class pushshift_web_query(query):
                 self.web_data = json.loads(r.text, strict=False)
                 time.sleep(0.5)
                 if (status % 3) == 0:
-                    self.current_time = self.current_time + 60
+                    self.current_time = self.current_time + (60*5)
+                    self.update_url()
             except KeyboardInterrupt:
                 pass
 
