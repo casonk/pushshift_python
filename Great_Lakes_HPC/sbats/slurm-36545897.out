@@ -1,0 +1,10 @@
+root_script: label_maker.sbat
+
+/sw/arcts/centos7/python3.8-anaconda/2021.05/bin/python
+
+spinning up at: Thu May 12 18:44:35 EDT 2022
+Job submitted by gl-login2.arc-ts.umich.edu
+Job ID 36545897
+Running on gl[3175-3176]
+Running in /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
+
