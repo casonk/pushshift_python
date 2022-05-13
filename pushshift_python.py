@@ -784,7 +784,7 @@ class pushshift_web_query(query):
             else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
-            self.csv_writer = csv.writer(self.csv, delimiter=",")
+            self.csv_writer = csv.writer(self.csv, delimiter=",", escapechar='\\')
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
