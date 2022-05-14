@@ -4,8 +4,8 @@
 # Last Modified: 3/20/2022
 # ----------------------------------------
 
-source="/nfs/turbo/flnt-mmani/Reddit_Communities/csvz/"
-target="/scratch/mmani_root/mmani0/shared_data/hot/csvz/"
+source="/scratch/mmani_root/mmani0/shared_data/hot/csvz/"
+target="/nfs/turbo/flnt-mmani/Reddit_Communities/csvz/"
 
 echo "source := "$source
 echo "target := "$target
