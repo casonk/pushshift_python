@@ -784,7 +784,7 @@ class pushshift_web_query(query):
             else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
-            self.csv_writer = csv.writer(self.csv, delimiter=",")
+            self.csv_writer = csv.writer(self.csv, delimiter=",", escapechar='\\')
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
@@ -817,7 +817,7 @@ class pushshift_web_query(query):
                             retry,
                             "<<\n",
                         )
-                        time.sleep(5 * retry)
+                        time.sleep(2.5 * retry)
                         try:
                             r = requests.get(url)
                             status = r.status_code
@@ -833,9 +833,9 @@ class pushshift_web_query(query):
                     str(datetime.fromtimestamp(self.current_time)),
                 )
                 self.web_data = json.loads(r.text, strict=False)
-                time.sleep(0.5)
+                time.sleep(0.25)
                 if (status % 2) == 0:
-                    self.current_time = self.current_time + (60*10)
+                    self.current_time = self.current_time + (60*60*2)
                     self.update_url()
             except KeyboardInterrupt:
                 pass
