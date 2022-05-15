@@ -1,0 +1,1190 @@
+root_script: metric_maker.sbat
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: networkx==2.6.3 in /home/casonk/.local/lib/python3.9/site-packages (2.6.3)
+WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: pandas==1.3.5 in /home/casonk/.local/lib/python3.9/site-packages (1.3.5)
+Requirement already satisfied: pytz>=2017.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2022.1)
+Requirement already satisfied: python-dateutil>=2.7.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2.8.2)
+Requirement already satisfied: numpy>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (1.22.3)
+Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.7.3->pandas==1.3.5) (1.16.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: scipy==1.8.0 in /home/casonk/.local/lib/python3.9/site-packages (1.8.0)
+Requirement already satisfied: numpy<1.25.0,>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from scipy==1.8.0) (1.22.3)
+WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+
+/sw/arcts/centos7/python/3.9.7/bin/python
+
+spinning up at: Sat May 14 21:47:26 EDT 2022
+Job submitted by gl-login2.arc-ts.umich.edu
+Job ID 36652710
+Running on gl[3054-3055]
+Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
+
+/home/casonk/.local/lib/python3.9/site-packages/pandas/core/frame.py:4906: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  return super().drop(
+/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/metric_maker.py:216: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  gamma_frame['total'] = gamma_frame['off_topic'] + gamma_frame['on_topic']
+Topics Defined 
+
+Globals Defined 
+
+Functions Defined 
+
+
+truereddit.csv
+
+truereddit.csv completed for conspiracy 
+
+truereddit.csv completed for political 
+
+truereddit.csv completed for neutral 
+
+
+occult.csv
+
+occult.csv completed for conspiracy 
+
+occult.csv completed for political 
+
+occult.csv completed for neutral 
+
+
+political_revolution.csv
+
+political_revolution.csv completed for conspiracy 
+
+political_revolution.csv completed for political 
+
+political_revolution.csv completed for neutral 
+
+
+socialism.csv
+
+socialism.csv completed for conspiracy 
+
+socialism.csv completed for political 
+
+socialism.csv completed for neutral 
+
+
+jeep.csv
+
+jeep.csv completed for conspiracy 
+
+jeep.csv completed for political 
+
+jeep.csv completed for neutral 
+
+
+rutgers.csv
+
+rutgers.csv completed for conspiracy 
+
+rutgers.csv completed for political 
+
+rutgers.csv completed for neutral 
+
+
+outoftheloop.csv
+
+outoftheloop.csv completed for conspiracy 
+
+outoftheloop.csv completed for political 
+
+outoftheloop.csv completed for neutral 
+
+
+cardinals.csv
+
+cardinals.csv completed for conspiracy 
+
+cardinals.csv completed for political 
+
+cardinals.csv completed for neutral 
+
+
+conspiracy.csv
+
+conspiracy.csv completed for conspiracy 
+
+conspiracy.csv completed for political 
+
+conspiracy.csv completed for neutral 
+
+
+psychonaut.csv
+
+psychonaut.csv completed for conspiracy 
+
+psychonaut.csv completed for political 
+
+psychonaut.csv completed for neutral 
+
+
+infographics.csv
+
+infographics.csv completed for conspiracy 
+
+infographics.csv completed for political 
+
+infographics.csv completed for neutral 
+
+
+fullcommunism.csv
+
+fullcommunism.csv completed for conspiracy 
+
+fullcommunism.csv completed for political 
+
+fullcommunism.csv completed for neutral 
+
+
+java.csv
+
+java.csv completed for conspiracy 
+
+java.csv completed for political 
+
+java.csv completed for neutral 
+
+
+linux.csv
+
+linux.csv completed for conspiracy 
+
+linux.csv completed for political 
+
+linux.csv completed for neutral 
+
+
+computerscience.csv
+
+computerscience.csv completed for conspiracy 
+
+computerscience.csv completed for political 
+
+computerscience.csv completed for neutral 
+
+
+justiceserved.csv
+
+justiceserved.csv completed for conspiracy 
+
+justiceserved.csv completed for political 
+
+justiceserved.csv completed for neutral 
+
+
+joerogan.csv
+
+joerogan.csv completed for conspiracy 
+
+joerogan.csv completed for political 
+
+joerogan.csv completed for neutral 
+
+
+business.csv
+
+business.csv completed for conspiracy 
+
+business.csv completed for political 
+
+business.csv completed for neutral 
+
+
+hankaaronaward.csv
+
+hankaaronaward.csv completed for conspiracy 
+
+hankaaronaward.csv completed for political 
+
+hankaaronaward.csv completed for neutral 
+
+
+snowfall.csv
+
+snowfall.csv completed for conspiracy 
+
+snowfall.csv completed for political 
+
+snowfall.csv completed for neutral 
+
+
+conspiracyundone.csv
+
+conspiracyundone.csv completed for conspiracy 
+
+conspiracyundone.csv completed for political 
+
+conspiracyundone.csv completed for neutral 
+
+
+aoc.csv
+
+aoc.csv completed for conspiracy 
+
+aoc.csv completed for political 
+
+aoc.csv completed for neutral 
+
+
+mariners.csv
+
+mariners.csv completed for conspiracy 
+
+mariners.csv completed for political 
+
+mariners.csv completed for neutral 
+
+
+anarcho_capitalism.csv
+
+anarcho_capitalism.csv completed for conspiracy 
+
+anarcho_capitalism.csv completed for political 
+
+anarcho_capitalism.csv completed for neutral 
+
+
+toyota.csv
+
+toyota.csv completed for conspiracy 
+
+toyota.csv completed for political 
+
+toyota.csv completed for neutral 
+
+
+c_s_t.csv
+
+c_s_t.csv completed for conspiracy 
+
+c_s_t.csv completed for political 
+
+c_s_t.csv completed for neutral 
+
+
+ontariouniversities.csv
+
+ontariouniversities.csv completed for conspiracy 
+
+ontariouniversities.csv completed for political 
+
+ontariouniversities.csv completed for neutral 
+
+
+webhosting.csv
+
+webhosting.csv completed for conspiracy 
+
+webhosting.csv completed for political 
+
+webhosting.csv completed for neutral 
+
+
+computervision.csv
+
+computervision.csv completed for conspiracy 
+
+computervision.csv completed for political 
+
+computervision.csv completed for neutral 
+
+
+unresolvedmysteries.csv
+
+unresolvedmysteries.csv completed for conspiracy 
+
+unresolvedmysteries.csv completed for political 
+
+unresolvedmysteries.csv completed for neutral 
+
+
+watchredditdie.csv
+
+watchredditdie.csv completed for conspiracy 
+
+watchredditdie.csv completed for political 
+
+watchredditdie.csv completed for neutral 
+
+
+ruby.csv
+
+ruby.csv completed for conspiracy 
+
+ruby.csv completed for political 
+
+ruby.csv completed for neutral 
+
+
+firearms.csv
+
+firearms.csv completed for conspiracy 
+
+firearms.csv completed for political 
+
+firearms.csv completed for neutral 
+
+
+globeskeptic.csv
+
+globeskeptic.csv completed for conspiracy 
+
+globeskeptic.csv completed for political 
+
+globeskeptic.csv completed for neutral 
+
+
+oaklandraiders.csv
+
+oaklandraiders.csv completed for conspiracy 
+
+oaklandraiders.csv completed for political 
+
+oaklandraiders.csv completed for neutral 
+
+
+berkeley.csv
+
+berkeley.csv completed for conspiracy 
+
+berkeley.csv completed for political 
+
+berkeley.csv completed for neutral 
+
+
+pushshift.csv
+
+pushshift.csv completed for conspiracy 
+
+pushshift.csv completed for political 
+
+pushshift.csv completed for neutral 
+
+
+hacking.csv
+
+hacking.csv completed for conspiracy 
+
+hacking.csv completed for political 
+
+hacking.csv completed for neutral 
+
+
+rust.csv
+
+rust.csv completed for conspiracy 
+
+rust.csv completed for political 
+
+rust.csv completed for neutral 
+
+
+ford.csv
+
+ford.csv completed for conspiracy 
+
+ford.csv completed for political 
+
+ford.csv completed for neutral 
+
+
+nonewnormal.csv
+
+nonewnormal.csv completed for conspiracy 
+
+nonewnormal.csv completed for political 
+
+nonewnormal.csv completed for neutral 
+
+
+michigan.csv
+
+michigan.csv completed for conspiracy 
+
+michigan.csv completed for political 
+
+michigan.csv completed for neutral 
+
+
+cad.csv
+
+cad.csv completed for conspiracy 
+
+cad.csv completed for political 
+
+cad.csv completed for neutral 
+
+
+neutralpolitics.csv
+
+neutralpolitics.csv completed for conspiracy 
+
+neutralpolitics.csv completed for political 
+
+neutralpolitics.csv completed for neutral 
+
+
+racism.csv
+
+racism.csv completed for conspiracy 
+
+racism.csv completed for political 
+
+racism.csv completed for neutral 
+
+
+kansascitychiefs.csv
+
+kansascitychiefs.csv completed for conspiracy 
+
+kansascitychiefs.csv completed for political 
+
+kansascitychiefs.csv completed for neutral 
+
+
+simulated.csv
+
+simulated.csv completed for conspiracy 
+
+simulated.csv completed for political 
+
+simulated.csv completed for neutral 
+
+
+maine.csv
+
+maine.csv completed for conspiracy 
+
+maine.csv completed for political 
+
+maine.csv completed for neutral 
+
+
+honolulu.csv
+
+honolulu.csv completed for conspiracy 
+
+honolulu.csv completed for political 
+
+honolulu.csv completed for neutral 
+
+
+math.csv
+
+math.csv completed for conspiracy 
+
+math.csv completed for political 
+
+math.csv completed for neutral 
+
+
+pedogate.csv
+
+pedogate.csv completed for conspiracy 
+
+pedogate.csv completed for political 
+
+pedogate.csv completed for neutral 
+
+
+fuckyoukaren.csv
+
+fuckyoukaren.csv completed for conspiracy 
+
+fuckyoukaren.csv completed for political 
+
+fuckyoukaren.csv completed for neutral 
+
+
+volvo.csv
+
+volvo.csv completed for conspiracy 
+
+volvo.csv completed for political 
+
+volvo.csv completed for neutral 
+
+
+mandelaeffect.csv
+
+mandelaeffect.csv completed for conspiracy 
+
+mandelaeffect.csv completed for political 
+
+mandelaeffect.csv completed for neutral 
+
+
+birdsarentreal.csv
+
+birdsarentreal.csv completed for conspiracy 
+
+birdsarentreal.csv completed for political 
+
+birdsarentreal.csv completed for neutral 
+
+
+yankees.csv
+
+yankees.csv completed for conspiracy 
+
+yankees.csv completed for political 
+
+yankees.csv completed for neutral 
+
+
+nio.csv
+
+nio.csv completed for conspiracy 
+
+nio.csv completed for political 
+
+nio.csv completed for neutral 
+
+
+wayofthebern.csv
+
+wayofthebern.csv completed for conspiracy 
+
+wayofthebern.csv completed for political 
+
+wayofthebern.csv completed for neutral 
+
+
+minimalism.csv
+
+minimalism.csv completed for conspiracy 
+
+minimalism.csv completed for political 
+
+minimalism.csv completed for neutral 
+
+
+fedora.csv
+
+fedora.csv completed for conspiracy 
+
+fedora.csv completed for political 
+
+fedora.csv completed for neutral 
+
+
+paris.csv
+
+paris.csv completed for conspiracy 
+
+paris.csv completed for political 
+
+paris.csv completed for neutral 
+
+
+panama.csv
+
+panama.csv completed for conspiracy 
+
+panama.csv completed for political 
+
+panama.csv completed for neutral 
+
+
+actualconspiracies.csv
+
+actualconspiracies.csv completed for conspiracy 
+
+actualconspiracies.csv completed for political 
+
+actualconspiracies.csv completed for neutral 
+
+
+flatearth.csv
+
+flatearth.csv completed for conspiracy 
+
+flatearth.csv completed for political 
+
+flatearth.csv completed for neutral 
+
+
+computers.csv
+
+computers.csv completed for conspiracy 
+
+computers.csv completed for political 
+
+computers.csv completed for neutral 
+
+
+budapest.csv
+
+budapest.csv completed for conspiracy 
+
+budapest.csv completed for political 
+
+budapest.csv completed for neutral 
+
+
+datascience.csv
+
+datascience.csv completed for conspiracy 
+
+datascience.csv completed for political 
+
+datascience.csv completed for neutral 
+
+
+database.csv
+
+database.csv completed for conspiracy 
+
+database.csv completed for political 
+
+database.csv completed for neutral 
+
+
+python.csv
+
+python.csv completed for conspiracy 
+
+python.csv completed for political 
+
+python.csv completed for neutral 
+
+
+boulder.csv
+
+boulder.csv completed for conspiracy 
+
+boulder.csv completed for political 
+
+boulder.csv completed for neutral 
+
+
+culturallayer.csv
+
+culturallayer.csv completed for conspiracy 
+
+culturallayer.csv completed for political 
+
+culturallayer.csv completed for neutral 
+
+
+the_donald.csv
+
+the_donald.csv completed for conspiracy 
+
+the_donald.csv completed for political 
+
+the_donald.csv completed for neutral 
+
+
+antivax.csv
+
+antivax.csv completed for conspiracy 
+
+antivax.csv completed for political 
+
+antivax.csv completed for neutral 
+
+
+911truth.csv
+
+911truth.csv completed for conspiracy 
+
+911truth.csv completed for political 
+
+911truth.csv completed for neutral 
+
+
+audi.csv
+
+audi.csv completed for conspiracy 
+
+audi.csv completed for political 
+
+audi.csv completed for neutral 
+
+
+undelete.csv
+
+undelete.csv completed for conspiracy 
+
+undelete.csv completed for political 
+
+undelete.csv completed for neutral 
+
+
+qult_headquarters.csv
+
+qult_headquarters.csv completed for conspiracy 
+
+qult_headquarters.csv completed for political 
+
+qult_headquarters.csv completed for neutral 
+
+
+anticonsumption.csv
+
+anticonsumption.csv completed for conspiracy 
+
+anticonsumption.csv completed for political 
+
+anticonsumption.csv completed for neutral 
+
+
+bidenbro.csv
+
+bidenbro.csv completed for conspiracy 
+
+bidenbro.csv completed for political 
+
+bidenbro.csv completed for neutral 
+
+
+narcos.csv
+
+narcos.csv completed for conspiracy 
+
+narcos.csv completed for political 
+
+narcos.csv completed for neutral 
+
+
+datasets.csv
+
+datasets.csv completed for conspiracy 
+
+datasets.csv completed for political 
+
+datasets.csv completed for neutral 
+
+
+highstrangeness.csv
+
+highstrangeness.csv completed for conspiracy 
+
+highstrangeness.csv completed for political 
+
+highstrangeness.csv completed for neutral 
+
+
+subredditdrama.csv
+
+subredditdrama.csv completed for conspiracy 
+
+subredditdrama.csv completed for political 
+
+subredditdrama.csv completed for neutral 
+
+
+conspiracyultra.csv
+
+conspiracyultra.csv completed for conspiracy 
+
+conspiracyultra.csv completed for political 
+
+conspiracyultra.csv completed for neutral 
+
+
+trumpvirus.csv
+
+trumpvirus.csv completed for conspiracy 
+
+trumpvirus.csv completed for political 
+
+trumpvirus.csv completed for neutral 
+
+
+conspiracy_commons.csv
+
+conspiracy_commons.csv completed for conspiracy 
+
+conspiracy_commons.csv completed for political 
+
+conspiracy_commons.csv completed for neutral 
+
+
+news.csv
+
+news.csv completed for conspiracy 
+
+news.csv completed for political 
+
+news.csv completed for neutral 
+
+
+ballet.csv
+
+ballet.csv completed for conspiracy 
+
+ballet.csv completed for political 
+
+ballet.csv completed for neutral 
+
+
+epstein.csv
+
+epstein.csv completed for conspiracy 
+
+epstein.csv completed for political 
+
+epstein.csv completed for neutral 
+
+
+antiwork.csv
+
+antiwork.csv completed for conspiracy 
+
+antiwork.csv completed for political 
+
+antiwork.csv completed for neutral 
+
+
+honda.csv
+
+honda.csv completed for conspiracy 
+
+honda.csv completed for political 
+
+honda.csv completed for neutral 
+
+
+conspiracytheories.csv
+
+conspiracytheories.csv completed for conspiracy 
+
+conspiracytheories.csv completed for political 
+
+conspiracytheories.csv completed for neutral 
+
+
+flatearther.csv
+
+flatearther.csv completed for conspiracy 
+
+flatearther.csv completed for political 
+
+flatearther.csv completed for neutral 
+
+
+ufos.csv
+
+ufos.csv completed for conspiracy 
+
+ufos.csv completed for political 
+
+ufos.csv completed for neutral 
+
+backing up data to turbo buffer
+source_csvz := /scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/
+target_csvz := /nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/
+
+3 files to copy
+
+target_csvz directory purged
+
+copying conspiracy
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_globeskeptic.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_globeskeptic.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_database.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_database.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_mandelaeffect.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_mandelaeffect.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_antivax.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_antivax.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_truereddit.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_truereddit.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_toyota.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_toyota.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_911truth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_911truth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_python.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_python.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_fuckyoukaren.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_fuckyoukaren.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_fullcommunism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_fullcommunism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_justiceserved.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_justiceserved.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_ballet.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_ballet.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_yankees.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_yankees.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_audi.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_audi.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_computervision.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_computervision.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_michigan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_michigan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_ruby.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_ruby.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_hacking.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_hacking.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_highstrangeness.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_highstrangeness.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_infographics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_infographics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_oaklandraiders.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_oaklandraiders.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_birdsarentreal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_birdsarentreal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_budapest.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_budapest.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_conspiracy.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_conspiracy.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_snowfall.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_snowfall.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_ford.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_ford.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_cad.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_cad.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_flatearther.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_flatearther.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_trumpvirus.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_trumpvirus.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_honda.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_honda.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_anarcho_capitalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_anarcho_capitalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_news.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_news.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_datasets.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_datasets.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_rutgers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_rutgers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_conspiracyultra.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_conspiracyultra.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_watchredditdie.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_watchredditdie.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_simulated.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_simulated.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_ufos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_ufos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_occult.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_occult.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_c_s_t.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_c_s_t.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_java.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_java.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_fedora.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_fedora.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_minimalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_minimalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_maine.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_maine.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_joerogan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_joerogan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_anticonsumption.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_anticonsumption.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_outoftheloop.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_outoftheloop.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_epstein.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_epstein.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_qult_headquarters.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_qult_headquarters.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_aoc.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_aoc.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_honolulu.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_honolulu.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_neutralpolitics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_neutralpolitics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_conspiracytheories.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_conspiracytheories.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_boulder.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_boulder.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_kansascitychiefs.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_kansascitychiefs.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_subredditdrama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_subredditdrama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_conspiracyundone.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_conspiracyundone.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_antiwork.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_antiwork.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_wayofthebern.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_wayofthebern.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_firearms.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_firearms.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_conspiracy_commons.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_conspiracy_commons.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_rust.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_rust.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_nio.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_nio.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_mariners.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_mariners.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_political_revolution.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_political_revolution.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_the_donald.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_the_donald.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_computers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_computers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_hankaaronaward.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_hankaaronaward.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_jeep.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_jeep.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_culturallayer.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_culturallayer.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_berkeley.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_berkeley.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_flatearth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_flatearth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_datascience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_datascience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_computerscience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_computerscience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_panama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_panama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_webhosting.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_webhosting.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_actualconspiracies.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_actualconspiracies.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_business.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_business.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_psychonaut.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_psychonaut.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_ontariouniversities.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_ontariouniversities.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_undelete.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_undelete.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_pedogate.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_pedogate.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_math.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_math.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_linux.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_linux.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_nonewnormal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_nonewnormal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_unresolvedmysteries.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_unresolvedmysteries.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_bidenbro.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_bidenbro.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_paris.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_paris.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_volvo.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_volvo.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_racism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_racism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_narcos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_narcos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_socialism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_socialism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_cardinals.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_cardinals.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/eko_pushshift.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/conspiracy/eko_pushshift.csv’
+
+copying neutral
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_globeskeptic.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_globeskeptic.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_database.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_database.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_mandelaeffect.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_mandelaeffect.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_antivax.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_antivax.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_truereddit.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_truereddit.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_toyota.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_toyota.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_911truth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_911truth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_python.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_python.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_fuckyoukaren.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_fuckyoukaren.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_fullcommunism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_fullcommunism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_justiceserved.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_justiceserved.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_ballet.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_ballet.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_yankees.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_yankees.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_audi.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_audi.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_computervision.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_computervision.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_michigan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_michigan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_ruby.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_ruby.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_hacking.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_hacking.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_highstrangeness.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_highstrangeness.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_infographics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_infographics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_oaklandraiders.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_oaklandraiders.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_birdsarentreal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_birdsarentreal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_budapest.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_budapest.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_conspiracy.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_conspiracy.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_snowfall.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_snowfall.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_ford.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_ford.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_cad.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_cad.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_flatearther.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_flatearther.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_trumpvirus.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_trumpvirus.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_honda.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_honda.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_anarcho_capitalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_anarcho_capitalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_news.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_news.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_datasets.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_datasets.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_rutgers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_rutgers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_conspiracyultra.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_conspiracyultra.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_watchredditdie.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_watchredditdie.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_simulated.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_simulated.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_ufos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_ufos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_occult.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_occult.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_c_s_t.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_c_s_t.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_java.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_java.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_fedora.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_fedora.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_minimalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_minimalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_maine.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_maine.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_joerogan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_joerogan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_anticonsumption.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_anticonsumption.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_outoftheloop.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_outoftheloop.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_epstein.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_epstein.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_qult_headquarters.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_qult_headquarters.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_aoc.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_aoc.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_honolulu.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_honolulu.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_neutralpolitics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_neutralpolitics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_conspiracytheories.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_conspiracytheories.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_boulder.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_boulder.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_kansascitychiefs.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_kansascitychiefs.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_subredditdrama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_subredditdrama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_conspiracyundone.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_conspiracyundone.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_antiwork.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_antiwork.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_wayofthebern.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_wayofthebern.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_firearms.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_firearms.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_conspiracy_commons.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_conspiracy_commons.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_rust.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_rust.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_nio.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_nio.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_mariners.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_mariners.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_political_revolution.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_political_revolution.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_the_donald.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_the_donald.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_computers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_computers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_hankaaronaward.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_hankaaronaward.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_jeep.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_jeep.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_culturallayer.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_culturallayer.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_berkeley.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_berkeley.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_flatearth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_flatearth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_datascience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_datascience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_computerscience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_computerscience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_panama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_panama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_webhosting.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_webhosting.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_actualconspiracies.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_actualconspiracies.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_business.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_business.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_psychonaut.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_psychonaut.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_ontariouniversities.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_ontariouniversities.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_undelete.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_undelete.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_pedogate.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_pedogate.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_math.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_math.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_linux.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_linux.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_nonewnormal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_nonewnormal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_unresolvedmysteries.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_unresolvedmysteries.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_bidenbro.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_bidenbro.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_paris.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_paris.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_volvo.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_volvo.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_racism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_racism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_narcos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_narcos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_socialism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_socialism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_cardinals.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_cardinals.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/eko_pushshift.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/neutral/eko_pushshift.csv’
+
+copying political
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_globeskeptic.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_globeskeptic.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_database.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_database.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_mandelaeffect.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_mandelaeffect.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_antivax.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_antivax.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_truereddit.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_truereddit.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_toyota.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_toyota.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_911truth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_911truth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_python.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_python.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_fuckyoukaren.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_fuckyoukaren.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_fullcommunism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_fullcommunism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_justiceserved.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_justiceserved.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_ballet.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_ballet.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_yankees.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_yankees.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_audi.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_audi.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_computervision.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_computervision.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_michigan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_michigan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_ruby.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_ruby.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_hacking.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_hacking.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_highstrangeness.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_highstrangeness.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_infographics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_infographics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_oaklandraiders.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_oaklandraiders.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_birdsarentreal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_birdsarentreal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_budapest.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_budapest.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_conspiracy.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_conspiracy.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_snowfall.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_snowfall.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_ford.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_ford.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_cad.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_cad.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_flatearther.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_flatearther.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_trumpvirus.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_trumpvirus.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_honda.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_honda.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_anarcho_capitalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_anarcho_capitalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_news.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_news.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_datasets.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_datasets.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_rutgers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_rutgers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_conspiracyultra.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_conspiracyultra.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_watchredditdie.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_watchredditdie.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_simulated.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_simulated.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_ufos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_ufos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_occult.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_occult.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_c_s_t.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_c_s_t.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_java.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_java.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_fedora.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_fedora.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_minimalism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_minimalism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_maine.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_maine.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_joerogan.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_joerogan.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_anticonsumption.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_anticonsumption.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_outoftheloop.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_outoftheloop.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_epstein.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_epstein.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_qult_headquarters.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_qult_headquarters.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_aoc.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_aoc.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_honolulu.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_honolulu.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_neutralpolitics.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_neutralpolitics.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_conspiracytheories.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_conspiracytheories.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_boulder.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_boulder.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_kansascitychiefs.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_kansascitychiefs.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_subredditdrama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_subredditdrama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_conspiracyundone.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_conspiracyundone.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_antiwork.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_antiwork.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_wayofthebern.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_wayofthebern.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_firearms.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_firearms.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_conspiracy_commons.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_conspiracy_commons.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_rust.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_rust.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_nio.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_nio.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_mariners.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_mariners.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_political_revolution.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_political_revolution.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_the_donald.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_the_donald.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_computers.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_computers.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_hankaaronaward.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_hankaaronaward.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_jeep.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_jeep.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_culturallayer.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_culturallayer.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_berkeley.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_berkeley.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_flatearth.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_flatearth.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_datascience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_datascience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_computerscience.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_computerscience.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_panama.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_panama.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_webhosting.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_webhosting.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_actualconspiracies.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_actualconspiracies.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_business.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_business.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_psychonaut.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_psychonaut.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_ontariouniversities.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_ontariouniversities.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_undelete.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_undelete.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_pedogate.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_pedogate.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_math.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_math.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_linux.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_linux.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_nonewnormal.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_nonewnormal.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_unresolvedmysteries.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_unresolvedmysteries.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_bidenbro.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_bidenbro.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_paris.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_paris.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_volvo.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_volvo.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_racism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_racism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_narcos.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_narcos.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_socialism.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_socialism.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_cardinals.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_cardinals.csv’
+‘/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/eko_pushshift.csv’ -> ‘/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/political/eko_pushshift.csv’
+
+spinning down at: Sun May 15 10:47:13 EDT 2022
