@@ -27,4 +27,4 @@ quarters['End_Date'] = pd.to_datetime(quarters['End_Date'])
 quarters['Start_Epoch'] = quarters.Start_Date.astype(np.int64) // 10 ** 9
 quarters['End_Epoch'] = quarters.End_Date.astype(np.int64) // 10 ** 9
 
-quarters.to_csv('C:\\Kodex\\Recommenders\\pushshift_python\\Resources\\Data\\yearly_quarters.csv')
+quarters.to_csv('F:\\Funded\\Ethical_Reccomendations\\pushshift_python\\Resources\\Data\\yearly_quarters.csv')

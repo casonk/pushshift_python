@@ -14,8 +14,11 @@ from networkx.algorithms.link_analysis.pagerank_alg import pagerank
 
 print('initialization of python script \n\n')
 
-quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
-print('quarters read\n')
+# quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
+# print('quarters read\n')
+
+weeks = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_weeks.csv')
+print('weeks read\n')
 
 os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csvz/')
 # os.chdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_test/')
@@ -33,14 +36,16 @@ for file in os.listdir():
         try:
             comm = pd.read_csv(filepath_or_buffer=file, low_memory=False,)
             comm = comm[cols]
-            for i in range(len(quarters)):
+            # for i in range(len(quarters)):
+            for i in range(len(weeks)):
                 print('\nquarters loop :', i)
                 try:
                     df = comm.copy()
                     
-                    lower_utc = df['created_utc'].astype('int64') >= quarters.iloc[i,3].astype('int64')
-                    upper_utc = df['created_utc'].astype('int64') <= quarters.iloc[i,5].astype('int64')
-
+                    # lower_utc = df['created_utc'].astype('int64') >= quarters.iloc[i,3].astype('int64')
+                    # upper_utc = df['created_utc'].astype('int64') <= quarters.iloc[i,5].astype('int64')
+                    lower_utc = df['created_utc'].astype('int64') >= weeks.iloc[i,3].astype('int64')
+                    upper_utc = df['created_utc'].astype('int64') <= weeks.iloc[i,5].astype('int64')
                     df = df[lower_utc & upper_utc]
                     
                     if len(df) <= 5:
@@ -153,16 +158,23 @@ for file in os.listdir():
 
                     try:
                         print('start try')
-                        network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/network_features_' + file)
-                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
+                        # network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/network_features_' + file)
+                        # nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
+                        network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + weeks.iloc[i,6] + '/network_features_' + file)
+                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + weeks.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
                         print('files written successfully')
                     except:
                         print('start except')
-                        print('making dirs :', quarters.iloc[i,6])
-                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/')
-                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/')
-                        network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/network_features_' + file)
-                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
+                        # print('making dirs :', quarters.iloc[i,6])
+                        # os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/')
+                        # os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/')
+                        # network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + quarters.iloc[i,6] + '/network_features_' + file)
+                        # nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + quarters.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
+                        print('making dirs :', weeks.iloc[i,6])
+                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + weeks.iloc[i,6] + '/')
+                        os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + weeks.iloc[i,6] + '/')
+                        network_features.to_csv('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + weeks.iloc[i,6] + '/network_features_' + file)
+                        nx.write_gpickle(G, ('/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/' + weeks.iloc[i,6] + '/network_G_' + file[:-4] + '.pkl'))
                         continue
                 except Exception as e:
                     print('quarters loop exception as :', e)
