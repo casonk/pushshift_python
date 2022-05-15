@@ -5,7 +5,7 @@
 # ----------------------------------------
 
 source="/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/"
-target="/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_labelz/"
+target="/nfs/turbo/flnt-mmani/Reddit_Communities/csv_labelz/"
 
 echo "source := "$source
 echo "target := "$target

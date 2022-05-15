@@ -5,7 +5,7 @@
 # ----------------------------------------
 
 source_csvz="/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/"
-target_csvz="/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/csv_ekoz/"
+target_csvz="/nfs/turbo/flnt-mmani/Reddit_Communities/csv_ekoz/"
 
 echo "source_csvz := "$source_csvz
 echo "target_csvz := "$target_csvz
