@@ -4,7 +4,8 @@ import os
 
 conspiracy_topic = [
     '911truth', 
-    'actualconspiracies', 
+    'birdsarentreal', 
+    'actualconspiracies',
     'conspiracy_commons',
     'c_s_t',
     'conspiracy',
@@ -14,34 +15,57 @@ conspiracy_topic = [
     'culturallayer',
     'epstein',
     'flatearth',
+    'flatearther',
     'globeskeptic',
     'mandelaeffect',
+    'occult',
     'pedogate',
     'qult_headquarters',
     'ufos',
     'unresolvedmysteries',
     ]
 political_topic = [
+    'anarcho_capitalism', 
+    'antivax', 
+    'antiwork',
+    'aoc',
+    'bidenbro',
+    'firearms',
+    'fullcommunism',
     'hankaaronaward',
     'joerogan',
+    'justiceserved',
+    'minimalism',
+    'neutralpolitics',
     'nonewnormal',
+    'political_revolution',
+    'racism',
+    'socialism',
     'the_donald',
+    'trumpvirus',
     'watchredditdie',
-    'wayofthebern', 
+    'wayofthebern',
     ]
 neutral_topic = [
-    'datasets',
+    'business', 
+    'datasets', 
     'ford',
     'highstrangness',
     'honda',
     'linux',
     'math',
+    'michigan',
     'narcos',
     'outoftheloop',
+    'paris',
     'pushshift',
-    'snowfall',
+    'python',
+    'ruby',
+    'rutgers',
     'subredditdrama',
     'undelete',
+    'webhosting',
+    'yankees',
     'volvo',
     ]
 
@@ -139,7 +163,7 @@ def meta_tricks(data, fname, topic_matter):
             summary.columns = ['off_topic']
             summary['on_topic'] = 0
 
-    idxs = [i/20 for i in range(21,20001)]
+    idxs = [i/10 for i in range(11,10001)]
 
     Is = []
 
