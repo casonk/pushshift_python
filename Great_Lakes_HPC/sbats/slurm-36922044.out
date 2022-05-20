@@ -6,9 +6,9 @@ Requirement already satisfied: networkx==2.6.3 in /home/casonk/.local/lib/python
 WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
 Requirement already satisfied: pandas==1.3.5 in /home/casonk/.local/lib/python3.9/site-packages (1.3.5)
-Requirement already satisfied: pytz>=2017.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2022.1)
-Requirement already satisfied: numpy>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (1.22.3)
 Requirement already satisfied: python-dateutil>=2.7.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2.8.2)
+Requirement already satisfied: numpy>=1.17.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (1.22.3)
+Requirement already satisfied: pytz>=2017.3 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.3.5) (2022.1)
 Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.7.3->pandas==1.3.5) (1.16.0)
 WARNING: You are using pip version 21.2.4; however, version 22.1 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
@@ -19,9 +19,9 @@ You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python
 
 /sw/arcts/centos7/python/3.9.7/bin/python
 
-spinning up at: Fri May 20 00:41:01 EDT 2022
+spinning up at: Fri May 20 00:46:34 EDT 2022
 Job submitted by gl-login2.arc-ts.umich.edu
-Job ID 36922038
+Job ID 36922044
 Running on gl[3107-3111]
 Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys 
 
@@ -49,12 +49,12 @@ Traceback (most recent call last):
   File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/quarterly_metric_maker.py", line 324, in <module>
     meta_tricks(data, fname, 'conspiracy')
   File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/quarterly_metric_maker.py", line 217, in meta_tricks
-    off_mask = summary['off_topic'] >= _lambda * summary['on_topic']
+    off_mask = summary_tmp['off_topic'] >= _lambda * summary_tmp['on_topic']
   File "/home/casonk/.local/lib/python3.9/site-packages/pandas/core/frame.py", line 3458, in __getitem__
     indexer = self.columns.get_loc(key)
   File "/home/casonk/.local/lib/python3.9/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
     raise KeyError(key) from err
 KeyError: 'off_topic'
 backing up data to turbo buffer
-/var/spool/slurmd.spool/job36922038/slurm_script: line 52: ./backup_quarterly_metricz_from_scratch.sh: Permission denied
-spinning down at: Fri May 20 00:41:05 EDT 2022
+/var/spool/slurmd.spool/job36922044/slurm_script: line 52: ./backup_quarterly_metricz_from_scratch.sh: Permission denied
+spinning down at: Fri May 20 00:46:38 EDT 2022

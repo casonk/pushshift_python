@@ -211,6 +211,7 @@ def meta_tricks(data, fname, topic_matter):
         echochamberness_logvariances = []
 
         summary_copy = summary.copy(deep=True)
+        print(summary)
         for _lambda in idxs:
             summary_tmp = summary_copy.copy(deep=True)
 
