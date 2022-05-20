@@ -146,14 +146,14 @@ def meta_tricks(data, fname, topic_matter):
     label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
 
     for j in range(len(quarters)):
-        if os.path.isfile((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname)):
-            print('\n already parsed', fname, 'at loop:', j, '\n')
-            continue
-        
         label_data_tmp = label_data.copy(deep=True)
         lower_utc = label_data_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
         upper_utc = label_data_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
         label_data_tmp = label_data_tmp[lower_utc & upper_utc]
+
+        if len(label_data_tmp) <= 5:
+            print('loop skipped, file too small')
+            continue 
 
         if topic_matter == 'conspiracy':
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: conspiracy_labler(x))
@@ -165,9 +165,9 @@ def meta_tricks(data, fname, topic_matter):
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: neutral_labler(x))
             out_dir = neutral_out_dir
 
-        if len(label_data_tmp) <= 5:
-            print('loop skipped, file too small')
-            continue 
+        if os.path.isfile((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname)):
+            print('\n already parsed', fname, 'at loop:', j, '\n')
+            continue
         
         dm = label_data_tmp['author'] == '[deleted]'
         label_data_tmp = label_data_tmp[~dm]
