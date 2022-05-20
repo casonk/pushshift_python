@@ -212,22 +212,22 @@ def meta_tricks(data, fname, topic_matter):
 
         summary_copy = summary.copy(deep=True)
         for _lambda in idxs:
-            summary = summary_copy.copy(deep=True)
+            summary_tmp = summary_copy.copy(deep=True)
 
-            off_mask = summary['off_topic'] >= _lambda * summary['on_topic']
-            on_mask = summary['on_topic'] >= _lambda * summary['off_topic']
+            off_mask = summary_tmp['off_topic'] >= _lambda * summary_tmp['on_topic']
+            on_mask = summary_tmp['on_topic'] >= _lambda * summary_tmp['off_topic']
             olappers = ~(off_mask|on_mask)
 
-            summary.loc[off_mask,'off_topic'] = (summary.loc[off_mask,'off_topic'] - summary.loc[off_mask,'on_topic'])
-            summary.loc[off_mask,'on_topic'] = 0
-            summary.loc[on_mask,'on_topic'] = (summary.loc[on_mask,'on_topic'] - summary.loc[on_mask,'off_topic'])
-            summary.loc[on_mask,'off_topic'] = 0
+            summary_tmp.loc[off_mask,'off_topic'] = (summary_tmp.loc[off_mask,'off_topic'] - summary_tmp.loc[off_mask,'on_topic'])
+            summary_tmp.loc[off_mask,'on_topic'] = 0
+            summary_tmp.loc[on_mask,'on_topic'] = (summary_tmp.loc[on_mask,'on_topic'] - summary_tmp.loc[on_mask,'off_topic'])
+            summary_tmp.loc[on_mask,'off_topic'] = 0
 
-            alpha_frame = summary[on_mask]
+            alpha_frame = summary_tmp[on_mask]
             alpha_frame.drop('off_topic', axis=1, inplace=True)
-            beta_frame = summary[off_mask]
+            beta_frame = summary_tmp[off_mask]
             beta_frame.drop('on_topic', axis=1, inplace=True)
-            gamma_frame = summary[olappers]
+            gamma_frame = summary_tmp[olappers]
             gamma_frame['total'] = gamma_frame['off_topic'] + gamma_frame['on_topic']
             gamma_frame.drop(['off_topic','on_topic'], axis=1, inplace=True)
 
