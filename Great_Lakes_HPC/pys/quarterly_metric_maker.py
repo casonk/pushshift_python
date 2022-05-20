@@ -146,6 +146,10 @@ def meta_tricks(data, fname, topic_matter):
     label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
 
     for j in range(len(quarters)):
+        if os.path.isfile((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname)):
+            print('\n already parsed', fname, 'at loop:', j, '\n')
+            continue
+        
         label_data_tmp = label_data.copy(deep=True)
         lower_utc = label_data_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
         upper_utc = label_data_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
@@ -182,6 +186,10 @@ def meta_tricks(data, fname, topic_matter):
                 summary.columns = ['off_topic']
                 summary['on_topic'] = 0
 
+        if len(summary) <= 5:
+            print('loop skipped, summary too small')
+            continue 
+
         idxs = [i/5 for i in range(6,5001)]
 
         Is = []
@@ -215,7 +223,6 @@ def meta_tricks(data, fname, topic_matter):
         echochamberness_logvariances = []
 
         summary_copy = summary.copy(deep=True)
-        print(summary)
         for _lambda in idxs:
             summary_tmp = summary_copy.copy(deep=True)
 
