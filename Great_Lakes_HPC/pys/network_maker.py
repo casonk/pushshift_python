@@ -39,7 +39,7 @@ for file in os.listdir():
             # for i in range(len(quarters)):
             for i in range(len(weeks)):
                 print('\nquarters loop :', i)
-                if os.path.exists(('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + weeks.iloc[i,6] + '/network_features_' + file)):
+                if os.path.isfile(('/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/' + weeks.iloc[i,6] + '/network_features_' + file)):
                     print('\n previously parsed at loop: {} \n'.format(i))
                     continue
                 else:
