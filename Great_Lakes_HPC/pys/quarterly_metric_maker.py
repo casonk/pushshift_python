@@ -151,10 +151,10 @@ def meta_tricks(data, fname, topic_matter):
         upper_utc = label_data_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
         label_data_tmp = label_data_tmp[lower_utc & upper_utc]
 
-        if len(df) <= 5:
+        if len(label_data_tmp) <= 5:
             print('loop skipped, file too small')
             continue 
-        
+
         if topic_matter == 'conspiracy':
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: conspiracy_labler(x))
             out_dir = conspiracy_out_dir
