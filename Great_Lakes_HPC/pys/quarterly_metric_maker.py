@@ -207,8 +207,8 @@ def meta_tricks(data, fname, topic_matter):
     summary_copy = summary.copy(deep=True)
     for j in range(len(quarters)):
         summary_copy_tmp = summary_copy.copy(deep=True)
-        lower_utc = df['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
-        upper_utc = df['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
+        lower_utc = summary_copy_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
+        upper_utc = summary_copy_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
         summary_copy_tmp = summary_copy_tmp[lower_utc & upper_utc]
         for _lambda in idxs:
             summary = summary_copy_tmp.copy(deep=True)
