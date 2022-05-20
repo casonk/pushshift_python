@@ -145,73 +145,74 @@ def meta_tricks(data, fname, topic_matter):
     label_data.set_index('id', inplace=True)
     label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
 
-    if topic_matter == 'conspiracy':
-        label_data['label'] = label_data['refs'].apply(lambda x: conspiracy_labler(x))
-        out_dir = conspiracy_out_dir
-    elif topic_matter == 'political':
-        label_data['label'] = label_data['refs'].apply(lambda x: political_labler(x))
-        out_dir = political_out_dir
-    elif topic_matter == 'neutral':
-        label_data['label'] = label_data['refs'].apply(lambda x: neutral_labler(x))
-        out_dir = neutral_out_dir
-
-    dm = label_data['author'] == '[deleted]'
-    label_data = label_data[~dm]
-    zm = label_data['label'] == 0
-    label_data = label_data[~zm]
-
-    auths = label_data.groupby('author')
-    summary = pd.DataFrame(auths['label'].value_counts()).unstack().fillna(0).droplevel(level=0, axis=1)
-    try:
-        summary.columns = ['off_topic', 'on_topic']
-    except:
-        if 1 in summary.columns:
-            summary.columns = ['on_topic']
-            summary['off_topic'] = 0
-        elif -1 in summary.columns:
-            summary.columns = ['off_topic']
-            summary['on_topic'] = 0
-
-    idxs = [i/5 for i in range(6,5001)]
-
-    Is = []
-
-    alpha_naives = []
-    beta_naives = []
-    gamma_naives = []
-    seperation_naives = []
-    isolation_naives = []
-    echochamberness_naives = []
-
-    alpha_totalities = []
-    beta_totalities = []
-    gamma_totalities = []
-    seperation_totalities = []
-    isolation_totalities = []
-    echochamberness_totalities = []
-
-    alpha_variances = []
-    beta_variances = []
-    gamma_variances = []
-    seperation_variances = []
-    isolation_variances = []
-    echochamberness_variances = []
-
-    alpha_logvariances = []
-    beta_logvariances = []
-    gamma_logvariances = []
-    seperation_logvariances = []
-    isolation_logvariances = []
-    echochamberness_logvariances = []
-
-    summary_copy = summary.copy(deep=True)
     for j in range(len(quarters)):
-        summary_copy_tmp = summary_copy.copy(deep=True)
-        lower_utc = summary_copy_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
-        upper_utc = summary_copy_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
-        summary_copy_tmp = summary_copy_tmp[lower_utc & upper_utc]
+        label_data_tmp = label_data.copy(deep=True)
+        lower_utc = label_data_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
+        upper_utc = label_data_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
+        label_data_tmp = label_data_tmp[lower_utc & upper_utc]
+
+        if topic_matter == 'conspiracy':
+            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: conspiracy_labler(x))
+            out_dir = conspiracy_out_dir
+        elif topic_matter == 'political':
+            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: political_labler(x))
+            out_dir = political_out_dir
+        elif topic_matter == 'neutral':
+            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: neutral_labler(x))
+            out_dir = neutral_out_dir
+
+        dm = label_data_tmp['author'] == '[deleted]'
+        label_data_tmp = label_data_tmp[~dm]
+        zm = label_data_tmp['label'] == 0
+        label_data_tmp = label_data_tmp[~zm]
+
+        auths = label_data_tmp.groupby('author')
+        summary = pd.DataFrame(auths['label'].value_counts()).unstack().fillna(0).droplevel(level=0, axis=1)
+        try:
+            summary.columns = ['off_topic', 'on_topic']
+        except:
+            if 1 in summary.columns:
+                summary.columns = ['on_topic']
+                summary['off_topic'] = 0
+            elif -1 in summary.columns:
+                summary.columns = ['off_topic']
+                summary['on_topic'] = 0
+
+        idxs = [i/5 for i in range(6,5001)]
+
+        Is = []
+
+        alpha_naives = []
+        beta_naives = []
+        gamma_naives = []
+        seperation_naives = []
+        isolation_naives = []
+        echochamberness_naives = []
+
+        alpha_totalities = []
+        beta_totalities = []
+        gamma_totalities = []
+        seperation_totalities = []
+        isolation_totalities = []
+        echochamberness_totalities = []
+
+        alpha_variances = []
+        beta_variances = []
+        gamma_variances = []
+        seperation_variances = []
+        isolation_variances = []
+        echochamberness_variances = []
+
+        alpha_logvariances = []
+        beta_logvariances = []
+        gamma_logvariances = []
+        seperation_logvariances = []
+        isolation_logvariances = []
+        echochamberness_logvariances = []
+
+        summary_copy = summary.copy(deep=True)
         for _lambda in idxs:
-            summary = summary_copy_tmp.copy(deep=True)
+            summary = summary_copy.copy(deep=True)
 
             off_mask = summary['off_topic'] >= _lambda * summary['on_topic']
             on_mask = summary['on_topic'] >= _lambda * summary['off_topic']
