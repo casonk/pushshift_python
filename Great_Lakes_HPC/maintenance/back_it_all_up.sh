@@ -124,7 +124,7 @@ echo
 
 i=0
 
-csvz=($source*.csv*)
+csvz=($source*)
 for file in "${csvz[@]}"
 
 do 
@@ -158,8 +158,8 @@ echo
 
 i=0
 
-csvz=($source*.csv*)
-for file in "${csvz[@]}"
+pklz=($source*)
+for file in "${pklz[@]}"
 
 do 
 	f="$(basename -- $file)"

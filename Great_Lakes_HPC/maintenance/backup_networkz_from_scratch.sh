@@ -31,7 +31,7 @@ do
 done
 
 source_pklz="/scratch/mmani_root/mmani0/shared_data/hot/pkl_networkz/"
-target_pklz="/nfs/turbo/flnt-mmani/Reddit_Communities/buffer/pkl_networkz/"
+target_pklz="/nfs/turbo/flnt-mmani/Reddit_Communities/pkl_networkz/"
 
 echo "source_pklz := "$source_pklz
 echo "target_pklz := "$target_pklz
