@@ -20,4 +20,4 @@ weeks['End_Date'] = end_dates
 weeks['End_Epoch'] = weeks.End_Date.astype(np.int64) // 10 ** 9
 weeks['IDX'] = weeks.Year.astype(str) + '_' + weeks.Week.astype(str)
 
-weeks.to_csv('F:\\Funded\\Ethical_Reccomendations\\pushshift_python\\Resources\\Data\\yearly_weeks.csv', index=False)
+weeks.to_csv('F:\\Funded\\Ethical_Reccomendations\\Python\\pushshift_python\\Resources\\Data\\yearly_weeks.csv', index=False)
