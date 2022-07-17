@@ -5,50 +5,8 @@ import json
 import csv
 import os
 
-comm_file1 = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\RC\\2019+\\RC_2020-12.zst'
-comm_file2 = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\RC\\2019+\\RC_2021-01.zst'
-subm_file1 = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\RS\\2019+\\RS_2020-12.zst'
-subm_file2 = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\RS\\2019+\\RS_2021-01.zst'
-
-irrel = [
-    'AutoModerator',        '[deleted]',            'HCE_Replacement_Bot',  'Rangers_Bot', 
-    'DropBox_Bot',          'Website_Mirror_Bot',   'Metric_System_Bot',    'Fedora-Tip-Bot',
-    'Some_Bot',             'Brigade_Bot',          'Link_Correction_Bot',  'Porygon-Bot',
-    'KarmaConspiracy_Bot',  'SWTOR_Helper_Bot',     'annoying_yes_bot',     'Antiracism_Bot',
-    'qznc_bot',             'mma_gif_bot',          'QUICHE-BOT',           'bRMT_Bot',
-    'hockey_gif_bot',       'nba_gif_bot',          'gifster_bot',          'imirror_bot',
-    'okc_rating_bot',       'tennis_gif_bot',       'nfl_gif_bot',          'CPTModBot',
-    'LocationBot',          'CreepySmileBot',       'FriendSafariBot',      'WritingPromptsBot',
-    'CreepierSmileBot',     'Cakeday-Bot',          'Meta_Bot',             'soccer_gif_bot',
-    'gunners_gif_bot',      'xkcd_number_bot',      'PokemonFlairBot',      'ChristianityBot',
-    'cRedditBot',           'StreetFightMirrorBot', 'FedoraTipAutoBot',     'UnobtaniumTipBot',
-    'astro-bot',            'TipMoonBot',           'PlaylisterBot',        'Wiki_Bot',
-    'fedora_tip_bot',       'GunnersGifsBot',       'PGN-Bot',              'GunnitBot',
-    'havoc_bot',            'Relevant_News_Bot',    'gfy_bot',              'RealtechPostBot',
-    'imgurHostBot',         'Gatherer_bot',         'JumpToBot',            'DeltaBot',
-    'Nazeem_Bot',           'PhoenixBot',           'AtheismModBot',        'IsItDownBot',
-    'RFootballBot',         'KSPortBot',            'CompileBot',           'SakuraiBot',
-    'asmrspambot',          'SurveyOfRedditBot',    'rule_bot',             'xkcdcomic_bot',
-    'PloungeMafiaVoteBot',  'PoliticBot',           'Dickish_Bot_Bot',      'SuchModBot',
-    'MultiFunctionBot',     'CasualMetricBot',      'xkcd_bot',             'VerseBot',
-    'BeetusBot',            'GameDealsBot',         'BadLinguisticsBot',    'rhiever-bot',
-    'gfycat-bot-sucksdick', 'chromabot',            'Readdit_Bot',          'disapprovalbot',
-    'request_bot',          'define_bot',           'dogetipbot',           'techobot',
-    'CaptionBot',           'rightsbot',            'colorcodebot',         'roger_bot',
-    'ADHDbot',              'hearing-aid_bot',      'WikipediaCitationBot', 'PonyTipBot',
-    'fact_check_bot',       'rusetipbot',           'classybot',            'NFLVideoBot',
-    'MAGNIFIER_BOT',        'WordCloudBot2',        'JotBot',               'WeeaBot',
-    'raddit-bot',           'tipmoonbot2',          'haiku_robot',          'ttumblrbots',
-    'givesafuckbot',        'gabentipbot',          'serendipitybot',       'autowikibot',
-    'topredditbot',         'ddlbot',               'bitofnewsbot',         'conspirobot',
-    'bot',                  'Definition_Bot',       'redditbots',           'autourbanbot',
-    'randnumbot',           'VideoLinkBot',         'transcribot',          'vertpornpostbot',
-    'vpbot14',              'verticalgifbot',       'animemod',             'nfl_mod',
-    'groupbot',             'jobautomator',         'cricketmatchbot',      'ukpolbot',
-    'politicsmoderatorbot', 'usi-bot',              'fplmoderator'
-    ]
-
-irrel = [a.lower() for a in irrel]
+comm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RC/"
+subm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RS/"
 
 _end_dates    = pd.Series(pd.date_range(start="2020-12-12", end="2021-01-31", freq="D", tz='America/New_York'))
 _start_dates  = _end_dates - pd.Timedelta(days=7)
@@ -78,7 +36,7 @@ def read_lines_zst(fh):
             buffer = lines[-1]
         reader.close()
 
-id_l = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\Unncomp\\v6\\'
+id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL'
 
 errors = 0
 lines = 0
@@ -110,3 +68,51 @@ def create_common_data(post):
         return post_data
     except KeyboardInterrupt:
         pass
+
+#####################################################
+
+headers = ["Author", "Id", "Link_Id", "Subreddit", 'UTC']
+with open((id_l + '\\' + 'ID_PAIRS.csv'), "w+", newline="", encoding="utf-8") as _out:
+    csv_writer = csv.writer(_out, delimiter=",", escapechar="\\")
+    csv_writer.writerow(headers)
+
+    os.chdir(comm_dir)
+    for file in os.listdir():
+        for line, file_bytes_processed in read_lines_zst(file):
+            try:
+                _post = json.loads(line)
+                post_data = create_common_data(post=_post)
+                csv_writer.writerow(
+                        [post_data['author'], post_data['id'], post_data['link_id'], post_data['subreddit'], post_data['created_utc']]
+                    )
+            except (KeyError, json.JSONDecodeError):
+                errors += 1
+            
+            lines += 1
+            if (lines + 1) % 100001 == 0:
+                print(lines, 'comment lines processed')
+            if (skipped + 1) % 100001 == 0:
+                print(skipped, 'comment lines skipped')
+
+    os.chdir(subm_dir)
+    for file in os.listdir():
+        for line, file_bytes_processed in read_lines_zst(file):
+            try:
+                _post = json.loads(line)
+                post_data = create_common_data(post=_post)
+                csv_writer.writerow(
+                        [post_data['author'], post_data['id'], post_data['link_id'], post_data['subreddit'], post_data['created_utc']]
+                    )
+            except (KeyError, json.JSONDecodeError):
+                errors += 1
+            
+            lines += 1
+            if (lines + 1) % 100001 == 0:
+                print(lines, 'comment lines processed')
+            if (skipped + 1) % 100001 == 0:
+                print(skipped, 'comment lines skipped')
+
+
+print('comment complete, errors =', errors)
+
+print('skipped total:', skipped, 'lines total:', lines, 'errors total:', errors)
