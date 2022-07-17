@@ -1,7 +1,7 @@
 #!/bin/bash
 # Purpose: Copy csvz from Turbo to Scrath storage for faster I/O on cluster nodez.
 # Author: Cason Konzer
-# Last Modified: 3/20/2022
+# Last Modified: 7/17/2022
 # ----------------------------------------
 
 source="/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/"
