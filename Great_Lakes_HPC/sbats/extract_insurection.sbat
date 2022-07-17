@@ -1,0 +1,53 @@
+#!/bin/sh 
+
+###### SLURM  preable ######
+#||||||||||||||||||||||||||#
+#SBATCH --job-name=extracti
+#SBATCH --nodes=5
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=5
+#SBATCH --mem-per-cpu=20g
+#SBATCH --time=10-00:00:00
+#SBATCH --partition=standard
+#SBATCH --mail-user=casonk@umich.edu
+#SBATCH --mail-type=BEGIN,END
+#SBATCH --account=mmani0
+
+echo "root_script: metric_maker.sbat"
+
+## Load  software modules ##
+#||||||||||||||||||||||||||#
+
+module purge
+# module load python3.8-anaconda/2021.05
+module load python/3.9.7
+
+pip install --user decorator==5.1.0
+pip install --user pandas==1.4.2
+pip install --user zstandard==0.17.0
+
+# Current Python Interpter #
+#||||||||||||||||||||||||||#
+echo 
+which python
+echo
+
+##### Execute Workflow #####
+#||||||||||||||||||||||||||#
+echo -e "spinning up at: $(date)" 
+
+echo -e "Job submitted by $SLURM_SUBMIT_HOST"
+echo -e "Job ID $SLURM_JOBID"
+echo -e "Running on $SLURM_JOB_NODELIST"
+
+#cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
+cd /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
+echo -e "Running in $(pwd) \n"
+python extract_insurection.py
+
+echo -e "backing up data to turbo buffer"
+
+cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance
+./backup_metricz_from_scratch.sh
+
+echo -e "spinning down at: $(date)" 

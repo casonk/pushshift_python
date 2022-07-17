@@ -1,8 +1,10 @@
 #!/bin/sh 
 
+# GPU 
+
 ###### SLURM  preable ######
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=networkz
+#SBATCH --job-name=name
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=36
@@ -14,14 +16,31 @@
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --account=mmani0
 
+# 1 node
+
 ###### SLURM  preable ######
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=labelz
+#SBATCH --job-name=name
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=18
 #SBATCH --mem-per-cpu=3g
 #SBATCH --time=48:00:00
+#SBATCH --partition=standard
+#SBATCH --mail-user=casonk@umich.edu
+#SBATCH --mail-type=BEGIN,END
+#SBATCH --account=mmani0
+
+# 5 nodes
+
+###### SLURM  preable ######
+#||||||||||||||||||||||||||#
+#SBATCH --job-name=name
+#SBATCH --nodes=5
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=5
+#SBATCH --mem-per-cpu=20g
+#SBATCH --time=10-00:00:00
 #SBATCH --partition=standard
 #SBATCH --mail-user=casonk@umich.edu
 #SBATCH --mail-type=BEGIN,END
