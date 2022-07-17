@@ -72,7 +72,7 @@ def create_common_data(post):
 #####################################################
 
 headers = ["Author", "Id", "Link_Id", "Subreddit", 'UTC']
-with open((id_l + '\\' + 'ID_PAIRS.csv'), "w+", newline="", encoding="utf-8") as _out:
+with open((id_l + '/ID_PAIRS.csv'), "w+", newline="", encoding="utf-8") as _out:
     csv_writer = csv.writer(_out, delimiter=",", escapechar="\\")
     csv_writer.writerow(headers)
 
