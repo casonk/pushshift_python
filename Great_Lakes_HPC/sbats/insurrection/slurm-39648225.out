@@ -1,0 +1,53 @@
+root_script: extract_edges.sbat
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: pandas==1.4.2 in /home/casonk/.local/lib/python3.9/site-packages (1.4.2)
+Requirement already satisfied: python-dateutil>=2.8.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2.8.2)
+Requirement already satisfied: pytz>=2020.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2022.1)
+Requirement already satisfied: numpy>=1.18.5 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (1.22.3)
+Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.8.1->pandas==1.4.2) (1.16.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: zstandard==0.17.0 in /home/casonk/.local/lib/python3.9/site-packages (0.17.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+
+/sw/arcts/centos7/python/3.9.7/bin/python
+
+spinning up at: Mon Jul 18 23:49:40 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 39648225
+Running on gl[3025,3231-3234]
+Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection 
+
+Traceback (most recent call last):
+  File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection/extract_edges.py", line 17, in <module>
+    df = pd.read_csv((id_l + 'ID_PAIRS.pcsv'), low_memory=False)
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 680, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 575, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 933, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 1217, in _make_engine
+    self.handles = get_handle(  # type: ignore[call-overload]
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/common.py", line 789, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/ID_PAIRS.pcsv'
+backing up data to turbo buffer
+source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
+target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
+
+1 files to copy
+
+target directory purged
+
+copying ID_PAIRS.csv
+‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/ID_PAIRS.csv’ -> ‘/home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/ID_PAIRS.csv’
+
+1 of 1 files copied
+
+spinning down at: Mon Jul 18 23:52:15 EDT 2022
