@@ -73,3 +73,14 @@ for i in range(len(start_dates)):
     asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
     smask = an['Subreddit'].isin(asubs)
     an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_SELFLESS_{}_{}.pkl'.format(j,k))))
+
+    j=2
+    k=21
+
+    an = auth_net[auth_net >= j].reset_index().rename(columns={0:'Count'})
+    print(_center_dates[i], j, k)
+    
+    asubs_mask = an['Subreddit'].value_counts() >= k
+    asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
+    smask = an['Subreddit'].isin(asubs)
+    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_SELFLESS_{}_{}.pkl'.format(j,k))))
