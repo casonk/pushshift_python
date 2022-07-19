@@ -1,4 +1,4 @@
-root_script: metric_maker.sbat
+root_script: extract_insurrection.sbat
 Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
 WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
 You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
