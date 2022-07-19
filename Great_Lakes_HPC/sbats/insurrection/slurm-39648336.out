@@ -1,0 +1,23 @@
+root_script: extract_edges.sbat
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: pandas==1.4.2 in /home/casonk/.local/lib/python3.9/site-packages (1.4.2)
+Requirement already satisfied: python-dateutil>=2.8.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2.8.2)
+Requirement already satisfied: pytz>=2020.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2022.1)
+Requirement already satisfied: numpy>=1.18.5 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (1.22.3)
+Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.8.1->pandas==1.4.2) (1.16.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: zstandard==0.17.0 in /home/casonk/.local/lib/python3.9/site-packages (0.17.0)
+WARNING: You are using pip version 21.2.4; however, version 22.1.2 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+
+/sw/arcts/centos7/python/3.9.7/bin/python
+
+spinning up at: Tue Jul 19 00:06:45 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 39648336
+Running on gl[3065,3231-3234]
+Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection 
+
