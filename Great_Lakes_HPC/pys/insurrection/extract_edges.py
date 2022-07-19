@@ -14,7 +14,7 @@ _start_dates  = _start_dates.apply(lambda x:str(x).split(' ')[0])
 
 
 id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
-df = pd.read_csv((id_l + 'ID_PAIRS.pcsv'), low_memory=False)
+df = pd.read_csv((id_l + 'ID_PAIRS.csv'), low_memory=False)
 df.to_pickle((id_l + 'ID_PAIRS.pkl'))
 
 
