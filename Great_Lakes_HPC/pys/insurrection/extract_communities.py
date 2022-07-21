@@ -71,7 +71,7 @@ irrel = [
 irrel = [i.lower() for i in irrel]
 
 j=1
-k=7
+k=21
 keys = []
 id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 
