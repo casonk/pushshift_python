@@ -28,7 +28,7 @@ for file in "${csvz[@]}"
 do 
 	f="$(basename -- $file)"
 	echo "copying $f"
-	cp $file -fv -t $target
+	cp $file -frv -t $target
 	echo
 
 	let "i+=1" 
