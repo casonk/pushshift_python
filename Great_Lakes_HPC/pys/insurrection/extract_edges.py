@@ -1,5 +1,4 @@
 import pandas as pd 
-import os
 
 
 _end_dates    = pd.Series(pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz='America/New_York'))

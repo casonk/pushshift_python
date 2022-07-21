@@ -1,6 +1,5 @@
 import pandas as pd
 import networkx as nx
-import matplotlib
 from networkx.algorithms import community
 import pickle
 
@@ -70,10 +69,6 @@ irrel = [
     ]
 
 irrel = [i.lower() for i in irrel]
-
-matplotlib.rcParams['figure.titlesize'] = 32
-matplotlib.rcParams['text.usetex'] = True
-matplotlib.rcParams['font.size'] = 22
 
 j=1
 k=7
