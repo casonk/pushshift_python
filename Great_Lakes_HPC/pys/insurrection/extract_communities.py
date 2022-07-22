@@ -19,7 +19,7 @@ _end_dates    = _end_dates.apply(lambda x:str(x).split(' ')[0])
 _center_dates = _center_dates.apply(lambda x:str(x).split(' ')[0])
 _start_dates  = _start_dates.apply(lambda x:str(x).split(' ')[0])
 
-id_l = 'R:\\Funded\\Ethical_Reccomendations\\Mass_Data\\Push_File\\Unncomp\\v6\\'
+id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 
 irrel = [
     'automoderator',        '[deleted]',            'HCE_Replacement_Bot',  'Rangers_Bot', 
@@ -91,38 +91,38 @@ for i in range(len(start_dates)):
         G.add_edge(info[0], info[1], subreddit=info[2], weight=int(info[3]))
     print(date, j, k)
     
-    with open((id_l + date + ('G_{}_{}.pkl').format(j, k)), 'wb') as Gh:
+    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'wb') as Gh:
         pickle.dump(G, Gh)
 
 r=0.5
 for date in _center_dates:
-    with open((id_l + date + ('G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
+    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
 
     lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
     print(date, len(lc), r)
 
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
         pickle.dump(lc, lch)
 
 r=1
 for date in _center_dates:
-    with open((id_l + date + ('G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
+    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
 
     lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
     print(date, len(lc), r)
 
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
         pickle.dump(lc, lch)
 
 r=2
 for date in _center_dates:
-    with open((id_l + date + ('G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
+    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
 
     lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
     print(date, len(lc), r)
 
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
         pickle.dump(lc, lch)
