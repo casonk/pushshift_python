@@ -19,8 +19,6 @@ _end_dates    = _end_dates.apply(lambda x:str(x).split(' ')[0])
 _center_dates = _center_dates.apply(lambda x:str(x).split(' ')[0])
 _start_dates  = _start_dates.apply(lambda x:str(x).split(' ')[0])
 
-id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
-
 irrel = [
     'automoderator',        '[deleted]',            'HCE_Replacement_Bot',  'Rangers_Bot', 
     'dropbox_bot',          'Website_Mirror_Bot',   'Metric_System_Bot',    'Fedora-Tip-Bot',
@@ -84,7 +82,7 @@ for i in range(len(start_dates)):
     target_mask = df['Target'].isin(irrel)
 
     trimmed_df = df[(~source_mask) & (~target_mask)]
-    trimmed_df.to_pickle((id_l + date + ('TRIMMED_DF_{}_{}.pkl').format(j, k)))
+    trimmed_df.to_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
 
     G = nx.Graph()
     for info in trimmed_df.values:
