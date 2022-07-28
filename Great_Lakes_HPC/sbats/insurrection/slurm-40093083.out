@@ -1,0 +1,38 @@
+root_script: extract_edges.sbat
+Requirement already satisfied: decorator==5.1.0 in /home/casonk/.local/lib/python3.9/site-packages (5.1.0)
+WARNING: You are using pip version 21.2.4; however, version 22.2.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+Requirement already satisfied: pandas==1.4.2 in /home/casonk/.local/lib/python3.9/site-packages (1.4.2)
+Requirement already satisfied: pytz>=2020.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2022.1)
+Requirement already satisfied: python-dateutil>=2.8.1 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (2.8.2)
+Requirement already satisfied: numpy>=1.18.5 in /home/casonk/.local/lib/python3.9/site-packages (from pandas==1.4.2) (1.22.3)
+Requirement already satisfied: six>=1.5 in /sw/arcts/centos7/python/3.9.7/lib/python3.9/site-packages (from python-dateutil>=2.8.1->pandas==1.4.2) (1.16.0)
+WARNING: You are using pip version 21.2.4; however, version 22.2.1 is available.
+You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python3.9 -m pip install --upgrade pip' command.
+
+/sw/arcts/centos7/python/3.9.7/bin/python
+
+spinning up at: Thu Jul 28 00:32:31 EDT 2022
+Job submitted by gl-login1.arc-ts.umich.edu
+Job ID 40093083
+Running on gl[3093,3153,3157,3318-3319]
+Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection 
+
+Traceback (most recent call last):
+  File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection/map_communities_util.py", line 31, in <module>
+    lc = pickle.load(lch)
+EOFError: Ran out of input
+backing up data to turbo buffer
+source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
+target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
+
+752 files to copy
+
+target directory purged
+
+copying ID_PAIRS.csv
+‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/ID_PAIRS.csv’ -> ‘/home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/ID_PAIRS.csv’
+
+1 of 752 files copied
+
+spinning down at: Thu Jul 28 00:35:35 EDT 2022
