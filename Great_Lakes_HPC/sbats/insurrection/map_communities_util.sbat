@@ -1,7 +1,7 @@
 #!/bin/sh 
 
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=commune
+#SBATCH --job-name=map_com_util
 #SBATCH --nodes=5
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=5
