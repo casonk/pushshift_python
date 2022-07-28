@@ -24,10 +24,14 @@ k=21
 keys = []
 
 r=0.5
+n = 0
 for date in _center_dates:
+    n +=1
+    if n <= 1:
+        continue
     i = 0
     level_map = {}
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
+    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
         lc = pickle.load(lch)
 
     communities_series = pd.Series([len(sett) for sett in lc])
