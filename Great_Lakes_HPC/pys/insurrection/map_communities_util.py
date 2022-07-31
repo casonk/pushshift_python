@@ -104,42 +104,16 @@ for date in _center_dates:
     for community in top_c_dict.index:
         sub_sets[community] = set(csp.loc[community].index)
 
+    with open((id_l + date + ('/SUB_SETS_{}_{}_{}.pkl').format(j, k, r)), 'wb') as ssh:
+        pickle.dump(sub_sets, ssh)
+
     auth_sets = {}
     cap = comm_auth_pairs.loc[top_c_dict.index].groupby(level=0, axis=0).apply(lambda x : x.head(1500)).droplevel(0)
     for community in top_c_dict.index:
         auth_sets[community] = set(cap.loc[community].index)
 
-    s_weight = (2 / 9)
-    a_weight = (7 / 9)
+    with open((id_l + date + ('/AUTH_SETS_{}_{}_{}.pkl').format(j, k, r)), 'wb') as ash:
+        pickle.dump(sub_sets, ash)
 
-    olap = {}
-    for date1 in _center_dates:
-        olap[date1] = {}
-        for date2 in _center_dates:
-            olap[date1][date2] = {}
-            for set1 in sub_sets[date1]:
-                olap[date1][date2][set1] = {}
-                for set2 in sub_sets[date2]:
-                    olap[date1][date2][set1][set2] = (len(sub_sets[date1][set1] & sub_sets[date2][set2]) / len(sub_sets[date1][set1]) * s_weight)
-
-    for date1 in _center_dates:
-        for date2 in _center_dates:
-            for set1 in auth_sets[date1]:
-                for set2 in auth_sets[date2]:
-                    olap[date1][date2][set1][set2] += (len(auth_sets[date1][set1] & auth_sets[date2][set2]) / len(auth_sets[date1][set1]) * a_weight)
-
-    for date1 in _center_dates:
-        for date2 in _center_dates:
-            for set1 in sub_sets[date1]:
-                max_olap = 0
-                best_set = 0
-                for set2 in sub_sets[date2]:
-                    if max_olap < olap[date1][date2][set1][set2]:
-                        max_olap = olap[date1][date2][set1][set2]
-                        best_set = set2
-                olap[date1][date2][set1] = best_set
-                        
-    with open((id_l + date + '/OLAP_75_70_1500_2_7.pkl'), 'wb') as olh:
-        pickle.dump(olap, olh)
 # r=1
 # r=2
