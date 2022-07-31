@@ -27,7 +27,7 @@ r=0.5
 for date in _center_dates:
     i = 0
     level_map = {}
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
         lc = pickle.load(lch)
 
     communities_series = pd.Series([len(sett) for sett in lc])
@@ -120,7 +120,7 @@ r=1
 for date in _center_dates:
     i = 0
     level_map = {}
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
         lc = pickle.load(lch)
 
     communities_series = pd.Series([len(sett) for sett in lc])
@@ -213,7 +213,7 @@ r=2
 for date in _center_dates:
     i = 0
     level_map = {}
-    with open((id_l + date + ('LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
+    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'rb') as lch:
         lc = pickle.load(lch)
 
     communities_series = pd.Series([len(sett) for sett in lc])
