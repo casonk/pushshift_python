@@ -76,6 +76,7 @@ id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 
 for i in range(len(start_dates)):
     if os.path.isfile((id_l + date + ('/G_{}_{}.pkl').format(j, k))):
+        print('pass:', date, j, k)
         continue
     date = _center_dates[i] 
     file = (id_l + date + ('/EDGE_LIST_SELFLESS_{}_{}.pkl'.format(j,k)))
@@ -98,6 +99,7 @@ for i in range(len(start_dates)):
 r=0.5
 for date in _center_dates:
     if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass lc:', date, r)
         continue
     with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
@@ -111,6 +113,7 @@ for date in _center_dates:
 r=1
 for date in _center_dates:
     if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass lc:', date, r)
         continue
     with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
@@ -124,6 +127,7 @@ for date in _center_dates:
 r=2
 for date in _center_dates:
     if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass lc:', date, r)
         continue
     with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
         G = pickle.load(Gh)
