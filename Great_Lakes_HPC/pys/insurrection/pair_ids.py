@@ -14,8 +14,8 @@ _start_dates  = _start_dates.apply(lambda x:str(x).split(' ')[0])
 
 
 id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
-df = pd.read_csv((id_l + 'ID_PAIRS.csv'), low_memory=False)
-df.to_pickle((id_l + 'ID_PAIRS.pkl'))
+df = pd.read_csv((id_l + 'UTIL/ID_PAIRS.csv'), low_memory=False)
+df.to_pickle((id_l + 'UTIL/ID_PAIRS.pkl'))
 
 
 for date in _center_dates:
@@ -29,4 +29,4 @@ for i in range(len(start_dates)):
     min_mask = df['UTC'].astype('int64') >= start_dates[i]
     max_mask = df['UTC'].astype('int64') <= end_dates[i]
     tmp_df = df[min_mask & max_mask]
-    tmp_df.to_pickle((id_l + _center_dates[i] + '/ID_PAIRS.pkl'))
+    tmp_df.to_pickle((id_l + _center_dates[i] + '/UTIL/ID_PAIRS.pkl'))

@@ -16,7 +16,7 @@ id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 
 for i in range(len(start_dates)):
     out_name = (id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl')
-    df = pd.read_pickle((id_l + _center_dates[i] + '/ID_PAIRS.pkl'))
+    df = pd.read_pickle((id_l + _center_dates[i] + '/UTIL/ID_PAIRS.pkl'))
     df.drop('UTC', axis=1, inplace=True)
     df.set_index('Id', inplace=True)
     print(_center_dates[i], 'loaded')
