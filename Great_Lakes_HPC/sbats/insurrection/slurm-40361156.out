@@ -12,23 +12,32 @@ You should consider upgrading via the '/sw/arcts/centos7/python/3.9.7/bin/python
 
 /sw/arcts/centos7/python/3.9.7/bin/python
 
-spinning up at: Thu Jul 28 20:56:22 EDT 2022
-Job submitted by gl-login1.arc-ts.umich.edu
-Job ID 40114760
-Running on gl[3076,3234-3237]
+spinning up at: Wed Aug  3 17:26:37 EDT 2022
+Job submitted by gl-login2.arc-ts.umich.edu
+Job ID 40361156
+Running on gl[3294,3299,3307,3311,3320]
 Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection 
 
+0.5 2020-10-04 LEVEL_MAPPED
+Traceback (most recent call last):
+  File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection/map_communities_util.py", line 45, in <module>
+    level_df = pd.read_pickle((id_l + date + ('TRIMMED_DF_{}_{}.pkl').format(j, k)))
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/pickle.py", line 187, in read_pickle
+    with get_handle(
+  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/common.py", line 798, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/2020-10-04TRIMMED_DF_1_21.pkl'
 backing up data to turbo buffer
 source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
 target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
 
-782 files to copy
+176 files to copy
 
 target directory purged
 
-copying ID_PAIRS.csv
-‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/ID_PAIRS.csv’ -> ‘/home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/ID_PAIRS.csv’
+copying *.csv*
+cp: cannot stat ‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/*.csv*’: No such file or directory
 
-1 of 782 files copied
+1 of 176 files copied
 
-spinning down at: Fri Jul 29 01:51:20 EDT 2022
+spinning down at: Wed Aug  3 17:26:51 EDT 2022
