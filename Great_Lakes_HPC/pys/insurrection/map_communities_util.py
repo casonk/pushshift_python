@@ -42,12 +42,12 @@ for date in _center_dates:
         pickle.dump(level_map, lmh)
         print(r, date, 'LEVEL_MAPPED')
 
-    level_df = pd.read_pickle((id_l + date + ('TRIMMED_DF_{}_{}.pkl').format(j, k)))
+    level_df = pd.read_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
     level_df['Source'] = level_df['Source'].apply(lambda auth: level_map[auth])
     level_df['Target'] = level_df['Target'].apply(lambda auth: level_map[auth])
     level_df.to_pickle(id_l + date + ('/LEVEL_DF_{}_{}_{}.pkl').format(j, k, r))
 
-    maximalist_df = pd.read_pickle((id_l + date + ('TRIMMED_DF_{}_{}.pkl').format(j, k)))
+    maximalist_df = pd.read_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
     maximalist_df['Source_Level'] = level_df['Source']
     maximalist_df['Target_Level'] = level_df['Target']
     maximalist_df.to_pickle((id_l + date + ('/MAXIMALIST_DF_{}_{}_{}.pkl').format(j, k, r)))
