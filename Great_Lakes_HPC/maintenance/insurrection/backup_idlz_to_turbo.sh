@@ -35,3 +35,17 @@ do
 	echo "$i of $num_files files copied"
 	echo
 done
+
+pklz=($source*.pkl*)
+for file in "${pklz[@]}"
+
+do 
+	f="$(basename -- $file)"
+	echo "copying $f"
+	cp $file -frv -t $target
+	echo
+
+	let "i+=1" 
+	echo "$i of $num_files files copied"
+	echo
+done
