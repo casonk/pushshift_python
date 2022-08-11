@@ -721,17 +721,5 @@ pass lc: 2021-02-21 1
 2021-03-25 14900 2
 2021-03-26 14935 2
 2021-03-27 15004 2
-backing up data to turbo buffer
-source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
-target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
-
-176 files to copy
-
-target directory purged
-
-copying *.csv*
-cp: cannot stat ‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/*.csv*’: No such file or directory
-
-1 of 176 files copied
 
 spinning down at: Fri Aug  5 20:30:10 EDT 2022

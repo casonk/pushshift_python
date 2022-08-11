@@ -1418,17 +1418,5 @@ Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Grea
 2021-03-26 2 21
 2021-03-27 1 21
 2021-03-27 2 21
-backing up data to turbo buffer
-source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
-target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
-
-177 files to copy
-
-target directory purged
-
-copying ID_PAIRS.csv
-‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/ID_PAIRS.csv’ -> ‘/home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/ID_PAIRS.csv’
-
-1 of 177 files copied
 
 spinning down at: Wed Jul 20 12:09:48 EDT 2022

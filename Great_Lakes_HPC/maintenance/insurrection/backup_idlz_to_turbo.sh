@@ -12,7 +12,7 @@ echo "target := "$target
 echo
 
 num_files=$(ls $source | wc -l)
-echo "$num_files files to copy"
+echo "$num_files files/directories to copy"
 echo
 
 rm -frd $target
@@ -21,23 +21,7 @@ echo "target directory purged"
 echo
 
 i=0
-
-csvz=($source*.csv*)
-for file in "${csvz[@]}"
-
-do 
-	f="$(basename -- $file)"
-	echo "copying $f"
-	cp $file -frv -t $target
-	echo
-
-	let "i+=1" 
-	echo "$i of $num_files files copied"
-	echo
-done
-
-pklz=($source*.pkl*)
-for file in "${pklz[@]}"
+for file in $source
 
 do 
 	f="$(basename -- $file)"

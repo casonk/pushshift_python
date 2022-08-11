@@ -894,25 +894,5 @@ Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Grea
 0.5 2021-03-27 SUBSETT
 0.5 2021-03-27 AUTHSETT
 1 2020-10-04 LEVEL_MAPPED
-Traceback (most recent call last):
-  File "/gpfs/accounts/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection/map_communities_util.py", line 138, in <module>
-    level_df = pd.read_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
-  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/pickle.py", line 187, in read_pickle
-    with get_handle(
-  File "/home/casonk/.local/lib/python3.9/site-packages/pandas/io/common.py", line 798, in get_handle
-    handle = open(handle, ioargs.mode)
-FileNotFoundError: [Errno 2] No such file or directory: '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/2020-10-04TRIMMED_DF_1_21.pkl'
-backing up data to turbo buffer
-source := /home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/
-target := /home/casonk/path/flnt-mmani/Reddit_Communities/push_file/IDL/
-
-176 files to copy
-
-target directory purged
-
-copying *.csv*
-cp: cannot stat ‘/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/*.csv*’: No such file or directory
-
-1 of 176 files copied
 
 spinning down at: Fri Aug  5 12:44:41 EDT 2022
