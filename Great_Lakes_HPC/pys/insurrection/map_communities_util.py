@@ -190,6 +190,11 @@ for date in _center_dates:
 
 
     top_c_dict = ei_df.sort_values(by=['Total_Links'], ascending=False).head(75)
+    top_c_dict.to_csv((id_l + date + ('/TCD{}_{}_{}.csv').format(j, k, r)))
+
+    with open((id_l + date + ('/TCD{}_{}_{}.pkl').format(j, k, r)), 'wb') as tcdh:
+        pickle.dump(top_c_dict, tcdh)
+        print(r, date, 'TOP_C_DICT')
 
     sub_sets = {}
     csp = comm_sub_pairs.loc[top_c_dict.index].groupby(level=0, axis=0).apply(lambda x : x.head(70)).droplevel(0)
@@ -206,7 +211,7 @@ for date in _center_dates:
         auth_sets[community] = set(cap.loc[community].index)
 
     with open((id_l + date + ('/AUTH_SETS_{}_{}_{}.pkl').format(j, k, r)), 'wb') as ash:
-        pickle.dump(sub_sets, ash)
+        pickle.dump(auth_sets, ash)
         print(r, date, 'AUTHSETT')
 
 r=2
