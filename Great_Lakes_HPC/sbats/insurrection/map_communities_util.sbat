@@ -12,7 +12,7 @@
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --account=mmani0
 
-echo "root_script: extract_edges.sbat"
+echo "root_script: map_communities_util.sbat"
 
 ## Load  software modules ##
 #||||||||||||||||||||||||||#

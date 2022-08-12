@@ -1,7 +1,7 @@
 #!/bin/sh 
 
 #||||||||||||||||||||||||||#
-#SBATCH --job-name=map_com_util
+#SBATCH --job-name=map_comm
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=5
@@ -12,7 +12,7 @@
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --account=mmani0
 
-echo "root_script: extract_edges.sbat"
+echo "root_script: map_communities.sbat"
 
 ## Load  software modules ##
 #||||||||||||||||||||||||||#
