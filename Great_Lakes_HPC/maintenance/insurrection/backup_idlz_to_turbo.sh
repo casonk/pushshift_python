@@ -20,7 +20,6 @@ mkdir $target
 echo "target directory purged"
 echo
 
-i=0
 for file in $source
 
 do 
@@ -29,7 +28,4 @@ do
 	cp $file -frv -t $target
 	echo
 
-	let "i+=1" 
-	echo "$i of $num_files files copied"
-	echo
 done
