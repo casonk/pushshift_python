@@ -1,5 +1,6 @@
 import pandas as pd
 import pickle
+import os 
 
 pd.set_option('display.max_rows',10000)
 pd.set_option('display.min_rows',2000)
@@ -28,6 +29,9 @@ aw = 7/9
 r=0.5
 
 for date in _center_dates:
+    if os.path.isfile((id_l + date + ('/OLAP_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass:', date, j, k, r)
+        continue
 
     sub_sets = {}
     for date in _center_dates:
@@ -80,6 +84,9 @@ for date in _center_dates:
 r=1
 
 for date in _center_dates:
+    if os.path.isfile((id_l + date + ('/OLAP_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass:', date, j, k, r)
+        continue
 
     sub_sets = {}
     for date in _center_dates:
@@ -132,7 +139,10 @@ for date in _center_dates:
 r=2
 
 for date in _center_dates:
-
+    if os.path.isfile((id_l + date + ('/OLAP_{}_{}_{}.pkl').format(j, k, r))):
+        print('pass:', date, j, k, r)
+        continue
+        
     sub_sets = {}
     for date in _center_dates:
         sub_sets[date] = {}
