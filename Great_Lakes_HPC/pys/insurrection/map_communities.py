@@ -78,7 +78,9 @@ def olapper(r):
 
 # olapper(0.5)
 # olapper(1)
-olapper(2)
+# olapper(2)
+olapper(5)
+olapper(10)
 
 print()
 exit()

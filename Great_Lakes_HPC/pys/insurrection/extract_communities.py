@@ -115,3 +115,6 @@ def ecu(r):
 # ecu(2)
 ecu(5)
 ecu(10)
+
+print()
+exit()

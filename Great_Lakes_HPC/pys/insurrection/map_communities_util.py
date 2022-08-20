@@ -120,3 +120,6 @@ def mcu(r):
 # mcu(2)
 mcu(5)
 mcu(10)
+
+print()
+exit()
