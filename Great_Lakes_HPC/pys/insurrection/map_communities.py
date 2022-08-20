@@ -31,14 +31,14 @@ def olapper(r):
         sub_sets[date] = {}
         with open((id_l + date + ('/SUB_SETS_{}_{}_{}.pkl').format(j, k, r)), 'rb') as ssh:
             sub_sets[date] = pickle.load(ssh)
-    print(date, 'SUB_SET')
+        print(date, 'SUB_SET')
 
     auth_sets = {}
     for date in _center_dates:
         auth_sets[date] = {}
         with open((id_l + date + ('/AUTH_SETS_{}_{}_{}.pkl').format(j, k, r)), 'rb') as ash:
             auth_sets[date] = pickle.load(ash)
-    print(date, 'AUTH_SET')
+        print(date, 'AUTH_SET')
 
     olap = {}
     for date1 in _center_dates:
@@ -49,14 +49,14 @@ def olapper(r):
                 olap[date1][date2][set1] = {}
                 for set2 in sub_sets[date2]:
                     olap[date1][date2][set1][set2] = (len(sub_sets[date1][set1] & sub_sets[date2][set2]) / len(sub_sets[date1][set1]) * sw)
-    print(date, 'SLAPPED')
+            print(date1, date2, 'SLAPPED')
 
     for date1 in _center_dates:
         for date2 in _center_dates:
             for set1 in auth_sets[date1]:
                 for set2 in auth_sets[date2]:
                     olap[date1][date2][set1][set2] += (len(auth_sets[date1][set1] & auth_sets[date2][set2]) / len(auth_sets[date1][set1]) * aw)
-    print(date, 'ALAPPED')
+            print(date1, date2, 'ALAPPED')
 
     for date1 in _center_dates:
         for date2 in _center_dates:
@@ -68,11 +68,17 @@ def olapper(r):
                         max_olap = olap[date1][date2][set1][set2]
                         best_set = set2
                 olap[date1][date2][set1] = best_set
+            print(date1, date2, 'OLAPPED')
 
-    with open((id_l + ('/OLAP_{}_{}_{}.pkl').format(j, k, r)), 'wb') as olh:
+    with open((id_l + ('/UTIL/OLAP_{}_{}_{}.pkl').format(j, k, r)), 'wb') as olh:
         pickle.dump(olap, olh)
-        print(date, 'OLAPPED')
+
+    print(r, 'OLAP PICKLED')
+    
 
 # olapper(0.5)
 # olapper(1)
 olapper(2)
+
+print()
+exit()
