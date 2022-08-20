@@ -18,3 +18,4 @@ Job ID 40942503
 Running on gl[3169-3170]
 Running in /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection 
 
+slurmstepd: error: *** JOB 40942503 ON gl3169 CANCELLED AT 2022-08-19T15:13:55 ***
