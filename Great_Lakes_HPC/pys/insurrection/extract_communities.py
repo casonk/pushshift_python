@@ -96,44 +96,22 @@ for i in range(len(start_dates)):
     with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'wb') as Gh:
         pickle.dump(G, Gh)
 
-r=0.5
-for date in _center_dates:
-    if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
-        print('pass lc:', date, r)
-        continue
-    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
-        G = pickle.load(Gh)
+def ecu(r):
+    for date in _center_dates:
+        if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
+            print('pass lc:', date, r)
+            continue
+        with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
+            G = pickle.load(Gh)
 
-    lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
-    print(date, len(lc), r)
+        lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
+        print(date, len(lc), r)
 
-    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
-        pickle.dump(lc, lch)
+        with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
+            pickle.dump(lc, lch)
 
-r=1
-for date in _center_dates:
-    if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
-        print('pass lc:', date, r)
-        continue
-    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
-        G = pickle.load(Gh)
-
-    lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
-    print(date, len(lc), r)
-
-    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
-        pickle.dump(lc, lch)
-
-r=2
-for date in _center_dates:
-    if os.path.isfile((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r))):
-        print('pass lc:', date, r)
-        continue
-    with open((id_l + date + ('/G_{}_{}.pkl').format(j, k)), 'rb') as Gh:
-        G = pickle.load(Gh)
-
-    lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
-    print(date, len(lc), r)
-
-    with open((id_l + date + ('/LC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
-        pickle.dump(lc, lch)
+# ecu(0.5)
+# ecu(1)
+# ecu(2)
+ecu(5)
+ecu(10)
