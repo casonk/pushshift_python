@@ -119,7 +119,7 @@ def mcu(r):
 # mcu(1)
 # mcu(2)
 mcu(5)
-mcu(10)
+# mcu(10)
 
 print()
 exit()
