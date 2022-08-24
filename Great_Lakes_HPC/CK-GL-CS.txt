@@ -1,0 +1,9 @@
+Python Interpreter
+/sw/pkgs/arc/python3.9-anaconda/2021.11/bin/python
+
+
+__ARCH 
+
+Runnable Jupyter 
+/sw/pkgs/arc/python3.9-anaconda/2021.11/bin/jupyter-notebook
+
