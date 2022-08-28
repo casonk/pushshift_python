@@ -46,7 +46,7 @@ python map_communities_util.py
 
 echo -e "backing up data to turbo buffer"
 
-cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance/insurrection
-./backup_idlz_to_turbo.sh
+# cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance/insurrection
+# ./backup_idlz_to_turbo.sh
 
 echo -e "spinning down at: $(date)" 
