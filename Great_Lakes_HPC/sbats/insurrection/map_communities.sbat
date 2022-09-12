@@ -42,7 +42,7 @@ echo -e "Running on $SLURM_JOB_NODELIST"
 #cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
 cd /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection
 echo -e "Running in $(pwd) \n"
-python reciprocity.py
+python map_communities.py
 
 
 echo -e "spinning down at: $(date)" 
