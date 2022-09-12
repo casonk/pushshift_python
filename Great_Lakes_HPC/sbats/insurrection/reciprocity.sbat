@@ -12,7 +12,7 @@
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --account=mmani0
 
-echo "root_script: map_communities.sbat"
+echo "root_script: reciprocity.sbat"
 
 ## Load  software modules ##
 #||||||||||||||||||||||||||#
@@ -42,7 +42,7 @@ echo -e "Running on $SLURM_JOB_NODELIST"
 #cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys
 cd /home/casonk/path/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/pys/insurrection
 echo -e "Running in $(pwd) \n"
-python map_communities.py
+python reciprocity.py
 
 echo -e "backing up data to turbo buffer"
 
