@@ -88,7 +88,6 @@ for i in range(len(start_dates)):
     trimmed_df = df[(~source_mask) & (~target_mask)]
     trimmed_df.to_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
 
-    # G = nx.Graph()  MAJOR bugger -> All communities found unsing undirected algo ://////
     G = nx.DiGraph()
     for info in trimmed_df.values:
         G.add_edge(info[0], info[1], subreddit=info[2], weight=int(info[3]))
