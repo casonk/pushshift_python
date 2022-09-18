@@ -34,22 +34,22 @@ for i in range(len(start_dates)):
         dG.add_edge(info[0], info[1], subreddit=info[2], weight=int(info[3]))
     print(date, j, k)
     
-    with open((id_l + date + ('/dG_{}_{}.pkl').format(j, k)), 'wb') as Gh:
-        pickle.dump(dG, Gh)
+    with open((id_l + date + ('/dG_{}_{}.pkl').format(j, k)), 'wb') as dGh:
+        pickle.dump(dG, dGh)
 
 def ecu(r):
     for date in _center_dates:
         if os.path.isfile((id_l + date + ('/dLC_{}_{}_{}.pkl').format(j, k, r))):
-            print('pass lc:', date, r)
+            print('pass dlc:', date, r)
             continue
-        with open((id_l + date + ('/dG_{}_{}.pkl').format(j, k)), 'rb') as Gh:
-            dG = pickle.load(Gh)
+        with open((id_l + date + ('/dG_{}_{}.pkl').format(j, k)), 'rb') as dGh:
+            dG = pickle.load(dGh)
 
-        lc = community.louvain_communities(G, weight='weight', resolution=r, threshold=1e-07, seed=123)
-        print(date, len(lc), r)
+        dlc = community.louvain_communities(dG, weight='weight', resolution=r, threshold=1e-07, seed=123)
+        print(date, len(dlc), r)
 
-        with open((id_l + date + ('/dLC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as lch:
-            pickle.dump(lc, lch)
+        with open((id_l + date + ('/dLC_{}_{}_{}.pkl').format(j, k, r)), 'wb') as dlch:
+            pickle.dump(dlc, dlch)
 
 # ecu(0.5)
 # ecu(1)
