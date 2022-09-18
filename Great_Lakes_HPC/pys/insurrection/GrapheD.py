@@ -26,6 +26,7 @@ keys = []
 id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 
 for i in range(len(start_dates)):
+    date = _center_dates[i] 
     trimmed_df = pd.read_pickle((id_l + date + ('/TRIMMED_DF_{}_{}.pkl').format(j, k)))
 
     dG = nx.DiGraph()
