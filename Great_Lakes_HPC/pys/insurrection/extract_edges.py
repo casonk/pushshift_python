@@ -55,7 +55,7 @@ id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 #     selfless_edge_list.to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
 #     print(_center_dates[i], 'repickled\n')
 
-def raw_thresher(net, min_user_posts, min_sub_posts)
+def raw_thresher(net, min_user_posts, min_sub_posts):
     an = net[net >= min_user_posts].reset_index().rename(columns={0:'Count'})
     print(_center_dates[i], min_user_posts, min_sub_posts)
     
