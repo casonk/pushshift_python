@@ -70,7 +70,7 @@ for i in range(len(start_dates)):
     # auth_net = selfless_edge_list.value_counts()
     auth_net = edge_list.value_counts()
     auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
-    # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
+    # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     
     raw_thresher(auth_net, 5, 25)
 
