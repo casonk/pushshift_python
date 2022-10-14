@@ -66,13 +66,15 @@ def raw_thresher(net, min_user_posts, min_sub_posts):
 
 for i in range(len(start_dates)):
     # selfless_edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
-    edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl'))
+    # edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl'))
     # auth_net = selfless_edge_list.value_counts()
-    auth_net = edge_list.value_counts()
-    auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
+    # auth_net = edge_list.value_counts()
+    # auth_net.to_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
+    # auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
+    auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     
-    raw_thresher(auth_net, 5, 25)
+    raw_thresher(auth_net, 2, 20)
 
     # j=1 
     # k=21
