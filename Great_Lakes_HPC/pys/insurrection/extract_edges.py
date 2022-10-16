@@ -74,8 +74,8 @@ for i in range(len(start_dates)):
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     
-    # raw_thresher(auth_net, 10, 50)
-    raw_thresher(auth_net, 9, 45)
+    raw_thresher(auth_net, 10, 50)
+    # raw_thresher(auth_net, 9, 45)
     # raw_thresher(auth_net, 8, 40)
     # raw_thresher(auth_net, 7, 32)
     # raw_thresher(auth_net, 6, 27)
