@@ -64,14 +64,23 @@ def raw_thresher(net, min_user_posts, min_sub_posts):
     smask = an['Subreddit'].isin(asubs)
     an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}.pkl'.format(min_user_posts,min_sub_posts))))
 
-def unraw_thresher(net, min_user_posts, min_sub_posts):
-    an = net[net >= min_user_posts].reset_index().rename(columns={0:'Count'})
-    print(_center_dates[i], min_user_posts, min_sub_posts)
+def unraw_thresher(net, max_user_posts, min_sub_posts):
+    an = net[net < max_user_posts].reset_index().rename(columns={0:'Count'})
+    print(_center_dates[i], max_user_posts, min_sub_posts)
+    
+    asubs_mask = an['Subreddit'].value_counts() >= min_sub_posts
+    asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
+    smask = an['Subreddit'].isin(asubs)
+    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}.pkl'.format(max_user_posts,min_sub_posts))))
+
+def inraw_thresher(net, min_user_posts, max_user_posts, min_sub_posts):
+    an = net[(net >= min_user_posts) & (net < max_user_posts)].reset_index().rename(columns={0:'Count'})
+    print(_center_dates[i], min_user_posts, max_user_posts, min_sub_posts)
     
     asubs_mask = an['Subreddit'].value_counts() < min_sub_posts
     asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
     smask = an['Subreddit'].isin(asubs)
-    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}.pkl'.format(min_user_posts,min_sub_posts))))
+    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}_{}.pkl'.format(min_user_posts,max_user_posts,min_sub_posts))))
 
 for i in range(len(start_dates)):
     # selfless_edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
@@ -83,8 +92,26 @@ for i in range(len(start_dates)):
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     
-    unraw_thresher(auth_net, 5, 0)
+    # inraw_thresher(auth_net, 1, 6, 0)
+    # inraw_thresher(auth_net, 2, 7, 0)
+    # inraw_thresher(auth_net, 3, 8, 0)
+    # inraw_thresher(auth_net, 4, 9, 0)
+    inraw_thresher(auth_net, 5, 10, 0)
+    # inraw_thresher(auth_net, 6, 11, 0)
+    # inraw_thresher(auth_net, 7, 12, 0)
+    # inraw_thresher(auth_net, 8, 13, 0)
+    # inraw_thresher(auth_net, 9, 14, 0)
+    # inraw_thresher(auth_net, 10, 15, 0)
+    # unraw_thresher(auth_net, 2, 0)
+    # unraw_thresher(auth_net, 3, 0)
+    # unraw_thresher(auth_net, 4, 0)
+    # unraw_thresher(auth_net, 5, 0)
+    # unraw_thresher(auth_net, 6, 0)
+    # unraw_thresher(auth_net, 7, 0)
+    # unraw_thresher(auth_net, 8, 0)
+    # unraw_thresher(auth_net, 9, 0)
     # unraw_thresher(auth_net, 10, 0)
+    # unraw_thresher(auth_net, 15, 0)
     # raw_thresher(auth_net, 20, 200)
     # raw_thresher(auth_net, 15, 100)
     # raw_thresher(auth_net, 10, 50)
