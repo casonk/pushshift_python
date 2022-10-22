@@ -97,7 +97,7 @@ for i in range(len(start_dates)):
     # inraw_thresher(auth_net, 3, 8, 0)
     # inraw_thresher(auth_net, 4, 9, 0)
     # inraw_thresher(auth_net, 5, 10, 0)
-    inraw_thresher(auth_net, 6, 11, 0)
+    # inraw_thresher(auth_net, 6, 11, 0)
     # inraw_thresher(auth_net, 7, 12, 0)
     # inraw_thresher(auth_net, 8, 13, 0)
     # inraw_thresher(auth_net, 9, 14, 0)
