@@ -82,6 +82,45 @@ def inraw_thresher(net, min_user_posts, max_user_posts, min_sub_posts):
     smask = an['Subreddit'].isin(asubs)
     an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}_{}.pkl'.format(min_user_posts,max_user_posts,min_sub_posts))))
 
+def raw_counter(net, min_user_posts):
+    src_counts = net.groupby('Source').sum()
+    src_users = src_counts[(src_counts >= min_user_posts)].index.to_series()
+    tgt_counts = net.groupby('Target').sum()
+    tgt_users = src_counts[(src_counts >= min_user_posts)].index.to_series()
+    users = pd.concat([src_users, tgt_users]).unique()
+    
+    an = net.reset_index().rename(columns={0:'Count'})
+    src_mask = an['Source'].isin(users)
+    tgr_mask = an['Target'].isin(users)
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}.pkl'.format(min_user_posts))))
+    print(_center_dates[i], min_user_posts)
+    
+def unraw_counter(net, max_user_posts):
+    src_counts = net.groupby('Source').sum()
+    src_users = src_counts[(src_counts <= max_user_posts)].index.to_series()
+    tgt_counts = net.groupby('Target').sum()
+    tgt_users = src_counts[(src_counts <= max_user_posts)].index.to_series()
+    users = pd.concat([src_users, tgt_users]).unique()
+    
+    an = net.reset_index().rename(columns={0:'Count'})
+    src_mask = an['Source'].isin(users)
+    tgr_mask = an['Target'].isin(users)
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}.pkl'.format(max_user_posts))))
+    print(_center_dates[i], max_user_posts)
+    
+def inraw_counter(net, min_user_posts, max_user_posts):
+    src_counts = net.groupby('Source').sum()
+    src_users = src_counts[(src_counts >= min_user_posts) & (src_counts <= max_user_posts)].index.to_series()
+    tgt_counts = net.groupby('Target').sum()
+    tgt_users = src_counts[(src_counts >= min_user_posts) & (src_counts <= max_user_posts)].index.to_series()
+    users = pd.concat([src_users, tgt_users]).unique()
+
+    an = net.reset_index().rename(columns={0:'Count'})
+    src_mask = an['Source'].isin(users)
+    tgr_mask = an['Target'].isin(users)
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}_{}.pkl'.format(min_user_posts,max_user_posts))))
+    print(_center_dates[i], min_user_posts, max_user_posts)
+    
 for i in range(len(start_dates)):
     # selfless_edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
     # edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl'))
@@ -92,6 +131,44 @@ for i in range(len(start_dates)):
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     
+
+    # inraw_counter(auth_net, 1, 6)
+    # inraw_counter(auth_net, 2, 7)
+    # inraw_counter(auth_net, 3, 8)
+    # inraw_counter(auth_net, 4, 9)
+    # inraw_counter(auth_net, 5, 10)
+    # inraw_counter(auth_net, 6, 11)
+    # inraw_counter(auth_net, 7, 12)
+    # inraw_counter(auth_net, 8, 13)
+    # inraw_counter(auth_net, 9, 14)
+    # inraw_counter(auth_net, 10, 15)
+
+    unraw_counter(auth_net, 1)
+    unraw_counter(auth_net, 2)
+    unraw_counter(auth_net, 3)
+    unraw_counter(auth_net, 4)
+    unraw_counter(auth_net, 5)
+    unraw_counter(auth_net, 6)
+    unraw_counter(auth_net, 7)
+    unraw_counter(auth_net, 8)
+    unraw_counter(auth_net, 9)
+    unraw_counter(auth_net, 10)
+    unraw_counter(auth_net, 15)
+
+    raw_counter(auth_net, 20)
+    raw_counter(auth_net, 15)
+    raw_counter(auth_net, 10)
+    raw_counter(auth_net, 9)
+    raw_counter(auth_net, 8)
+    raw_counter(auth_net, 7)
+    raw_counter(auth_net, 6)
+    raw_counter(auth_net, 5)
+    raw_counter(auth_net, 3)
+    raw_counter(auth_net, 4)
+    raw_counter(auth_net, 2)
+    raw_counter(auth_net, 1)
+
+
     # inraw_thresher(auth_net, 1, 6, 0)
     # inraw_thresher(auth_net, 2, 7, 0)
     # inraw_thresher(auth_net, 3, 8, 0)
@@ -102,6 +179,7 @@ for i in range(len(start_dates)):
     # inraw_thresher(auth_net, 8, 13, 0)
     # inraw_thresher(auth_net, 9, 14, 0)
     # inraw_thresher(auth_net, 10, 15, 0)
+
     # unraw_thresher(auth_net, 2, 0)
     # unraw_thresher(auth_net, 3, 0)
     # unraw_thresher(auth_net, 4, 0)
@@ -112,6 +190,7 @@ for i in range(len(start_dates)):
     # unraw_thresher(auth_net, 9, 0)
     # unraw_thresher(auth_net, 10, 0)
     # unraw_thresher(auth_net, 15, 0)
+
     # raw_thresher(auth_net, 20, 200)
     # raw_thresher(auth_net, 15, 100)
     # raw_thresher(auth_net, 10, 50)
