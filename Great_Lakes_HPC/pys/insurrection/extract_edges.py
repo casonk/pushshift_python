@@ -105,7 +105,7 @@ def unraw_counter(net, max_user_posts):
     an = net.reset_index().rename(columns={0:'Count'})
     src_mask = an['Source'].isin(users)
     tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}.pkl'.format(max_user_posts))))
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}__.pkl'.format(max_user_posts))))
     print(_center_dates[i], max_user_posts)
     
 def inraw_counter(net, min_user_posts, max_user_posts):
