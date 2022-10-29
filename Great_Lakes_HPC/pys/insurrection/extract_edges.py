@@ -86,7 +86,7 @@ def raw_counter(net, min_user_posts):
     src_counts = net.groupby('Source').sum()
     src_users = src_counts[(src_counts >= min_user_posts)].index.to_series()
     tgt_counts = net.groupby('Target').sum()
-    tgt_users = src_counts[(src_counts >= min_user_posts)].index.to_series()
+    tgt_users = src_counts[(tgt_counts >= min_user_posts)].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
     
     an = net.reset_index().rename(columns={0:'Count'})
@@ -99,7 +99,7 @@ def unraw_counter(net, max_user_posts):
     src_counts = net.groupby('Source').sum()
     src_users = src_counts[(src_counts <= max_user_posts)].index.to_series()
     tgt_counts = net.groupby('Target').sum()
-    tgt_users = src_counts[(src_counts <= max_user_posts)].index.to_series()
+    tgt_users = src_counts[(tgt_counts <= max_user_posts)].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
     
     an = net.reset_index().rename(columns={0:'Count'})
@@ -112,7 +112,7 @@ def inraw_counter(net, min_user_posts, max_user_posts):
     src_counts = net.groupby('Source').sum()
     src_users = src_counts[(src_counts >= min_user_posts) & (src_counts <= max_user_posts)].index.to_series()
     tgt_counts = net.groupby('Target').sum()
-    tgt_users = src_counts[(src_counts >= min_user_posts) & (src_counts <= max_user_posts)].index.to_series()
+    tgt_users = src_counts[(tgt_counts >= min_user_posts) & (tgt_counts <= max_user_posts)].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
 
     an = net.reset_index().rename(columns={0:'Count'})
@@ -142,7 +142,7 @@ for i in range(len(start_dates)):
     # inraw_counter(auth_net, 8, 13)
     # inraw_counter(auth_net, 9, 14)
     # inraw_counter(auth_net, 10, 15)
-    inraw_counter(auth_net, 15, 20)
+    # inraw_counter(auth_net, 15, 20)
 
     # unraw_counter(auth_net, 1)
     # unraw_counter(auth_net, 2)
@@ -155,6 +155,7 @@ for i in range(len(start_dates)):
     # unraw_counter(auth_net, 9)
     # unraw_counter(auth_net, 10)
     # unraw_counter(auth_net, 15)
+    unraw_counter(auth_net, 20)
 
     # raw_counter(auth_net, 20)
     # raw_counter(auth_net, 15)
@@ -191,6 +192,7 @@ for i in range(len(start_dates)):
     # unraw_thresher(auth_net, 9, 0)
     # unraw_thresher(auth_net, 10, 0)
     # unraw_thresher(auth_net, 15, 0)
+    # unraw_thresher(auth_net, 20, 0)
 
     # raw_thresher(auth_net, 20, 200)
     # raw_thresher(auth_net, 15, 100)
