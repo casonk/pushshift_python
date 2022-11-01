@@ -157,6 +157,12 @@ for i in range(len(start_dates)):
     # unraw_counter(auth_net, 15)
     # unraw_counter(auth_net, 20)
 
+    # raw_counter(auth_net, 100)
+    # raw_counter(auth_net, 75)
+    # raw_counter(auth_net, 60)
+    # raw_counter(auth_net, 50)
+    # raw_counter(auth_net, 40)
+    # raw_counter(auth_net, 30)
     # raw_counter(auth_net, 20)
     # raw_counter(auth_net, 15)
     # raw_counter(auth_net, 10)
