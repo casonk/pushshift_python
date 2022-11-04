@@ -171,7 +171,7 @@ def mid90s(net):
     users = pd.concat([src_users, tgt_users]).unique()
     src_mask = an['Source'].isin(users)
     tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__best_fit.pkl')))
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_fit.pkl'))
     print(_center_dates[i], bsk, bsj, btk, btj)
 
 for i in range(len(start_dates)):
