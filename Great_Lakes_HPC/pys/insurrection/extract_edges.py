@@ -1,5 +1,5 @@
 import pandas as pd 
-
+import numpy as np
 
 _end_dates    = pd.Series(pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz='America/New_York'))
 _start_dates  = _end_dates - pd.Timedelta(days=7)
@@ -121,6 +121,60 @@ def inraw_counter(net, min_user_posts, max_user_posts):
     an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}_{}.pkl'.format(min_user_posts,max_user_posts))))
     print(_center_dates[i], min_user_posts, max_user_posts)
     
+def mid90s(net):
+    an = net.reset_index().rename(columns={0:'Count'})
+
+    src_counts = net.groupby('Source').sum()
+
+    bdiff = 1
+    bsk = 0
+    for k in range(1,10):
+        perc = src_counts[src_counts <= k].sum() / src_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            bsk = k
+
+    bdiff = 1
+    bsj = 0
+    for j in range(10,2500):
+        perc = src_counts[src_counts >= j].sum() / src_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            bsj = j
+
+    src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
+    
+    tgt_counts = net.groupby('Target').sum()
+
+    bdiff = 1
+    btk = 0
+    for k in range(1,10):
+        perc = tgt_counts[tgt_counts <= k].sum() / tgt_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            btk = k
+
+    bdiff = 1
+    btj = 0
+    for j in range(10,2500):
+        perc = tgt_counts[tgt_counts >= j].sum() / tgt_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            btj = j
+
+    tgt_users = tgt_counts[(tgt_counts >= btk) & (tgt_counts <= btj)].index.to_series()
+
+    users = pd.concat([src_users, tgt_users]).unique()
+    src_mask = an['Source'].isin(users)
+    tgr_mask = an['Target'].isin(users)
+
+    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__best_fit.pkl')))
+    print(_center_dates[i], bsk, bsj, btk, btj)
+
 for i in range(len(start_dates)):
     # selfless_edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
     # edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl'))
@@ -130,6 +184,8 @@ for i in range(len(start_dates)):
     # auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
+
+    mid90s(auth_net)
     
 
     # inraw_counter(auth_net, 1, 6)
