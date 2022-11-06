@@ -100,33 +100,53 @@ for date in _center_dates:
     trimmed_df = df[(~source_mask) & (~target_mask)]
     print(date)
 
-    subtlie('conspiracy')
-    subtlie('politics')
-    subtlie('ukpolitics')
-    subtlie('socialism')
-    subtlie('conservative')
-    subtlie('progressive')
-    subtlie('liberal')
-    subtlie('conservatives')
-    subtlie('libertarian')
-    subtlie('egalitarianism')
-    subtlie('freethought')
-    subtlie('moderatepolitics')
-    subtlie('democrats')
-    subtlie('republican')
+    subtlie('worldnews')
+    subtlie('news')
+    subtlie('worldpolitics')
+    subtlie('worldevents')
+    subtlie('business')
+    subtlie('economics')
+    subtlie('law')
+    subtlie('government')
+    subtlie('history')
+    subtlie('politics2')
+    subtlie('americanpolitics')
+    subtlie('anarchism')
+    subtlie('republicanism')
+    subtlie('anarchist')
+    subtlie('marxism')
+    subtlie('objectivism')
+    subtlie('communist')
+    subtlie('stateoftheunion')
+    subtlie('politicaldiscussion')
+    subtlie('politicalhumor')
+    subtlie('culture')
+    subtlie('corruption')
+    subtlie('propaganda')
+    subtlie('debate')
+    subtlie('votingtheory')
+    subtlie('racism')
+    subtlie('foodforthought')
+    subtlie('intelligence')
+    subtlie('campaigns')
+    subtlie('privacy')
+    subtlie('collapse')
+    subtlie('activism')
+    subtlie('electionreform')
+
     print(sub_ei)
 
-with open((id_l + '/SUBALITK/SUBALITK_A_DATA__best_fit_core_auths.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_A_DATA__best_fit_control_auths.pkl'), 'wb') as f:
     pickle.dump(sub_auths, f)
-with open((id_l + '/SUBALITK/SUBALITK_S_DATA__best_fit_core_size.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_S_DATA__best_fit_control_size.pkl'), 'wb') as f:
     pickle.dump(sub_size, f)
-with open((id_l + '/SUBALITK/SUBALITK_P_DATA__best_fit_core_posts.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_P_DATA__best_fit_control_posts.pkl'), 'wb') as f:
     pickle.dump(sub_posts, f)
-with open((id_l + '/SUBALITK/SUBALITK_I_DATA__best_fit_core_i.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_I_DATA__best_fit_control_i.pkl'), 'wb') as f:
     pickle.dump(sub_i, f)
-with open((id_l + '/SUBALITK/SUBALITK_E_DATA__best_fit_core_e.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_E_DATA__best_fit_control_e.pkl'), 'wb') as f:
     pickle.dump(sub_e, f)
-with open((id_l + '/SUBALITK/SUBALITK_EI_DATA__best_fit_core_ei.pkl'), 'wb') as f:
+with open((id_l + '/SUBALITK/SUBALITK_EI_DATA__best_fit_control_ei.pkl'), 'wb') as f:
     pickle.dump(sub_ei, f)
 
 ei_data = pd.DataFrame(sub_ei, index=_center_dates)
@@ -135,8 +155,8 @@ i_data = pd.DataFrame(sub_i, index=_center_dates)
 size_data = pd.DataFrame(sub_size, index=_center_dates) 
 post_data = pd.DataFrame(sub_posts, index=_center_dates)
 
-ei_data.to_pickle((id_l + '/SUBALITK/SUBALITK_EI_DATA__best_fit_core.pkl'))
-e_data.to_pickle((id_l + '/SUBALITK/SUBALITK_E_DATA__best_fit_core.pkl'))
-i_data.to_pickle((id_l + '/SUBALITK/SUBALITK_I_DATA__best_fit_core.pkl'))
-size_data.to_pickle((id_l + '/SUBALITK/SUBALITK_S_DATA__best_fit_core.pkl'))
-post_data.to_pickle((id_l + '/SUBALITK/SUBALITK_P_DATA__best_fit_core.pkl'))
+ei_data.to_pickle((id_l + '/SUBALITK/SUBALITK_EI_DATA__best_fit_control.pkl'))
+e_data.to_pickle((id_l + '/SUBALITK/SUBALITK_E_DATA__best_fit_control.pkl'))
+i_data.to_pickle((id_l + '/SUBALITK/SUBALITK_I_DATA__best_fit_control.pkl'))
+size_data.to_pickle((id_l + '/SUBALITK/SUBALITK_S_DATA__best_fit_control.pkl'))
+post_data.to_pickle((id_l + '/SUBALITK/SUBALITK_P_DATA__best_fit_control.pkl'))
