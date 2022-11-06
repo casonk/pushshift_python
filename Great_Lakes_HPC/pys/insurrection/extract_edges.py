@@ -174,6 +174,59 @@ def mid90s(net):
     an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_fit.pkl'))
     print(_center_dates[i], bsk, bsj, btk, btj)
 
+def mad90s(net):
+    an = net.reset_index().rename(columns={0:'Count'})
+
+    src_counts = net.groupby('Source').sum()
+
+    bdiff = 1
+    bsk = 0
+    for k in range(1,10):
+        perc = src_counts[src_counts <= k].sum() / src_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            bsk = k
+
+    bdiff = 1
+    bsj = 0
+    for j in range(10,2500):
+        perc = src_counts[src_counts >= j].sum() / src_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            bsj = j
+
+    src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
+    
+    tgt_counts = net.groupby('Target').sum()
+
+    bdiff = 1
+    btk = 0
+    for k in range(1,10):
+        perc = tgt_counts[tgt_counts <= k].sum() / tgt_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            btk = k
+
+    bdiff = 1
+    btj = 0
+    for j in range(10,2500):
+        perc = tgt_counts[tgt_counts >= j].sum() / tgt_counts.sum()
+        diff = np.abs(0.05 - perc)
+        if diff < bdiff:
+            bdiff = diff
+            btj = j
+
+    tgt_users = tgt_counts[(tgt_counts >= btk) & (tgt_counts <= btj)].index.to_series()
+
+    users = pd.concat([src_users, tgt_users]).unique()
+    src_mask = an['Source'].isin(users)
+    tgr_mask = an['Target'].isin(users)
+    an[src_mask & tgr_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_fit.pkl'))
+    print(_center_dates[i], bsk, bsj, btk, btj)
+
 def mid90source(net):
     an = net.reset_index().rename(columns={0:'Count'})
 
@@ -213,7 +266,9 @@ for i in range(len(start_dates)):
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
 
-    mid90s(auth_net)
+    # mid90s(auth_net)
+    mad90s(auth_net)
+    # mid90source(auth_net)
     
 
     # inraw_counter(auth_net, 1, 6)
