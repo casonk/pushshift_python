@@ -1,5 +1,5 @@
 #!/bin/bash
-# Purpose: Copy csv_labelz from Turbo to Scrath storage for faster I/O on cluster nodez.
+# Purpose: Copy from Scrath to Turbo storage for archive.
 # Author: Cason Konzer
 # Last Modified: 3/20/2022
 # ----------------------------------------
