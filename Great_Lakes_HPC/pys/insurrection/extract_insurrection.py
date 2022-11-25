@@ -8,7 +8,7 @@ import os
 comm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RC/"
 subm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RS/"
 
-_end_dates    = pd.Series(pd.date_range(start="2020-12-12", end="2021-01-31", freq="D", tz='America/New_York'))
+_end_dates    = pd.Series(pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz='America/New_York'))
 _start_dates  = _end_dates - pd.Timedelta(days=7)
 _center_dates = _end_dates - pd.Timedelta(days=3.5)
 end_dates     = _end_dates.apply(lambda x: x.timestamp())
