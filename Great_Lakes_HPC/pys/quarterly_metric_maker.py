@@ -3,91 +3,100 @@ import numpy as np
 import os
 
 conspiracy_topic = [
-    '911truth', 
-    'birdsarentreal', 
-    'actualconspiracies',
-    'conspiracy_commons',
-    'c_s_t',
-    'conspiracy',
-    'conspiracytheories',
-    'conspiracyultra',
-    'conspiracyundone',
-    'culturallayer',
-    'epstein',
-    'flatearth',
-    'flatearther',
-    'globeskeptic',
-    'mandelaeffect',
-    'occult',
-    'pedogate',
-    'qult_headquarters',
-    'ufos',
-    'unresolvedmysteries',
-    ]
+    "911truth",
+    "birdsarentreal",
+    "actualconspiracies",
+    "conspiracy_commons",
+    "c_s_t",
+    "conspiracy",
+    "conspiracytheories",
+    "conspiracyultra",
+    "conspiracyundone",
+    "culturallayer",
+    "epstein",
+    "flatearth",
+    "flatearther",
+    "globeskeptic",
+    "mandelaeffect",
+    "occult",
+    "pedogate",
+    "qult_headquarters",
+    "ufos",
+    "unresolvedmysteries",
+]
 political_topic = [
-    'anarcho_capitalism', 
-    'antivax', 
-    'antiwork',
-    'aoc',
-    'bidenbro',
-    'firearms',
-    'fullcommunism',
-    'hankaaronaward',
-    'joerogan',
-    'justiceserved',
-    'minimalism',
-    'neutralpolitics',
-    'nonewnormal',
-    'political_revolution',
-    'racism',
-    'socialism',
-    'the_donald',
-    'trumpvirus',
-    'watchredditdie',
-    'wayofthebern',
-    ]
+    "anarcho_capitalism",
+    "antivax",
+    "antiwork",
+    "aoc",
+    "bidenbro",
+    "firearms",
+    "fullcommunism",
+    "hankaaronaward",
+    "joerogan",
+    "justiceserved",
+    "minimalism",
+    "neutralpolitics",
+    "nonewnormal",
+    "political_revolution",
+    "racism",
+    "socialism",
+    "the_donald",
+    "trumpvirus",
+    "watchredditdie",
+    "wayofthebern",
+]
 neutral_topic = [
-    'business', 
-    'datasets', 
-    'ford',
-    'highstrangness',
-    'honda',
-    'linux',
-    'math',
-    'michigan',
-    'narcos',
-    'outoftheloop',
-    'paris',
-    'pushshift',
-    'python',
-    'ruby',
-    'rutgers',
-    'subredditdrama',
-    'undelete',
-    'webhosting',
-    'yankees',
-    'volvo',
-    ]
+    "business",
+    "datasets",
+    "ford",
+    "highstrangness",
+    "honda",
+    "linux",
+    "math",
+    "michigan",
+    "narcos",
+    "outoftheloop",
+    "paris",
+    "pushshift",
+    "python",
+    "ruby",
+    "rutgers",
+    "subredditdrama",
+    "undelete",
+    "webhosting",
+    "yankees",
+    "volvo",
+]
 
-print('Topics Defined \n')
+print("Topics Defined \n")
 
-quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
+quarters = pd.read_csv(
+    "/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv"
+)
 
-source_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/'
+source_dir = "/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/"
 os.chdir(source_dir)
 
-conspiracy_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/'
-political_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/'
-neutral_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/'
+conspiracy_out_dir = (
+    "/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/"
+)
+political_out_dir = (
+    "/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/"
+)
+neutral_out_dir = (
+    "/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/"
+)
 
-if not os.path.isdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/'):
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/')
+if not os.path.isdir("/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/"):
+    os.mkdir("/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/")
+    os.mkdir("/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/")
+    os.mkdir("/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/")
+    os.mkdir("/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/")
 
 
-print('Globals Defined \n')
+print("Globals Defined \n")
+
 
 def conspiracy_labler(ref):
     ref = eval(ref)
@@ -106,6 +115,7 @@ def conspiracy_labler(ref):
     else:
         return 0
 
+
 def political_labler(ref):
     ref = eval(ref)
     if len(ref) > 0:
@@ -122,7 +132,8 @@ def political_labler(ref):
             return -1
     else:
         return 0
-    
+
+
 def neutral_labler(ref):
     ref = eval(ref)
     if len(ref) > 0:
@@ -140,57 +151,83 @@ def neutral_labler(ref):
     else:
         return 0
 
+
 def meta_tricks(data, fname, topic_matter):
     label_data = data.copy(deep=True)
-    label_data.set_index('id', inplace=True)
-    label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
+    label_data.set_index("id", inplace=True)
+    label_data.drop(
+        [
+            "subreddit",
+            "url_direct_ref",
+            "body_direct_ref",
+            "body_indirect_ref",
+            "title_indirect_ref",
+        ],
+        axis=1,
+        inplace=True,
+    )
 
     for j in range(len(quarters)):
         label_data_tmp = label_data.copy(deep=True)
-        lower_utc = label_data_tmp['utc'].astype('int64') >= quarters.iloc[j,3].astype('int64')
-        upper_utc = label_data_tmp['utc'].astype('int64') <= quarters.iloc[j,5].astype('int64')
+        lower_utc = label_data_tmp["utc"].astype("int64") >= quarters.iloc[j, 3].astype(
+            "int64"
+        )
+        upper_utc = label_data_tmp["utc"].astype("int64") <= quarters.iloc[j, 5].astype(
+            "int64"
+        )
         label_data_tmp = label_data_tmp[lower_utc & upper_utc]
 
         if len(label_data_tmp) <= 5:
-            print('loop skipped, file too small')
-            continue 
+            print("loop skipped, file too small")
+            continue
 
-        if topic_matter == 'conspiracy':
-            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: conspiracy_labler(x))
+        if topic_matter == "conspiracy":
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(
+                lambda x: conspiracy_labler(x)
+            )
             out_dir = conspiracy_out_dir
-        elif topic_matter == 'political':
-            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: political_labler(x))
+        elif topic_matter == "political":
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(
+                lambda x: political_labler(x)
+            )
             out_dir = political_out_dir
-        elif topic_matter == 'neutral':
-            label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: neutral_labler(x))
+        elif topic_matter == "neutral":
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(
+                lambda x: neutral_labler(x)
+            )
             out_dir = neutral_out_dir
 
-        if os.path.isfile((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname)):
-            print('\n already parsed', fname, 'at loop:', j, '\n')
+        if os.path.isfile((out_dir + "eko_" + quarters.iloc[j, 6] + "/" + fname)):
+            print("\n already parsed", fname, "at loop:", j, "\n")
             continue
-        
-        dm = label_data_tmp['author'] == '[deleted]'
+
+        dm = label_data_tmp["author"] == "[deleted]"
         label_data_tmp = label_data_tmp[~dm]
-        zm = label_data_tmp['label'] == 0
+        zm = label_data_tmp["label"] == 0
         label_data_tmp = label_data_tmp[~zm]
 
-        auths = label_data_tmp.groupby('author')
-        summary = pd.DataFrame(auths['label'].value_counts()).unstack().fillna(0).droplevel(level=0, axis=1)
+        auths = label_data_tmp.groupby("author")
+        summary = (
+            pd.DataFrame(auths["label"].value_counts())
+            .unstack()
+            .fillna(0)
+            .droplevel(level=0, axis=1)
+        )
         try:
-            summary.columns = ['off_topic', 'on_topic']
+            summary.columns = ["off_topic", "on_topic"]
         except:
             if 1 in summary.columns:
-                summary.columns = ['on_topic']
-                summary['off_topic'] = 0
+                summary.columns = ["on_topic"]
+                summary["off_topic"] = 0
             elif -1 in summary.columns:
-                summary.columns = ['off_topic']
-                summary['on_topic'] = 0
+                summary.columns = ["off_topic"]
+                summary["on_topic"] = 0
 
         if len(summary) <= 5:
-            print('loop skipped, summary too small')
-            continue 
+            print("loop skipped, summary too small")
+            continue
 
-        idxs = [i/5 for i in range(6,5001)]
+        idxs = [i / 5 for i in range(6, 5001)]
 
         Is = []
 
@@ -226,22 +263,28 @@ def meta_tricks(data, fname, topic_matter):
         for _lambda in idxs:
             summary_tmp = summary_copy.copy(deep=True)
 
-            off_mask = summary_tmp['off_topic'] >= _lambda * summary_tmp['on_topic']
-            on_mask = summary_tmp['on_topic'] >= _lambda * summary_tmp['off_topic']
-            olappers = ~(off_mask|on_mask)
+            off_mask = summary_tmp["off_topic"] >= _lambda * summary_tmp["on_topic"]
+            on_mask = summary_tmp["on_topic"] >= _lambda * summary_tmp["off_topic"]
+            olappers = ~(off_mask | on_mask)
 
-            summary_tmp.loc[off_mask,'off_topic'] = (summary_tmp.loc[off_mask,'off_topic'] - summary_tmp.loc[off_mask,'on_topic'])
-            summary_tmp.loc[off_mask,'on_topic'] = 0
-            summary_tmp.loc[on_mask,'on_topic'] = (summary_tmp.loc[on_mask,'on_topic'] - summary_tmp.loc[on_mask,'off_topic'])
-            summary_tmp.loc[on_mask,'off_topic'] = 0
+            summary_tmp.loc[off_mask, "off_topic"] = (
+                summary_tmp.loc[off_mask, "off_topic"]
+                - summary_tmp.loc[off_mask, "on_topic"]
+            )
+            summary_tmp.loc[off_mask, "on_topic"] = 0
+            summary_tmp.loc[on_mask, "on_topic"] = (
+                summary_tmp.loc[on_mask, "on_topic"]
+                - summary_tmp.loc[on_mask, "off_topic"]
+            )
+            summary_tmp.loc[on_mask, "off_topic"] = 0
 
             alpha_frame = summary_tmp[on_mask]
-            alpha_frame.drop('off_topic', axis=1, inplace=True)
+            alpha_frame.drop("off_topic", axis=1, inplace=True)
             beta_frame = summary_tmp[off_mask]
-            beta_frame.drop('on_topic', axis=1, inplace=True)
+            beta_frame.drop("on_topic", axis=1, inplace=True)
             gamma_frame = summary_tmp[olappers]
-            gamma_frame['total'] = gamma_frame['off_topic'] + gamma_frame['on_topic']
-            gamma_frame.drop(['off_topic','on_topic'], axis=1, inplace=True)
+            gamma_frame["total"] = gamma_frame["off_topic"] + gamma_frame["on_topic"]
+            gamma_frame.drop(["off_topic", "on_topic"], axis=1, inplace=True)
 
             I = int(alpha_frame.sum()) + int(beta_frame.sum()) + int(gamma_frame.sum())
             Is.append(I)
@@ -252,88 +295,129 @@ def meta_tricks(data, fname, topic_matter):
             alpha_naives += [alpha_naive]
             beta_naives += [beta_naive]
             gamma_naives += [gamma_naive]
-            seperation_naives += [(4 * alpha_naive * beta_naive)]
-            isolation_naives += [(alpha_naive / (alpha_naive + beta_naive))]
-            echochamberness_naives += [(alpha_naive / (alpha_naive + beta_naive + gamma_naive))]
+            seperation_naives += [4 * alpha_naive * beta_naive]
+            isolation_naives += [alpha_naive / (alpha_naive + beta_naive)]
+            echochamberness_naives += [
+                alpha_naive / (alpha_naive + beta_naive + gamma_naive)
+            ]
 
-            alpha_totality = alpha_frame['on_topic'].sum() / I
-            beta_totality = beta_frame['off_topic'].sum() / I
-            gamma_totality = gamma_frame['total'].sum() / I
+            alpha_totality = alpha_frame["on_topic"].sum() / I
+            beta_totality = beta_frame["off_topic"].sum() / I
+            gamma_totality = gamma_frame["total"].sum() / I
             alpha_totalities += [alpha_totality]
             beta_totalities += [beta_totality]
             gamma_totalities += [gamma_totality]
-            seperation_totalities += [(4 * alpha_totality * beta_totality)]
-            isolation_totalities += [(alpha_totality / (alpha_totality + beta_totality))]
-            echochamberness_totalities += [(alpha_totality / (alpha_totality + beta_totality + gamma_totality))]
+            seperation_totalities += [4 * alpha_totality * beta_totality]
+            isolation_totalities += [alpha_totality / (alpha_totality + beta_totality)]
+            echochamberness_totalities += [
+                alpha_totality / (alpha_totality + beta_totality + gamma_totality)
+            ]
 
-            alpha_variance = np.ceil(alpha_frame['on_topic'] / (1 + alpha_frame['on_topic'].var())).sum() / I
-            beta_variance = np.ceil(beta_frame['off_topic'] / (1 + beta_frame['off_topic'].var())).sum() / I
-            gamma_variance = np.ceil(gamma_frame['total'] / (1 + gamma_frame['total'].var())).sum() / I
+            alpha_variance = (
+                np.ceil(
+                    alpha_frame["on_topic"] / (1 + alpha_frame["on_topic"].var())
+                ).sum()
+                / I
+            )
+            beta_variance = (
+                np.ceil(
+                    beta_frame["off_topic"] / (1 + beta_frame["off_topic"].var())
+                ).sum()
+                / I
+            )
+            gamma_variance = (
+                np.ceil(gamma_frame["total"] / (1 + gamma_frame["total"].var())).sum()
+                / I
+            )
             alpha_variances += [alpha_variance]
             beta_variances += [beta_variance]
             gamma_variances += [gamma_variance]
-            seperation_variances += [(4 * alpha_variance * beta_variance)]
-            isolation_variances += [(alpha_variance / (alpha_variance + beta_variance))]
-            echochamberness_variances += [(alpha_variance / (alpha_variance + beta_variance + gamma_variance))]
+            seperation_variances += [4 * alpha_variance * beta_variance]
+            isolation_variances += [alpha_variance / (alpha_variance + beta_variance)]
+            echochamberness_variances += [
+                alpha_variance / (alpha_variance + beta_variance + gamma_variance)
+            ]
 
-            alpha_logvariance = np.ceil(alpha_frame['on_topic'] / (1 + np.log(1 + alpha_frame['on_topic'].var()))).sum() / I
-            beta_logvariance = np.ceil(beta_frame['off_topic'] / (1 + np.log(1 + beta_frame['off_topic'].var()))).sum() / I
-            gamma_logvariance = np.ceil(gamma_frame['total'] / (1 + np.log(1 + gamma_frame['total'].var()))).sum() / I
+            alpha_logvariance = (
+                np.ceil(
+                    alpha_frame["on_topic"]
+                    / (1 + np.log(1 + alpha_frame["on_topic"].var()))
+                ).sum()
+                / I
+            )
+            beta_logvariance = (
+                np.ceil(
+                    beta_frame["off_topic"]
+                    / (1 + np.log(1 + beta_frame["off_topic"].var()))
+                ).sum()
+                / I
+            )
+            gamma_logvariance = (
+                np.ceil(
+                    gamma_frame["total"] / (1 + np.log(1 + gamma_frame["total"].var()))
+                ).sum()
+                / I
+            )
             alpha_logvariances += [alpha_logvariance]
             beta_logvariances += [beta_logvariance]
             gamma_logvariances += [gamma_logvariance]
-            seperation_logvariances += [(4 * alpha_logvariance * beta_logvariance)]
-            isolation_logvariances += [(alpha_logvariance / (alpha_logvariance + beta_logvariance))]
-            echochamberness_logvariances += [(alpha_logvariance / (alpha_logvariance + beta_logvariance + gamma_logvariance))]
+            seperation_logvariances += [4 * alpha_logvariance * beta_logvariance]
+            isolation_logvariances += [
+                alpha_logvariance / (alpha_logvariance + beta_logvariance)
+            ]
+            echochamberness_logvariances += [
+                alpha_logvariance
+                / (alpha_logvariance + beta_logvariance + gamma_logvariance)
+            ]
 
-        df = pd.DataFrame({
-                'idx':idxs, 
-                'I':Is,
-                'alpha_naive':alpha_naives,
-                'beta_naive':beta_naives,
-                'gamma_naive':gamma_naives,
-                'seperation_naive':seperation_naives,
-                'isolation_naive':isolation_naives,
-                'echochamberness_naive':echochamberness_naives,
-                'alpha_totality':alpha_totalities,
-                'beta_totality':beta_totalities,
-                'gamma_totality':gamma_totalities,
-                'seperation_totality':seperation_totalities,
-                'isolation_totality':isolation_totalities,
-                'echochamberness_totality':echochamberness_totalities,
-                'alpha_variance':alpha_variances,
-                'beta_variance':beta_variances,
-                'gamma_variance':gamma_variances,
-                'seperation_variance':seperation_variances,
-                'isolation_variance':isolation_variances,
-                'echochamberness_variance':echochamberness_variances,
-                'alpha_logvariance':alpha_logvariances,
-                'beta_logvariance':beta_logvariances,
-                'gamma_logvariance':gamma_logvariances,
-                'seperation_logvariance':seperation_logvariances,
-                'isolation_logvariance':isolation_logvariances,
-                'echochamberness_logvariance':echochamberness_logvariances
-                })
+        df = pd.DataFrame(
+            {
+                "idx": idxs,
+                "I": Is,
+                "alpha_naive": alpha_naives,
+                "beta_naive": beta_naives,
+                "gamma_naive": gamma_naives,
+                "seperation_naive": seperation_naives,
+                "isolation_naive": isolation_naives,
+                "echochamberness_naive": echochamberness_naives,
+                "alpha_totality": alpha_totalities,
+                "beta_totality": beta_totalities,
+                "gamma_totality": gamma_totalities,
+                "seperation_totality": seperation_totalities,
+                "isolation_totality": isolation_totalities,
+                "echochamberness_totality": echochamberness_totalities,
+                "alpha_variance": alpha_variances,
+                "beta_variance": beta_variances,
+                "gamma_variance": gamma_variances,
+                "seperation_variance": seperation_variances,
+                "isolation_variance": isolation_variances,
+                "echochamberness_variance": echochamberness_variances,
+                "alpha_logvariance": alpha_logvariances,
+                "beta_logvariance": beta_logvariances,
+                "gamma_logvariance": gamma_logvariances,
+                "seperation_logvariance": seperation_logvariances,
+                "isolation_logvariance": isolation_logvariances,
+                "echochamberness_logvariance": echochamberness_logvariances,
+            }
+        )
 
-        df.set_index('idx', inplace=True)
+        df.set_index("idx", inplace=True)
         try:
-            df.to_csv((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname))
+            df.to_csv((out_dir + "eko_" + quarters.iloc[j, 6] + "/" + fname))
         except:
-            os.mkdir((out_dir + 'eko_' + quarters.iloc[j,6] + '/'))
-            df.to_csv((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname))
+            os.mkdir((out_dir + "eko_" + quarters.iloc[j, 6] + "/"))
+            df.to_csv((out_dir + "eko_" + quarters.iloc[j, 6] + "/" + fname))
+
+        print(fname, "completed for", topic_matter, "at quarter", j, "\n")
 
 
-        print(fname, 'completed for', topic_matter, 'at quarter', j, '\n')
-    
-
-print('Functions Defined \n')
+print("Functions Defined \n")
 
 for file in os.listdir():
     fname = file[6:]
-    print('\n' + fname + '\n')
+    print("\n" + fname + "\n")
 
     data = pd.read_csv(file, low_memory=False)
-    meta_tricks(data, fname, 'conspiracy')
-    meta_tricks(data, fname, 'political')
-    meta_tricks(data, fname, 'neutral')
-    
+    meta_tricks(data, fname, "conspiracy")
+    meta_tricks(data, fname, "political")
+    meta_tricks(data, fname, "neutral")

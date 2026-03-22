@@ -1,7 +1,7 @@
 """
 Witten by: Cason Konzer
 
-pushshift_python is a wrapper for reddit community analytics. 
+pushshift_python is a wrapper for reddit community analytics.
 
 read the docs at: https://github.com/casonk/pushshift_python/blob/master/documentation.ipynb
 """
@@ -49,6 +49,7 @@ plt.rcParams["figure.figsize"] = [16, 9]
 plt.rcParams.update({"font.size": 18})
 plt.rcParams.update({"text.usetex": True})
 
+
 # Create global column numeric scaling function.
 def numeric_scaler(col, df):
     col_max = df[col].max()
@@ -74,7 +75,7 @@ def string_scaler(col, df):
             unscaled_hash = float(crc32(s) & 0xFFFFFFFF)
         except:
             unscaled_hash = np.nan()
-        string_hash = unscaled_hash / 2 ** 32
+        string_hash = unscaled_hash / 2**32
         return string_hash
 
     scaled = df[col].apply(lambda x: string_hasher(x))
@@ -423,11 +424,11 @@ class pushshift_file_query(query):
 
         with open(self.working_file, "rb") as file_handle:
             buffer = ""
-            reader = zstandard.ZstdDecompressor(max_window_size=2 ** 31).stream_reader(
+            reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(
                 file_handle
             )
             while True:
-                chunk = reader.read(2 ** 27).decode()
+                chunk = reader.read(2**27).decode()
                 if not chunk:
                     break
                 lines = (buffer + chunk).split("\n")
@@ -784,7 +785,7 @@ class pushshift_web_query(query):
             else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
-            self.csv_writer = csv.writer(self.csv, delimiter=",", escapechar='\\')
+            self.csv_writer = csv.writer(self.csv, delimiter=",", escapechar="\\")
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
         self.submissions = self.df.copy()
@@ -835,7 +836,7 @@ class pushshift_web_query(query):
                 self.web_data = json.loads(r.text, strict=False)
                 time.sleep(0.25)
                 if (status % 2) == 0:
-                    self.current_time = self.current_time + (60*60*2)
+                    self.current_time = self.current_time + (60 * 60 * 2)
                     self.update_url()
             except KeyboardInterrupt:
                 pass
@@ -986,7 +987,7 @@ class community:
         dataframe=None,
         columns=None,
         file_format=None,
-        set_id=True
+        set_id=True,
     ):
         """
         Initilization of object, created DataFrame for provided community.
@@ -1202,14 +1203,12 @@ class community:
         ]
         try:
             gini_dict = {
-                col + "_gini": make_gini(self.authors, col)
-                for col in gini_cols
+                col + "_gini": make_gini(self.authors, col) for col in gini_cols
             }
         except:
             self.authors()
             gini_dict = {
-                col + "_gini": make_gini(self.authors, col)
-                for col in gini_cols
+                col + "_gini": make_gini(self.authors, col) for col in gini_cols
             }
         self.gini = pd.DataFrame(data=gini_dict, index=[self.name])
 
@@ -1330,8 +1329,8 @@ class community:
         self.features["post_type"].replace("submission", 1, inplace=True)
         self.features["post_type"].replace("comment", 0, inplace=True)
         self.features["year"] = (
-            (pd.to_datetime(self.df["datetime"]).dt.year - 2005) / 17
-        )
+            pd.to_datetime(self.df["datetime"]).dt.year - 2005
+        ) / 17
         self.features["day_of_year"] = (
             pd.to_datetime(self.df["datetime"]).dt.dayofyear / 365
         )
@@ -1487,7 +1486,7 @@ class modeling:
         self.X = self.df.drop("label", axis=1)
         if timeseries:
             l = len(self.y)
-            cut = int(np.ceil(3*l/4))
+            cut = int(np.ceil(3 * l / 4))
             self.y_train = self.y.iloc[:cut]
             self.y_test = self.y.iloc[cut:]
             self.X_train = self.X.iloc[:cut]
