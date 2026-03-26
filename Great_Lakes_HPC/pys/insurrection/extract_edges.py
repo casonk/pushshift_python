@@ -1,18 +1,20 @@
-import pandas as pd 
+import pandas as pd
 import numpy as np
 
-_end_dates    = pd.Series(pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz='America/New_York'))
-_start_dates  = _end_dates - pd.Timedelta(days=7)
+_end_dates = pd.Series(
+    pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz="America/New_York")
+)
+_start_dates = _end_dates - pd.Timedelta(days=7)
 _center_dates = _end_dates - pd.Timedelta(days=3.5)
-end_dates     = _end_dates.apply(lambda x: x.timestamp())
-center_dates  = _center_dates.apply(lambda x: x.timestamp())
-start_dates   = _start_dates.apply(lambda x: x.timestamp())
-_end_dates    = _end_dates.apply(lambda x:str(x).split(' ')[0])
-_center_dates = _center_dates.apply(lambda x:str(x).split(' ')[0])
-_start_dates  = _start_dates.apply(lambda x:str(x).split(' ')[0])
+end_dates = _end_dates.apply(lambda x: x.timestamp())
+center_dates = _center_dates.apply(lambda x: x.timestamp())
+start_dates = _start_dates.apply(lambda x: x.timestamp())
+_end_dates = _end_dates.apply(lambda x: str(x).split(" ")[0])
+_center_dates = _center_dates.apply(lambda x: str(x).split(" ")[0])
+_start_dates = _start_dates.apply(lambda x: str(x).split(" ")[0])
 
 
-id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
+id_l = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/"
 
 # for i in range(len(start_dates)):
 #     out_name = (id_l + _center_dates[i] + '/EDGE_LIST_RAW.pkl')
@@ -55,80 +57,127 @@ id_l = '/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/'
 #     selfless_edge_list.to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
 #     print(_center_dates[i], 'repickled\n')
 
+
 def raw_thresher(net, min_user_posts, min_sub_posts):
-    an = net[net >= min_user_posts].reset_index().rename(columns={0:'Count'})
+    an = net[net >= min_user_posts].reset_index().rename(columns={0: "Count"})
     print(_center_dates[i], min_user_posts, min_sub_posts)
-    
-    asubs_mask = an['Subreddit'].value_counts() >= min_sub_posts
-    asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
-    smask = an['Subreddit'].isin(asubs)
-    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}.pkl'.format(min_user_posts,min_sub_posts))))
+
+    asubs_mask = an["Subreddit"].value_counts() >= min_sub_posts
+    asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
+    smask = an["Subreddit"].isin(asubs)
+    an[smask].to_pickle(
+        (
+            id_l
+            + _center_dates[i]
+            + ("/EDGE_LIST_RAW_{}_{}.pkl".format(min_user_posts, min_sub_posts))
+        )
+    )
+
 
 def unraw_thresher(net, max_user_posts, min_sub_posts):
-    an = net[net < max_user_posts].reset_index().rename(columns={0:'Count'})
+    an = net[net < max_user_posts].reset_index().rename(columns={0: "Count"})
     print(_center_dates[i], max_user_posts, min_sub_posts)
-    
-    asubs_mask = an['Subreddit'].value_counts() >= min_sub_posts
-    asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
-    smask = an['Subreddit'].isin(asubs)
-    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}.pkl'.format(max_user_posts,min_sub_posts))))
+
+    asubs_mask = an["Subreddit"].value_counts() >= min_sub_posts
+    asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
+    smask = an["Subreddit"].isin(asubs)
+    an[smask].to_pickle(
+        (
+            id_l
+            + _center_dates[i]
+            + ("/EDGE_LIST_RAW_{}_{}.pkl".format(max_user_posts, min_sub_posts))
+        )
+    )
+
 
 def inraw_thresher(net, min_user_posts, max_user_posts, min_sub_posts):
-    an = net[(net >= min_user_posts) & (net < max_user_posts)].reset_index().rename(columns={0:'Count'})
+    an = (
+        net[(net >= min_user_posts) & (net < max_user_posts)]
+        .reset_index()
+        .rename(columns={0: "Count"})
+    )
     print(_center_dates[i], min_user_posts, max_user_posts, min_sub_posts)
-    
-    asubs_mask = an['Subreddit'].value_counts() < min_sub_posts
-    asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
-    smask = an['Subreddit'].isin(asubs)
-    an[smask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}_{}_{}.pkl'.format(min_user_posts,max_user_posts,min_sub_posts))))
+
+    asubs_mask = an["Subreddit"].value_counts() < min_sub_posts
+    asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
+    smask = an["Subreddit"].isin(asubs)
+    an[smask].to_pickle(
+        (
+            id_l
+            + _center_dates[i]
+            + (
+                "/EDGE_LIST_RAW_{}_{}_{}.pkl".format(
+                    min_user_posts, max_user_posts, min_sub_posts
+                )
+            )
+        )
+    )
+
 
 def raw_counter(net, min_user_posts):
-    src_counts = net.groupby('Source').sum()
+    src_counts = net.groupby("Source").sum()
     src_users = src_counts[(src_counts >= min_user_posts)].index.to_series()
-    tgt_counts = net.groupby('Target').sum()
+    tgt_counts = net.groupby("Target").sum()
     tgt_users = tgt_counts[(tgt_counts >= min_user_posts)].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
-    
-    an = net.reset_index().rename(columns={0:'Count'})
-    src_mask = an['Source'].isin(users)
-    tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}.pkl'.format(min_user_posts))))
+
+    an = net.reset_index().rename(columns={0: "Count"})
+    src_mask = an["Source"].isin(users)
+    tgr_mask = an["Target"].isin(users)
+    an[src_mask | tgr_mask].to_pickle(
+        (id_l + _center_dates[i] + ("/EDGE_LIST_RAW__{}.pkl".format(min_user_posts)))
+    )
     print(_center_dates[i], min_user_posts)
-    
+
+
 def unraw_counter(net, max_user_posts):
-    src_counts = net.groupby('Source').sum()
+    src_counts = net.groupby("Source").sum()
     src_users = src_counts[(src_counts <= max_user_posts)].index.to_series()
-    tgt_counts = net.groupby('Target').sum()
+    tgt_counts = net.groupby("Target").sum()
     tgt_users = tgt_counts[(tgt_counts <= max_user_posts)].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
-    
-    an = net.reset_index().rename(columns={0:'Count'})
-    src_mask = an['Source'].isin(users)
-    tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW_{}__.pkl'.format(max_user_posts))))
+
+    an = net.reset_index().rename(columns={0: "Count"})
+    src_mask = an["Source"].isin(users)
+    tgr_mask = an["Target"].isin(users)
+    an[src_mask | tgr_mask].to_pickle(
+        (id_l + _center_dates[i] + ("/EDGE_LIST_RAW_{}__.pkl".format(max_user_posts)))
+    )
     print(_center_dates[i], max_user_posts)
-    
+
+
 def inraw_counter(net, min_user_posts, max_user_posts):
-    src_counts = net.groupby('Source').sum()
-    src_users = src_counts[(src_counts >= min_user_posts) & (src_counts <= max_user_posts)].index.to_series()
-    tgt_counts = net.groupby('Target').sum()
-    tgt_users = tgt_counts[(tgt_counts >= min_user_posts) & (tgt_counts <= max_user_posts)].index.to_series()
+    src_counts = net.groupby("Source").sum()
+    src_users = src_counts[
+        (src_counts >= min_user_posts) & (src_counts <= max_user_posts)
+    ].index.to_series()
+    tgt_counts = net.groupby("Target").sum()
+    tgt_users = tgt_counts[
+        (tgt_counts >= min_user_posts) & (tgt_counts <= max_user_posts)
+    ].index.to_series()
     users = pd.concat([src_users, tgt_users]).unique()
 
-    an = net.reset_index().rename(columns={0:'Count'})
-    src_mask = an['Source'].isin(users)
-    tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + ('/EDGE_LIST_RAW__{}_{}.pkl'.format(min_user_posts,max_user_posts))))
+    an = net.reset_index().rename(columns={0: "Count"})
+    src_mask = an["Source"].isin(users)
+    tgr_mask = an["Target"].isin(users)
+    an[src_mask | tgr_mask].to_pickle(
+        (
+            id_l
+            + _center_dates[i]
+            + ("/EDGE_LIST_RAW__{}_{}.pkl".format(min_user_posts, max_user_posts))
+        )
+    )
     print(_center_dates[i], min_user_posts, max_user_posts)
-    
-def mid90s(net):
-    an = net.reset_index().rename(columns={0:'Count'})
 
-    src_counts = net.groupby('Source').sum()
+
+def mid90s(net):
+    an = net.reset_index().rename(columns={0: "Count"})
+
+    src_counts = net.groupby("Source").sum()
 
     bdiff = 1
     bsk = 0
-    for k in range(1,10):
+    for k in range(1, 10):
         perc = src_counts[src_counts <= k].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -137,7 +186,7 @@ def mid90s(net):
 
     bdiff = 1
     bsj = 0
-    for j in range(10,2500):
+    for j in range(10, 2500):
         perc = src_counts[src_counts >= j].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -145,12 +194,12 @@ def mid90s(net):
             bsj = j
 
     src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
-    
-    tgt_counts = net.groupby('Target').sum()
+
+    tgt_counts = net.groupby("Target").sum()
 
     bdiff = 1
     btk = 0
-    for k in range(1,10):
+    for k in range(1, 10):
         perc = tgt_counts[tgt_counts <= k].sum() / tgt_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -159,7 +208,7 @@ def mid90s(net):
 
     bdiff = 1
     btj = 0
-    for j in range(10,2500):
+    for j in range(10, 2500):
         perc = tgt_counts[tgt_counts >= j].sum() / tgt_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -169,19 +218,22 @@ def mid90s(net):
     tgt_users = tgt_counts[(tgt_counts >= btk) & (tgt_counts <= btj)].index.to_series()
 
     users = pd.concat([src_users, tgt_users]).unique()
-    src_mask = an['Source'].isin(users)
-    tgr_mask = an['Target'].isin(users)
-    an[src_mask | tgr_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_fit.pkl'))
+    src_mask = an["Source"].isin(users)
+    tgr_mask = an["Target"].isin(users)
+    an[src_mask | tgr_mask].to_pickle(
+        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
+    )
     print(_center_dates[i], bsk, bsj, btk, btj)
+
 
 def mad90s(net):
-    an = net.reset_index().rename(columns={0:'Count'})
+    an = net.reset_index().rename(columns={0: "Count"})
 
-    src_counts = net.groupby('Source').sum()
+    src_counts = net.groupby("Source").sum()
 
     bdiff = 1
     bsk = 0
-    for k in range(1,10):
+    for k in range(1, 10):
         perc = src_counts[src_counts <= k].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -190,7 +242,7 @@ def mad90s(net):
 
     bdiff = 1
     bsj = 0
-    for j in range(10,2500):
+    for j in range(10, 2500):
         perc = src_counts[src_counts >= j].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -198,12 +250,12 @@ def mad90s(net):
             bsj = j
 
     src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
-    
-    tgt_counts = net.groupby('Target').sum()
+
+    tgt_counts = net.groupby("Target").sum()
 
     bdiff = 1
     btk = 0
-    for k in range(1,10):
+    for k in range(1, 10):
         perc = tgt_counts[tgt_counts <= k].sum() / tgt_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -212,7 +264,7 @@ def mad90s(net):
 
     bdiff = 1
     btj = 0
-    for j in range(10,2500):
+    for j in range(10, 2500):
         perc = tgt_counts[tgt_counts >= j].sum() / tgt_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -222,19 +274,22 @@ def mad90s(net):
     tgt_users = tgt_counts[(tgt_counts >= btk) & (tgt_counts <= btj)].index.to_series()
 
     users = pd.concat([src_users, tgt_users]).unique()
-    src_mask = an['Source'].isin(users)
-    tgr_mask = an['Target'].isin(users)
-    an[src_mask & tgr_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_fit.pkl'))
+    src_mask = an["Source"].isin(users)
+    tgr_mask = an["Target"].isin(users)
+    an[src_mask & tgr_mask].to_pickle(
+        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
+    )
     print(_center_dates[i], bsk, bsj, btk, btj)
 
-def mid90source(net):
-    an = net.reset_index().rename(columns={0:'Count'})
 
-    src_counts = net.groupby('Source').sum()
+def mid90source(net):
+    an = net.reset_index().rename(columns={0: "Count"})
+
+    src_counts = net.groupby("Source").sum()
 
     bdiff = 1
     bsk = 0
-    for k in range(1,10):
+    for k in range(1, 10):
         perc = src_counts[src_counts <= k].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -243,7 +298,7 @@ def mid90source(net):
 
     bdiff = 1
     bsj = 0
-    for j in range(10,2500):
+    for j in range(10, 2500):
         perc = src_counts[src_counts >= j].sum() / src_counts.sum()
         diff = np.abs(0.05 - perc)
         if diff < bdiff:
@@ -252,9 +307,12 @@ def mid90source(net):
 
     src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
     users = src_users.unique()
-    src_mask = an['Source'].isin(users)
-    an[src_mask].to_pickle((id_l + _center_dates[i] + '/EDGE_LIST_RAW__best_source_fit.pkl'))
+    src_mask = an["Source"].isin(users)
+    an[src_mask].to_pickle(
+        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_source_fit.pkl")
+    )
     print(_center_dates[i], bsk, bsj)
+
 
 for i in range(len(start_dates)):
     # selfless_edge_list = pd.read_pickle((id_l + _center_dates[i] + '/EDGE_LIST_SELFLESS.pkl'))
@@ -264,12 +322,11 @@ for i in range(len(start_dates)):
     # auth_net.to_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     # auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
-    auth_net = pd.read_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
+    auth_net = pd.read_pickle((id_l + _center_dates[i] + "/AUTHOR_NET.pkl"))
 
     # mid90s(auth_net)
     mad90s(auth_net)
     # mid90source(auth_net)
-    
 
     # inraw_counter(auth_net, 1, 6)
     # inraw_counter(auth_net, 2, 7)
@@ -329,7 +386,6 @@ for i in range(len(start_dates)):
     # raw_counter(auth_net, 2)
     # raw_counter(auth_net, 1)
 
-
     # inraw_thresher(auth_net, 1, 6, 0)
     # inraw_thresher(auth_net, 2, 7, 0)
     # inraw_thresher(auth_net, 3, 8, 0)
@@ -366,12 +422,12 @@ for i in range(len(start_dates)):
     # raw_thresher(auth_net, 2, 20)
     # raw_thresher(auth_net, 1, 15)
 
-    # j=1 
+    # j=1
     # k=21
 
     # an = auth_net[auth_net >= j].reset_index().rename(columns={0:'Count'})
     # print(_center_dates[i], j, k)
-    
+
     # asubs_mask = an['Subreddit'].value_counts() >= k
     # asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
     # smask = an['Subreddit'].isin(asubs)
@@ -382,7 +438,7 @@ for i in range(len(start_dates)):
 
     # an = auth_net[auth_net >= j].reset_index().rename(columns={0:'Count'})
     # print(_center_dates[i], j, k)
-    
+
     # asubs_mask = an['Subreddit'].value_counts() >= k
     # asubs = an['Subreddit'].value_counts()[asubs_mask].index.to_series()
     # smask = an['Subreddit'].isin(asubs)
