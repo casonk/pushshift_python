@@ -1,3 +1,5 @@
+import argparse
+import ast
 import pandas as pd
 import numpy as np
 import os
@@ -69,19 +71,24 @@ neutral_topic = [
     'volvo',
     ]
 
-print('Topics Defined \n')
+DEFAULT_SOURCE_DIR = '/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/'
+DEFAULT_OUTPUT_ROOT = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/'
 
-source_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/'
-os.chdir(source_dir)
 
-conspiracy_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/conspiracy/'
-political_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/political/'
-neutral_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/neutral/'
-
-print('Globals Defined \n')
+def parse_ref_list(ref):
+    if isinstance(ref, (list, tuple, set)):
+        return [str(item) for item in ref]
+    if pd.isna(ref):
+        return []
+    if not isinstance(ref, str):
+        raise ValueError('refs values must be strings or lists')
+    parsed = ast.literal_eval(ref)
+    if isinstance(parsed, (list, tuple, set)):
+        return [str(item) for item in parsed]
+    raise ValueError('refs values must deserialize to a list-like object')
 
 def conspiracy_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -98,7 +105,7 @@ def conspiracy_labler(ref):
         return 0
 
 def political_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -115,7 +122,7 @@ def political_labler(ref):
         return 0
     
 def neutral_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -131,20 +138,17 @@ def neutral_labler(ref):
     else:
         return 0
 
-def meta_tricks(data, fname, topic_matter):
+def meta_tricks(data, fname, topic_matter, out_dir):
     label_data = data.copy(deep=True)
     label_data.set_index('id', inplace=True)
     label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
 
     if topic_matter == 'conspiracy':
         label_data['label'] = label_data['refs'].apply(lambda x: conspiracy_labler(x))
-        out_dir = conspiracy_out_dir
     elif topic_matter == 'political':
         label_data['label'] = label_data['refs'].apply(lambda x: political_labler(x))
-        out_dir = political_out_dir
     elif topic_matter == 'neutral':
         label_data['label'] = label_data['refs'].apply(lambda x: neutral_labler(x))
-        out_dir = neutral_out_dir
 
     dm = label_data['author'] == '[deleted]'
     label_data = label_data[~dm]
@@ -289,19 +293,46 @@ def meta_tricks(data, fname, topic_matter):
             })
 
     df.set_index('idx', inplace=True)
-    df.to_csv((out_dir + 'eko_' + fname))
+    df.to_csv(os.path.join(out_dir, 'eko_' + fname))
 
     print(fname, 'completed for', topic_matter, '\n')
-    
 
-print('Functions Defined \n')
 
-for file in os.listdir():
-    fname = file[6:]
-    print('\n' + fname + '\n')
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Generate topic metrics from labeled HPC CSV files.'
+    )
+    parser.add_argument('--source-dir', default=DEFAULT_SOURCE_DIR)
+    parser.add_argument('--output-root', default=DEFAULT_OUTPUT_ROOT)
+    return parser.parse_args()
 
-    data = pd.read_csv(file, low_memory=False)
-    meta_tricks(data, fname, 'conspiracy')
-    meta_tricks(data, fname, 'political')
-    meta_tricks(data, fname, 'neutral')
-    
+
+def main():
+    args = parse_args()
+    print('Topics Defined \n')
+
+    output_dirs = {
+        'conspiracy': os.path.join(args.output_root, 'conspiracy'),
+        'political': os.path.join(args.output_root, 'political'),
+        'neutral': os.path.join(args.output_root, 'neutral'),
+    }
+    for path in output_dirs.values():
+        os.makedirs(path, exist_ok=True)
+
+    print('Globals Defined \n')
+    print('Functions Defined \n')
+
+    for file in os.listdir(args.source_dir):
+        if not file.endswith('.csv'):
+            continue
+        fname = file[6:]
+        print('\n' + fname + '\n')
+
+        data = pd.read_csv(os.path.join(args.source_dir, file), low_memory=False)
+        meta_tricks(data, fname, 'conspiracy', output_dirs['conspiracy'])
+        meta_tricks(data, fname, 'political', output_dirs['political'])
+        meta_tricks(data, fname, 'neutral', output_dirs['neutral'])
+
+
+if __name__ == '__main__':
+    main()
