@@ -1,3 +1,5 @@
+import argparse
+import ast
 import pandas as pd
 import numpy as np
 import os
@@ -69,28 +71,25 @@ neutral_topic = [
     'volvo',
     ]
 
-print('Topics Defined \n')
-
-quarters = pd.read_csv('/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv')
-
-source_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/'
-os.chdir(source_dir)
-
-conspiracy_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/'
-political_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/'
-neutral_out_dir = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/'
-
-if not os.path.isdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/'):
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/conspiracy/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/political/')
-    os.mkdir('/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/neutral/')
+DEFAULT_QUARTERS_PATH = '/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv'
+DEFAULT_SOURCE_DIR = '/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/'
+DEFAULT_OUTPUT_ROOT = '/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/'
 
 
-print('Globals Defined \n')
+def parse_ref_list(ref):
+    if isinstance(ref, (list, tuple, set)):
+        return [str(item) for item in ref]
+    if pd.isna(ref):
+        return []
+    if not isinstance(ref, str):
+        raise ValueError('refs values must be strings or lists')
+    parsed = ast.literal_eval(ref)
+    if isinstance(parsed, (list, tuple, set)):
+        return [str(item) for item in parsed]
+    raise ValueError('refs values must deserialize to a list-like object')
 
 def conspiracy_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -107,7 +106,7 @@ def conspiracy_labler(ref):
         return 0
 
 def political_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -124,7 +123,7 @@ def political_labler(ref):
         return 0
     
 def neutral_labler(ref):
-    ref = eval(ref)
+    ref = parse_ref_list(ref)
     if len(ref) > 0:
         on_topic = 0
         off_topic = 0
@@ -140,7 +139,7 @@ def neutral_labler(ref):
     else:
         return 0
 
-def meta_tricks(data, fname, topic_matter):
+def meta_tricks(data, fname, topic_matter, quarters, out_dir):
     label_data = data.copy(deep=True)
     label_data.set_index('id', inplace=True)
     label_data.drop(['subreddit', 'url_direct_ref', 'body_direct_ref', 'body_indirect_ref', 'title_indirect_ref'], axis=1, inplace=True)
@@ -157,15 +156,13 @@ def meta_tricks(data, fname, topic_matter):
 
         if topic_matter == 'conspiracy':
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: conspiracy_labler(x))
-            out_dir = conspiracy_out_dir
         elif topic_matter == 'political':
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: political_labler(x))
-            out_dir = political_out_dir
         elif topic_matter == 'neutral':
             label_data_tmp['label'] = label_data_tmp['refs'].apply(lambda x: neutral_labler(x))
-            out_dir = neutral_out_dir
 
-        if os.path.isfile((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname)):
+        quarter_dir = os.path.join(out_dir, 'eko_' + quarters.iloc[j, 6])
+        if os.path.isfile(os.path.join(quarter_dir, fname)):
             print('\n already parsed', fname, 'at loop:', j, '\n')
             continue
         
@@ -316,24 +313,50 @@ def meta_tricks(data, fname, topic_matter):
                 })
 
         df.set_index('idx', inplace=True)
-        try:
-            df.to_csv((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname))
-        except:
-            os.mkdir((out_dir + 'eko_' + quarters.iloc[j,6] + '/'))
-            df.to_csv((out_dir + 'eko_' + quarters.iloc[j,6] + '/' + fname))
+        os.makedirs(quarter_dir, exist_ok=True)
+        df.to_csv(os.path.join(quarter_dir, fname))
 
 
         print(fname, 'completed for', topic_matter, 'at quarter', j, '\n')
-    
 
-print('Functions Defined \n')
 
-for file in os.listdir():
-    fname = file[6:]
-    print('\n' + fname + '\n')
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Generate quarterly topic metrics from labeled HPC CSV files.'
+    )
+    parser.add_argument('--quarters-path', default=DEFAULT_QUARTERS_PATH)
+    parser.add_argument('--source-dir', default=DEFAULT_SOURCE_DIR)
+    parser.add_argument('--output-root', default=DEFAULT_OUTPUT_ROOT)
+    return parser.parse_args()
 
-    data = pd.read_csv(file, low_memory=False)
-    meta_tricks(data, fname, 'conspiracy')
-    meta_tricks(data, fname, 'political')
-    meta_tricks(data, fname, 'neutral')
-    
+
+def main():
+    args = parse_args()
+    print('Topics Defined \n')
+
+    quarters = pd.read_csv(args.quarters_path)
+    output_dirs = {
+        'conspiracy': os.path.join(args.output_root, 'conspiracy'),
+        'political': os.path.join(args.output_root, 'political'),
+        'neutral': os.path.join(args.output_root, 'neutral'),
+    }
+    for path in output_dirs.values():
+        os.makedirs(path, exist_ok=True)
+
+    print('Globals Defined \n')
+    print('Functions Defined \n')
+
+    for file in os.listdir(args.source_dir):
+        if not file.endswith('.csv'):
+            continue
+        fname = file[6:]
+        print('\n' + fname + '\n')
+
+        data = pd.read_csv(os.path.join(args.source_dir, file), low_memory=False)
+        meta_tricks(data, fname, 'conspiracy', quarters, output_dirs['conspiracy'])
+        meta_tricks(data, fname, 'political', quarters, output_dirs['political'])
+        meta_tricks(data, fname, 'neutral', quarters, output_dirs['neutral'])
+
+
+if __name__ == '__main__':
+    main()
