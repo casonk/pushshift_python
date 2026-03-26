@@ -21,7 +21,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import roc_curve
 from sklearn.metrics import f1_score
-from sklearn.metrics import SCORERS
 from sklearn.metrics import auc
 from sklearn.utils import resample
 from dataclasses import dataclass
@@ -54,16 +53,15 @@ def numeric_scaler(col, df):
     col_max = df[col].max()
     col_min = df[col].min()
     col_range = col_max - col_min
+    if pd.isna(col_range) or col_range == 0:
+        return pd.Series(0.0, index=df.index)
     scaled = df[col].apply(lambda x: (x - col_min) / col_range)
     return scaled
 
 
 # Create global column boolean scaling function.
 def boolean_scaler(col, df):
-    scaled = df[col].copy()
-    scaled.replace(True, 1, inplace=True)
-    scaled.replace(False, 1, inplace=True)
-    return scaled
+    return df[col].replace({True: 1, False: 0})
 
 
 # Create global column string hasing function.
@@ -73,12 +71,16 @@ def string_scaler(col, df):
         try:
             unscaled_hash = float(crc32(s) & 0xFFFFFFFF)
         except:
-            unscaled_hash = np.nan()
+            unscaled_hash = np.nan
         string_hash = unscaled_hash / 2 ** 32
         return string_hash
 
     scaled = df[col].apply(lambda x: string_hasher(x))
     return scaled
+
+
+def append_row(df, row):
+    return pd.concat([df, pd.DataFrame([row])], ignore_index=True)
 
 
 # Create object for direct reddit api queries.
@@ -117,7 +119,7 @@ class api_agent:
             "username": self.user_agent,
             "password": self.user_pass,
         }
-        self.headers = {"User-Agent": "{}}/0.0.0".format(self.application_name)}
+        self.headers = {"User-Agent": "{}/0.0.0".format(self.application_name)}
         request = requests.post(
             "https://www.reddit.com/api/v1/access_token",
             auth=auth,
@@ -436,6 +438,8 @@ class pushshift_file_query(query):
                     yield line, file_handle.tell()
 
                 buffer = lines[-1]
+            if buffer:
+                yield buffer, file_handle.tell()
             reader.close()
 
     def make_query(self, oversized=False):
@@ -469,7 +473,7 @@ class pushshift_file_query(query):
             "author_premium",
         ]
         if self.oversized:
-            self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
+            self.write_path = str(Path.cwd() / "{}.csv".format(self.query))
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
@@ -500,15 +504,15 @@ class pushshift_file_query(query):
                                     post_data = self.create_common_data(
                                         p_type_=_post_type, post=_post
                                     )
-                                    if post_data == "comment":
+                                    if post_data["post_type"] == "comment":
                                         try:
                                             if self.oversized:
                                                 self.csv_writer.writerow(
                                                     list(post_data.values())
                                                 )
                                             else:
-                                                self.comments = self.comments.append(
-                                                    post_data, ignore_index=True
+                                                self.comments = append_row(
+                                                    self.comments, post_data
                                                 )
                                         except KeyboardInterrupt:
                                             if self.oversized:
@@ -516,24 +520,22 @@ class pushshift_file_query(query):
                                                     list(post_data.values())
                                                 )
                                             else:
-                                                self.comments = self.comments.append(
-                                                    post_data, ignore_index=True
+                                                self.comments = append_row(
+                                                    self.comments, post_data
                                                 )
                                             print(
                                                 "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                                             )
                                             break
-                                    elif post_data == "submission":
+                                    elif post_data["post_type"] == "submission":
                                         try:
                                             if self.oversized:
                                                 self.csv_writer.writerow(
                                                     list(post_data.values())
                                                 )
                                             else:
-                                                self.submissions = (
-                                                    self.submissions.append(
-                                                        post_data, ignore_index=True
-                                                    )
+                                                self.submissions = append_row(
+                                                    self.submissions, post_data
                                                 )
                                         except KeyboardInterrupt:
                                             if self.oversized:
@@ -541,10 +543,8 @@ class pushshift_file_query(query):
                                                     list(post_data.values())
                                                 )
                                             else:
-                                                self.submissions = (
-                                                    self.submissions.append(
-                                                        post_data, ignore_index=True
-                                                    )
+                                                self.submissions = append_row(
+                                                    self.submissions, post_data
                                                 )
                                             print(
                                                 "Keyboard Interrupt Detected, please Interrupt again to break parent function."
@@ -640,9 +640,10 @@ class pushshift_file_query(query):
                     break
 
         if self.oversized:
+            self.csv.close()
             self.df = pd.read_csv(self.write_path, low_memory=False)
         else:
-            self.df = self.submissions.append(self.comments)
+            self.df = pd.concat([self.submissions, self.comments], ignore_index=True)
 
     def export(self, path, to_export="df", export_format="pkl"):
         """
@@ -780,7 +781,7 @@ class pushshift_web_query(query):
         ]
         if self.oversized:
             if _path == None:
-                self.write_path = os.getcwd() + "\\{}.csv".format(self.query)
+                self.write_path = str(Path.cwd() / "{}.csv".format(self.query))
             else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
@@ -852,17 +853,13 @@ class pushshift_web_query(query):
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.comments = self.comments.append(
-                                post_data, ignore_index=True
-                            )
+                            self.comments = append_row(self.comments, post_data)
                         self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.comments = self.comments.append(
-                                post_data, ignore_index=True
-                            )
+                            self.comments = append_row(self.comments, post_data)
                         self.current_time = post_data["created_utc"]
                         print(
                             "Keyboard Interrupt Detected, please Interrupt again to break parent function."
@@ -873,17 +870,13 @@ class pushshift_web_query(query):
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.submissions = self.submissions.append(
-                                post_data, ignore_index=True
-                            )
+                            self.submissions = append_row(self.submissions, post_data)
                         self.current_time = post_data["created_utc"]
                     except KeyboardInterrupt:
                         if self.oversized:
                             self.csv_writer.writerow(list(post_data.values()))
                         else:
-                            self.submissions = self.submissions.append(
-                                post_data, ignore_index=True
-                            )
+                            self.submissions = append_row(self.submissions, post_data)
                         self.current_time = post_data["created_utc"]
                         print(
                             "Keyboard Interrupt Detected, please Interrupt again to break parent function."
@@ -939,9 +932,11 @@ class pushshift_web_query(query):
         collect_submissions(self=self)
         collect_comments(self=self)
         try:
+            if self.oversized:
+                self.csv.close()
             self.df = pd.read_csv(self.write_path, low_memory=False)
         except:
-            self.df = self.submissions.append(self.comments)
+            self.df = pd.concat([self.submissions, self.comments], ignore_index=True)
 
     def export(self, path, to_export="df", export_format="pkl"):
         """
@@ -1187,6 +1182,8 @@ class community:
             gini_base = df[column].loc[~(df[column] < (min_val))]
             users = gini_base.index
             n = len(users)
+            if n == 0 or gini_base.sum() == 0:
+                return 0
             numer = 0
             for u in users:
                 numer += np.sum(np.abs(gini_base - gini_base[u]))
@@ -1222,6 +1219,8 @@ class community:
 
         def make_simpson(df, column, min_val=1):
             simpson_base = df[column].loc[~(df[column] < (min_val))]
+            if simpson_base.sum() <= 1:
+                return 0
             simpson = 1 - ((simpson_base) * (simpson_base - 1)).sum() / (
                 (simpson_base.sum()) * (simpson_base.sum() - 1)
             )
@@ -1256,6 +1255,8 @@ class community:
 
         def make_shannon(df, column, min_val=1):
             shannon_base = df[column].loc[(df[column] >= (min_val))]
+            if shannon_base.sum() == 0:
+                return 0
             p = shannon_base / shannon_base.sum()
             p = -p * np.log2(p)
             shannon = p.sum()
@@ -1327,8 +1328,9 @@ class community:
 
         self.features = pd.DataFrame()
         self.features["post_type"] = self.df["post_type"].copy()
-        self.features["post_type"].replace("submission", 1, inplace=True)
-        self.features["post_type"].replace("comment", 0, inplace=True)
+        self.features["post_type"] = self.features["post_type"].replace(
+            {"submission": 1, "comment": 0}
+        )
         self.features["year"] = (
             (pd.to_datetime(self.df["datetime"]).dt.year - 2005) / 17
         )
@@ -1453,12 +1455,16 @@ class community:
             for feature in drop:
                 self.features.drop(feature, axis=1, inplace=True)
 
-        self.features.fillna(0, inplace=True)
+        for feature in self.features.columns:
+            if pd.api.types.is_numeric_dtype(self.features[feature]):
+                self.features[feature] = self.features[feature].fillna(0)
+            else:
+                self.features[feature] = self.features[feature].fillna("")
 
         submission_mask = self.features["post_type"] == 1
         comment_mask = self.features["post_type"] == 0
-        self.feature_comments = self.features[submission_mask]
-        self.feature_submissions = self.features[comment_mask]
+        self.feature_submissions = self.features[submission_mask]
+        self.feature_comments = self.features[comment_mask]
 
         return self.features
 
@@ -1499,6 +1505,7 @@ class modeling:
         self.confusion = {}
         self.models = {}
         self.predictions = {}
+        self.prediction_scores = {}
         self.scores = {}
         self.precision_recall_thresh = {}
         self.fpr_tpr_thresh = {}
@@ -1541,15 +1548,25 @@ class modeling:
 
     def prt(self, model):
         self.precision_recall_thresh[model] = precision_recall_curve(
-            self.y_test, self.predictions[model]
+            self.y_test, self.prediction_scores[model]
         )
 
         return self.precision_recall_thresh[model]
 
     def fptpt(self, model):
-        self.fpr_tpr_thresh[model] = roc_curve(self.y_test, self.predictions[model])
+        self.fpr_tpr_thresh[model] = roc_curve(
+            self.y_test, self.prediction_scores[model]
+        )
 
         return self.fpr_tpr_thresh[model]
+
+    def score_predictions(self, model):
+        estimator = self.models[model]
+        if hasattr(estimator, "predict_proba"):
+            return estimator.predict_proba(self.X_test)[:, 1]
+        if hasattr(estimator, "decision_function"):
+            return estimator.decision_function(self.X_test)
+        return self.predictions[model]
 
     def plot_pr_curve(self, model):
         plt.figure()
@@ -1570,8 +1587,8 @@ class modeling:
             self.fpr_tpr_thresh[model][0], self.fpr_tpr_thresh[model][1], linewidth=3
         )
         plt.title("ROC")
-        plt.xlabel("FP \%")
-        plt.ylabel("TP \%")
+        plt.xlabel(r"FP \%")
+        plt.ylabel(r"TP \%")
 
         return plt.show()
 
@@ -1587,6 +1604,7 @@ class modeling:
             }
         self.models["lr"] = self.lr
         self.predictions["lr"] = self.lr.predict(self.X_test)
+        self.prediction_scores["lr"] = self.score_predictions("lr")
         self.confusion["lr"] = confusion_matrix(self.y_test, self.predictions["lr"])
         self.prt("lr")
         self.fptpt("lr")
@@ -1599,6 +1617,7 @@ class modeling:
         )
         self.models["dt"] = self.dt
         self.predictions["dt"] = self.dt.predict(self.X_test)
+        self.prediction_scores["dt"] = self.score_predictions("dt")
         self.confusion["dt"] = confusion_matrix(self.y_test, self.predictions["dt"])
         self.prt("dt")
         self.fptpt("dt")
@@ -1611,6 +1630,7 @@ class modeling:
         )
         self.models["rf"] = self.rf
         self.predictions["rf"] = self.rf.predict(self.X_test)
+        self.prediction_scores["rf"] = self.score_predictions("rf")
         self.confusion["rf"] = confusion_matrix(self.y_test, self.predictions["rf"])
         self.prt("rf")
         self.fptpt("rf")
@@ -1623,6 +1643,7 @@ class modeling:
         )
         self.models["svc"] = self.svc
         self.predictions["svc"] = self.svc.predict(self.X_test)
+        self.prediction_scores["svc"] = self.score_predictions("svc")
         self.confusion["svc"] = confusion_matrix(self.y_test, self.predictions["svc"])
         self.prt("svc")
         self.fptpt("svc")
