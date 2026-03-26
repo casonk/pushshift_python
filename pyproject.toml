@@ -13,7 +13,16 @@ authors = [{ name = "Cason Konzer" }]
 dynamic = ["dependencies"]
 
 [tool.setuptools]
-py-modules = ["pushshift_python"]
+py-modules = [
+    "pushshift_python",
+    "_pushshift_api",
+    "_pushshift_community",
+    "_pushshift_file_handler",
+    "_pushshift_modeling",
+    "_pushshift_queries",
+    "_pushshift_scalers",
+    "_pushshift_subreddits",
+]
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
