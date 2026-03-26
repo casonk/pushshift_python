@@ -36,6 +36,22 @@ def test_import_helpers_handle_current_pandas_behavior():
     assert scaled_str.notna().sum() == 2
 
 
+def test_public_api_reexports_core_symbols():
+    expected = {
+        "api_agent",
+        "community",
+        "file_handler",
+        "modeling",
+        "pushshift_file_query",
+        "pushshift_web_query",
+        "query",
+        "subreddits",
+    }
+
+    for symbol in expected:
+        assert hasattr(psp, symbol)
+
+
 def test_file_query_collects_comment_and_submission_records(tmp_path):
     comment_dir = tmp_path / "comments"
     submission_dir = tmp_path / "submissions"
