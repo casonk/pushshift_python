@@ -24,8 +24,12 @@ Resources/             # Helper scripts, domain lists
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
+
+The project currently targets Python 3.10+.
+
+For a non-editable local environment, `pip install .` also works.
 
 ## Test Data
 
@@ -33,7 +37,15 @@ Available on [Google Drive](https://drive.google.com/drive/folders/13gL5B8e0Onml
 
 ## Documentation
 
-[documentation.ipynb](https://github.com/casonk/pushshift_python/blob/master/documentation.ipynb)
+[Examples/documentation.ipynb](Examples/documentation.ipynb)
+
+## Development
+
+Run the test suite with:
+
+```bash
+MPLCONFIGDIR=/tmp/matplotlib pytest -q
+```
 
 ## License
 

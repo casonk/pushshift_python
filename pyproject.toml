@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pushshift-python"
+version = "0.1.0"
+description = "Python wrapper for Reddit community analytics via the Pushshift API."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Cason Konzer" }]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+py-modules = ["pushshift_python"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
