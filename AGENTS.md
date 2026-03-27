@@ -35,3 +35,11 @@ This project uses but does not formally declare dependencies. Key imports includ
 - SLURM scripts in `Great_Lakes_HPC/` are designed for University of Michigan's Great Lakes cluster.
 - `.sbat` files are SLURM batch submission scripts.
 - Python scripts in `Great_Lakes_HPC/pys/` are the corresponding analysis jobs.
+
+## Agent Memory
+
+Use `./CHATHISTORY.md` as the standard local handoff file for this repo.
+
+- It is local-only and gitignored.
+- Read it after `AGENTS.md` when resuming work.
+- Keep entries concise and oriented around analysis changes, datasets touched, blockers, and next steps.

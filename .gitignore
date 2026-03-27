@@ -29,3 +29,6 @@ Thumbs.db
 # Data artifacts
 *.pkl
 *.pickle
+
+# Local agent handoff log
+CHATHISTORY.md
