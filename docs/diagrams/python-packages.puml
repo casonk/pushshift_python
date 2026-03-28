@@ -1,0 +1,29 @@
+@startuml packages_pushshift_python
+set namespaceSeparator none
+package "_pushshift_api" as _pushshift_api {
+}
+package "_pushshift_community" as _pushshift_community {
+}
+package "_pushshift_file_handler" as _pushshift_file_handler {
+}
+package "_pushshift_modeling" as _pushshift_modeling {
+}
+package "_pushshift_queries" as _pushshift_queries {
+}
+package "_pushshift_scalers" as _pushshift_scalers {
+}
+package "_pushshift_subreddits" as _pushshift_subreddits {
+}
+package "pushshift_python" as pushshift_python {
+}
+_pushshift_community --> _pushshift_scalers
+_pushshift_queries --> _pushshift_scalers
+_pushshift_subreddits --> _pushshift_api
+pushshift_python --> _pushshift_api
+pushshift_python --> _pushshift_community
+pushshift_python --> _pushshift_file_handler
+pushshift_python --> _pushshift_modeling
+pushshift_python --> _pushshift_queries
+pushshift_python --> _pushshift_scalers
+pushshift_python --> _pushshift_subreddits
+@enduml

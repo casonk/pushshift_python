@@ -1,0 +1,153 @@
+@startuml classes_pushshift_python
+set namespaceSeparator none
+class "api_agent" as _pushshift_api.api_agent {
+  application_name
+  client_id
+  client_secret
+  headers : dict
+  subreddits_df
+  subreddits_path : str
+  user_agent
+  user_pass
+  get_top_subreddits(payload)
+  make_subreddits(path)
+  renew_auth_token()
+}
+class "community" as _pushshift_community.community {
+  authors
+  body_ref
+  comments
+  dates
+  df : NoneType
+  feature_comments
+  feature_submissions
+  features
+  gini
+  name : str
+  r_slash_references
+  shannon
+  simpson
+  submissions
+  text_url_df
+  text_url_references
+  text_urls
+  title_ref
+  url_ref
+  authors()
+  compare_authors(community)
+  dates()
+  features(drop)
+  gini()
+  labels()
+  references(column, post_type)
+  shannon()
+  simpson()
+  urls(column, post_type)
+}
+class "file_handler" as _pushshift_file_handler.file_handler {
+  errors : int
+  files : NoneType
+  headers : NoneType
+  log : list
+  path_out : NoneType
+  written : int
+  combine(headers, files, path_out)
+}
+class "modeling" as _pushshift_modeling.modeling {
+  X
+  X_test
+  X_train
+  confusion : dict
+  df
+  dt
+  fpr_tpr_thresh : dict
+  lr
+  models : dict
+  precision_recall_thresh : dict
+  prediction_scores : dict
+  predictions : dict
+  rf
+  rfe
+  rs : int
+  scores : dict
+  supports
+  svc
+  y
+  y_test
+  y_train
+  decision_tree(md)
+  fptpt(model)
+  linear_regression(mi, rfe)
+  plot_pr_curve(model)
+  plot_ro_curve(model)
+  prt(model)
+  random_forest(ne)
+  resample_train(method)
+  score(model)
+  score_predictions(model)
+  support_vector_classifier(c, kern)
+}
+class "pushshift_file_query" as _pushshift_queries.pushshift_file_query {
+  comment_folder_path : Path
+  comments
+  csv
+  csv_writer
+  df
+  errors : int
+  file_counter : int
+  headers : list
+  line_counter : int
+  oversized : bool
+  post_counter : int
+  submission_folder_path : Path
+  submissions
+  working_file : str
+  write_path : str
+  export(path, to_export, export_format)
+  make_query(oversized)
+  read_lines_zst()
+  set_parent_folders(submission_folder_path, comment_folder_path)
+}
+class "pushshift_web_query" as _pushshift_queries.pushshift_web_query {
+  api_hit_counter : int
+  comment_url : str
+  comments
+  csv
+  csv_writer
+  df
+  headers : list
+  oversized : bool
+  submission_url : str
+  submissions
+  write_path : NoneType, str
+  export(path, to_export, export_format)
+  make_query(oversized, _path)
+  update_url()
+}
+class "query" as _pushshift_queries.query {
+  after : int
+  after_dt : datetime
+  before : int
+  before_dt : datetime
+  post_type : NoneType
+  query
+  type
+  create_common_data(p_type_, post)
+}
+class "subreddits" as _pushshift_subreddits.subreddits {
+  master
+  multi
+  nsfw
+  path : NoneType, str
+  sfw
+  sized
+  make_subreddits(api_credentials, path)
+  split_creation_time_date(min_datetime, max_datetime)
+  split_creation_time_unix(min_unix_timestamp, max_unix_timestamp)
+  split_multi(nsfw, sizes, unix_times, date_times)
+  split_nsfw()
+  split_size(min_subscribers, max_subscribers)
+}
+_pushshift_queries.pushshift_file_query --|> _pushshift_queries.query
+_pushshift_queries.pushshift_web_query --|> _pushshift_queries.query
+@enduml
