@@ -6,7 +6,12 @@ Python wrapper library for Reddit community analytics using the Pushshift API. I
 
 ## Repository Layout
 
-- `pushshift_python.py` — Main module (~1,870 lines): API wrapper, data collection, ML classifiers
+- `pushshift_python.py` — Public import facade that re-exports the internal `_pushshift_*` modules
+- `_pushshift_queries.py` — Base query type plus file-backed and web-backed collectors
+- `_pushshift_community.py` — Community analytics, reference extraction, author summaries, and feature engineering
+- `_pushshift_modeling.py` — Train/test splitting, resampling, sklearn models, and evaluation curves
+- `_pushshift_api.py` and `_pushshift_subreddits.py` — Reddit OAuth access and subreddit inventory filtering
+- `_pushshift_file_handler.py` and `_pushshift_scalers.py` — CSV merge/export helpers and feature-scaling utilities
 - `Examples/` — Usage examples and sample analyses
 - `Great_Lakes_HPC/` — SLURM batch scripts and Python jobs for HPC cluster processing
 - `ICWSM/` — International AAAI Conference on Web and Social Media research materials
@@ -24,7 +29,8 @@ This project uses but does not formally declare dependencies. Key imports includ
 
 ## Operating Rules
 
-- The main module (`pushshift_python.py`) is large and monolithic — prefer small focused changes.
+- `pushshift_python.py` is the stable public facade; when changing behavior, edit the underlying `_pushshift_*` module and keep the re-export surface aligned.
+- Architecture docs should describe both collection paths explicitly: local `.zst` parsing through `pushshift_file_query` and paginated API collection through `pushshift_web_query`.
 - Research artifacts in `ICWSM/`, `TADA/`, and `Great_Lakes_HPC/` are archival; avoid modifying unless extending the research.
 - Test data is hosted externally on Google Drive (link in README).
 - When adding new analysis methods, follow the existing pattern of class-based organization.
@@ -46,12 +52,12 @@ Start with:
 - `./util-repos/traction-control/LESSONSLEARNED.md`
 
 Shared implementation repos available portfolio-wide:
-- `./util-repos/archility` for architecture inventory, blueprint scaffolding, and architecture-documentation drift checks
+- `./util-repos/archility` for architecture toolchain bootstrap/render orchestration, Graphviz-capable diagram support, deterministic starter scaffolding, agentic architecture authoring, and architecture-documentation drift checks
 - `./util-repos/auto-pass` for KeePassXC-backed password management and secret retrieval/update flows
 - `./util-repos/nordility` for NordVPN-based VPN switching and connection orchestration
 - `./util-repos/shock-relay` for external messaging across supported providers such as Signal, Telegram, Twilio SMS, WhatsApp, and Gmail IMAP
 
-When another repo needs architecture inventory/scaffolding, password management, VPN switching, or external messaging, prefer integrating with these repos instead of re-implementing the capability locally.
+When another repo needs architecture toolchain bootstrap/rendering, architecture inventory/scaffolding, password management, VPN switching, or external messaging, prefer integrating with these repos instead of re-implementing the capability locally.
 
 ## Agent Memory
 

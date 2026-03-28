@@ -12,4 +12,4 @@ Unlike `CHATHISTORY.md`, this file should keep only reusable lessons that should
 
 ## Lessons
 
-- No durable lessons recorded yet.
+- Treat `pushshift_python.py` as a stable import facade over the `_pushshift_*` modules. When documenting or changing architecture, describe the underlying query, analytics, and utility modules instead of calling the repo monolithic.
