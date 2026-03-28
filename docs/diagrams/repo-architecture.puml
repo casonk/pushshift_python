@@ -1,0 +1,54 @@
+@startuml
+!pragma layout smetana
+title pushshift_python Repository Architecture
+skinparam shadowing false
+skinparam defaultFontName Monospace
+
+database "Pushshift search API" as pushshift_api #FCE7F3
+database "Reddit OAuth API" as reddit_api #FCE7F3
+folder "Local Pushshift\n.zst archives" as archives #FCE7F3
+folder "CSV / PKL\ndatasets" as datasets #FCE7F3
+
+rectangle "pushshift_python.py\npublic import facade" as facade #DBEAFE
+rectangle "query\nshared query metadata\nand post normalization" as query_base #FEF3C7
+rectangle "pushshift_file_query\nfile-backed collector" as file_query #FEF3C7
+rectangle "pushshift_web_query\nHTTP collector" as web_query #FEF3C7
+rectangle "api_agent + subreddits\nsubreddit inventory refresh\nand filtering" as subreddit_stack #FEF3C7
+rectangle "community\nauthor, reference, and\nfeature engineering" as community #DCFCE7
+rectangle "modeling\nsklearn training,\nresampling, and metrics" as modeling #DCFCE7
+rectangle "file_handler + scalers\ncsv assembly and\nfeature encoding helpers" as helpers #DCFCE7
+
+rectangle "Examples/documentation.ipynb\ninteractive usage" as examples #E0F2FE
+rectangle "Great_Lakes_HPC/pys + sbats\ncluster jobs" as hpc #E0F2FE
+rectangle "Resources/Scripts\nquarter/week/year helpers" as resources #E0F2FE
+rectangle "ICWSM/ and TADA/\nresearch artifacts" as research #E0F2FE
+rectangle "tests\npublic API and HPC checks" as tests #E0F2FE
+
+facade --> query_base : re-exports query layer
+facade --> community : re-exports analytics
+facade --> modeling : re-exports modeling
+facade --> subreddit_stack : re-exports subreddit tools
+facade --> helpers : re-exports utilities
+
+file_query --> query_base : extends
+web_query --> query_base : extends
+
+archives --> file_query : monthly dumps
+pushshift_api --> web_query : comment/submission search
+reddit_api --> subreddit_stack : OAuth + subreddit listing
+
+file_query --> datasets : collect csv/pkl outputs
+web_query --> datasets : collect csv/pkl outputs
+helpers --> datasets : combine exports
+datasets --> community : load community frames
+community --> helpers : scale feature columns
+community --> modeling : build feature matrices
+research --> datasets : consume exported frames
+
+examples --> facade
+hpc --> facade
+hpc --> resources
+research --> facade
+tests --> facade
+tests --> hpc
+@enduml

@@ -13,12 +13,18 @@ A Python wrapper for Reddit community analytics via the [Pushshift API](https://
 ## Structure
 
 ```
-pushshift_python.py    # Main module — API wrapper, ML, analysis
-Examples/              # Usage examples
+pushshift_python.py      # Public facade that re-exports the internal library surface
+_pushshift_queries.py    # Shared query base plus file/web collectors
+_pushshift_community.py  # Community analytics and feature engineering
+_pushshift_modeling.py   # sklearn-based model training and evaluation
+_pushshift_api.py        # Reddit OAuth helper for subreddit refreshes
+_pushshift_subreddits.py # Subreddit inventory filtering utilities
 Great_Lakes_HPC/       # SLURM batch scripts for HPC
+Resources/             # Date partition helpers and supporting data
+Examples/              # Usage examples
 ICWSM/                 # AAAI Web & Social Media research
 TADA/                  # Text As Data research
-Resources/             # Helper scripts, domain lists
+tests/                 # Public API and HPC smoke coverage
 ```
 
 ## Installation
