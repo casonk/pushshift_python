@@ -1,21 +1,15 @@
 @startuml packages_pushshift_python
 set namespaceSeparator none
-package "_pushshift_api" as _pushshift_api {
-}
-package "_pushshift_community" as _pushshift_community {
-}
-package "_pushshift_file_handler" as _pushshift_file_handler {
-}
-package "_pushshift_modeling" as _pushshift_modeling {
-}
-package "_pushshift_queries" as _pushshift_queries {
-}
-package "_pushshift_scalers" as _pushshift_scalers {
-}
-package "_pushshift_subreddits" as _pushshift_subreddits {
-}
-package "pushshift_python" as pushshift_python {
-}
+top to bottom direction
+skinparam componentStyle rectangle
+rectangle "_pushshift_api\n1 python file" as _pushshift_api
+rectangle "_pushshift_community\n1 python file" as _pushshift_community
+rectangle "_pushshift_file_handler\n1 python file" as _pushshift_file_handler
+rectangle "_pushshift_modeling\n1 python file" as _pushshift_modeling
+rectangle "_pushshift_queries\n1 python file" as _pushshift_queries
+rectangle "_pushshift_scalers\n1 python file" as _pushshift_scalers
+rectangle "_pushshift_subreddits\n1 python file" as _pushshift_subreddits
+rectangle "pushshift_python\n1 python file" as pushshift_python
 _pushshift_community --> _pushshift_scalers
 _pushshift_queries --> _pushshift_scalers
 _pushshift_subreddits --> _pushshift_api
