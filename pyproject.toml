@@ -27,5 +27,11 @@ py-modules = [
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
 
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "dyno_lab @ git+https://github.com/casonk/dyno-lab.git",
+]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
