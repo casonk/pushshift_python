@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 cols = ["Start_Date", "Start_Epoch", "End_Date", "End_Epoch"]
 years_quarters = [[2007 + i for i in range(0, 16)], ["Q1", "Q2", "Q3", "Q4"]]

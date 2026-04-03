@@ -4,8 +4,9 @@
 # |||||||||||||||||||||||#
 
 import os
-import pandas as pd
 import re
+
+import pandas as pd
 
 
 def ref_list(x):
@@ -68,17 +69,11 @@ for file in os.listdir():
             label_data["author"] = comm.author
             label_data["subreddit"] = comm.subreddit.str.lower()
             label_data["url_direct_ref"] = url_direct_ref
-            label_data["url_direct_ref"] = (
-                label_data["url_direct_ref"].fillna("").apply(list)
-            )
+            label_data["url_direct_ref"] = label_data["url_direct_ref"].fillna("").apply(list)
             label_data["body_direct_ref"] = body_direct_ref
-            label_data["body_direct_ref"] = (
-                label_data["body_direct_ref"].fillna("").apply(list)
-            )
+            label_data["body_direct_ref"] = label_data["body_direct_ref"].fillna("").apply(list)
             label_data["body_indirect_ref"] = body_indirect_ref
-            label_data["body_indirect_ref"] = (
-                label_data["body_indirect_ref"].fillna("").apply(list)
-            )
+            label_data["body_indirect_ref"] = label_data["body_indirect_ref"].fillna("").apply(list)
             label_data["title_indirect_ref"] = title_indirect_ref
             label_data["title_indirect_ref"] = (
                 label_data["title_indirect_ref"].fillna("").apply(list)
@@ -89,9 +84,7 @@ for file in os.listdir():
                 + label_data["body_indirect_ref"]
                 + label_data["title_indirect_ref"]
             )
-            label_data.to_csv(
-                "/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/label_" + file
-            )
+            label_data.to_csv("/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/label_" + file)
         except Exception as e:
             print("exception as :", e)
             continue

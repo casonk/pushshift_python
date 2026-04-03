@@ -7,12 +7,11 @@ the main package via ``dyno_lab.fs.TempWorkdir`` for file-based operations.
 
 from __future__ import annotations
 
-import pytest
-import pandas as pd
 from pathlib import Path
 
-from dyno_lab.module import load_module_by_path
+import pytest
 from dyno_lab.fs import TempWorkdir
+from dyno_lab.module import load_module_by_path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

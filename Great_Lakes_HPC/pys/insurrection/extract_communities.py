@@ -1,8 +1,9 @@
-import pandas as pd
-import networkx as nx
-from networkx.algorithms import community
-import pickle
 import os
+import pickle
+
+import networkx as nx
+import pandas as pd
+from networkx.algorithms import community
 
 pd.set_option("display.max_rows", 10000)
 pd.set_option("display.min_rows", 2000)
@@ -208,33 +209,33 @@ id_l = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/"
 
 for i in range(len(start_dates)):
     date = _center_dates[i]
-    if os.path.isfile((id_l + date + ("/G_{}_{}.pkl").format(j, k))):
+    if os.path.isfile(id_l + date + (f"/G_{j}_{k}.pkl")):
         print("pass:", date, j, k)
         continue
-    file = id_l + date + ("/EDGE_LIST_SELFLESS_{}_{}.pkl".format(j, k))
+    file = id_l + date + (f"/EDGE_LIST_SELFLESS_{j}_{k}.pkl")
     keys += [date]
     df = pd.read_pickle(file)
     source_mask = df["Source"].isin(irrel)
     target_mask = df["Target"].isin(irrel)
 
     trimmed_df = df[(~source_mask) & (~target_mask)]
-    trimmed_df.to_pickle((id_l + date + ("/TRIMMED_DF_{}_{}.pkl").format(j, k)))
+    trimmed_df.to_pickle(id_l + date + (f"/TRIMMED_DF_{j}_{k}.pkl"))
 
     G = nx.DiGraph()
     for info in trimmed_df.values:
         G.add_edge(info[0], info[1], subreddit=info[2], weight=int(info[3]))
     print(date, j, k)
 
-    with open((id_l + date + ("/G_{}_{}.pkl").format(j, k)), "wb") as Gh:
+    with open((id_l + date + (f"/G_{j}_{k}.pkl")), "wb") as Gh:
         pickle.dump(G, Gh)
 
 
 def ecu(r):
     for date in _center_dates:
-        if os.path.isfile((id_l + date + ("/LC_{}_{}_{}.pkl").format(j, k, r))):
+        if os.path.isfile(id_l + date + (f"/LC_{j}_{k}_{r}.pkl")):
             print("pass lc:", date, r)
             continue
-        with open((id_l + date + ("/G_{}_{}.pkl").format(j, k)), "rb") as Gh:
+        with open((id_l + date + (f"/G_{j}_{k}.pkl")), "rb") as Gh:
             G = pickle.load(Gh)
 
         lc = community.louvain_communities(
@@ -242,7 +243,7 @@ def ecu(r):
         )
         print(date, len(lc), r)
 
-        with open((id_l + date + ("/LC_{}_{}_{}.pkl").format(j, k, r)), "wb") as lch:
+        with open((id_l + date + (f"/LC_{j}_{k}_{r}.pkl")), "wb") as lch:
             pickle.dump(lc, lch)
 
 

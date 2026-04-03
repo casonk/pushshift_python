@@ -1,9 +1,9 @@
+import csv
+import json
+import os
+
 import pandas as pd
 import zstandard
-from datetime import datetime
-import json
-import csv
-import os
 
 comm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RC/"
 subm_dir = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/RS/"
@@ -24,9 +24,7 @@ _start_dates = _start_dates.apply(lambda x: str(x).split(" ")[0])
 def read_lines_zst(fh):
     with open(fh, "rb") as file_handle:
         buffer = ""
-        reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(
-            file_handle
-        )
+        reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(file_handle)
         while True:
             chunk = reader.read(2**27).decode()
             if not chunk:
@@ -61,7 +59,7 @@ def create_common_data(post):
             link_id = "nan"
         created_utc = post["created_utc"]
         author = post["author"]
-        author = r"{}".format(author)
+        author = rf"{author}"
 
         post_data = {
             "author": author,
@@ -84,7 +82,7 @@ with open((id_l + "/UTIL/ID_PAIRS.csv"), "w+", newline="", encoding="utf-8") as 
 
     os.chdir(comm_dir)
     for file in os.listdir():
-        for line, file_bytes_processed in read_lines_zst(file):
+        for line, _file_bytes_processed in read_lines_zst(file):
             try:
                 _post = json.loads(line)
                 post_data = create_common_data(post=_post)
@@ -108,7 +106,7 @@ with open((id_l + "/UTIL/ID_PAIRS.csv"), "w+", newline="", encoding="utf-8") as 
 
     os.chdir(subm_dir)
     for file in os.listdir():
-        for line, file_bytes_processed in read_lines_zst(file):
+        for line, _file_bytes_processed in read_lines_zst(file):
             try:
                 _post = json.loads(line)
                 post_data = create_common_data(post=_post)

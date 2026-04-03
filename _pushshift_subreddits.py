@@ -25,7 +25,7 @@ class subreddits:
             "pkl"- if provided path points to pickled DataFrame.
         """
 
-        if path == None:
+        if path is None:
             self.path = "data/subreddit_list.csv"
             self.master = pd.read_csv(self.path)
         else:
@@ -57,7 +57,7 @@ class subreddits:
         """
 
         api_handle = api_agent(api_credentials)
-        if path == None:
+        if path is None:
             api_handle.make_subreddits()
         else:
             api_handle.make_subreddits(path=path)
@@ -68,7 +68,7 @@ class subreddits:
         Create attributes containig masked DataFrames for Not Safe / Safe For Work subreddits.
         """
 
-        nsfw_mask = self.master["nsfw_bool"] == True
+        nsfw_mask = self.master["nsfw_bool"]
         self.nsfw = self.master[nsfw_mask]
         self.sfw = self.master[~nsfw_mask]
 
@@ -102,9 +102,7 @@ class subreddits:
         max_unix_time_mask = self.master["creation_utc"] <= max_unix_timestamp
         self.sized = self.master[min_unix_time_mask & max_unix_time_mask]
 
-    def split_creation_time_date(
-        self, min_datetime="2000-01-01", max_datetime="2022-02-02"
-    ):
+    def split_creation_time_date(self, min_datetime="2000-01-01", max_datetime="2022-02-02"):
         """
         Create attribute containing subreddits created within a specified time range.
         ----------
@@ -130,39 +128,31 @@ class subreddits:
         date_times: dictionary input {'min_datetime' : 'minimum_datetime', 'max_datetime' : 'maximum_datetime}
         """
 
-        if nsfw == None:
+        if nsfw is None:
             nsfw_mask = [True for _ in self.master.index]
         else:
-            if nsfw == True:
-                nsfw_mask = self.master["nsfw_bool"] == True
-            elif nsfw == False:
-                nsfw_mask = self.master["nsfw_bool"] == False
-        if sizes == None:
+            if nsfw:
+                nsfw_mask = self.master["nsfw_bool"]
+            elif not nsfw:
+                nsfw_mask = not self.master["nsfw_bool"]
+        if sizes is None:
             min_size_mask = [True for _ in self.master.index]
             max_size_mask = [True for _ in self.master.index]
         else:
             min_size_mask = self.master["num_subscribers"] >= sizes["min_subscribers"]
             max_size_mask = self.master["num_subscribers"] <= sizes["max_subscribers"]
-        if unix_times == None:
+        if unix_times is None:
             min_unix_time_mask = [True for _ in self.master.index]
             max_unix_time_mask = [True for _ in self.master.index]
         else:
-            min_unix_time_mask = (
-                self.master["creation_utc"] >= unix_times["min_unix_timestamp"]
-            )
-            max_unix_time_mask = (
-                self.master["creation_utc"] <= unix_times["max_unix_timestamp"]
-            )
-        if date_times == None:
+            min_unix_time_mask = self.master["creation_utc"] >= unix_times["min_unix_timestamp"]
+            max_unix_time_mask = self.master["creation_utc"] <= unix_times["max_unix_timestamp"]
+        if date_times is None:
             min_date_time_mask = [True for _ in self.master.index]
             max_date_time_mask = [True for _ in self.master.index]
         else:
-            min_date_time_mask = (
-                self.master["creation_datetime"] >= date_times["min_datetime"]
-            )
-            max_date_time_mask = (
-                self.master["creation_datetime"] <= date_times["max_datetime"]
-            )
+            min_date_time_mask = self.master["creation_datetime"] >= date_times["min_datetime"]
+            max_date_time_mask = self.master["creation_datetime"] <= date_times["max_datetime"]
 
         self.multi = self.master[
             nsfw_mask

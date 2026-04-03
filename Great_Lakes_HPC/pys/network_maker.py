@@ -6,10 +6,10 @@
 # import pkg_resources
 # pkg_resources.require("decorator==5.1.0")
 import os
-import pandas as pd
 
 # pkg_resources.require("pandas==1.3.5")
 import networkx as nx
+import pandas as pd
 
 # pkg_resources.require("networkx==2.6.3")
 from networkx.algorithms.link_analysis.pagerank_alg import pagerank
@@ -66,14 +66,12 @@ for file in os.listdir():
             for i in range(len(weeks)):
                 print("\nquarters loop :", i)
                 if os.path.isfile(
-                    (
-                        "/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/"
-                        + weeks.iloc[i, 6]
-                        + "/network_features_"
-                        + file
-                    )
+                    "/scratch/mmani_root/mmani0/shared_data/hot/csv_networkz/"
+                    + weeks.iloc[i, 6]
+                    + "/network_features_"
+                    + file
                 ):
-                    print("\n previously parsed at loop: {} \n".format(i))
+                    print(f"\n previously parsed at loop: {i} \n")
                     continue
                 else:
                     try:
@@ -81,12 +79,12 @@ for file in os.listdir():
 
                         # lower_utc = df['created_utc'].astype('int64') >= quarters.iloc[i,3].astype('int64')
                         # upper_utc = df['created_utc'].astype('int64') <= quarters.iloc[i,5].astype('int64')
-                        lower_utc = df["created_utc"].astype("int64") >= weeks.iloc[
-                            i, 3
-                        ].astype("int64")
-                        upper_utc = df["created_utc"].astype("int64") <= weeks.iloc[
-                            i, 5
-                        ].astype("int64")
+                        lower_utc = df["created_utc"].astype("int64") >= weeks.iloc[i, 3].astype(
+                            "int64"
+                        )
+                        upper_utc = df["created_utc"].astype("int64") <= weeks.iloc[i, 5].astype(
+                            "int64"
+                        )
                         df = df[lower_utc & upper_utc]
 
                         if len(df) <= 5:
@@ -146,8 +144,7 @@ for file in os.listdir():
                                 for Post in PostInfo:
                                     if Post[3] != "":
                                         Author_Exchanges[Author, Post[3]] = (
-                                            Author_Exchanges.get((Author, Post[3]), 0)
-                                            + 1
+                                            Author_Exchanges.get((Author, Post[3]), 0) + 1
                                         )
 
                             No_Self_Exchanges = {}
@@ -168,9 +165,7 @@ for file in os.listdir():
                             print("phase=3")
 
                             for Auth_Pair, Num_Exchanges in No_Self_Exchanges.items():
-                                G.add_edge(
-                                    Auth_Pair[0], Auth_Pair[1], weight=Num_Exchanges
-                                )
+                                G.add_edge(Auth_Pair[0], Auth_Pair[1], weight=Num_Exchanges)
 
                             out_degrees = [G.out_degree(node) for node in G]
                             degree_centrality = nx.in_degree_centrality(G)
@@ -187,8 +182,7 @@ for file in os.listdir():
                                         closeness_centrality[node] for node in G.nodes()
                                     ],
                                     "betweenness_centrality": [
-                                        betweenness_centrality[node]
-                                        for node in G.nodes()
+                                        betweenness_centrality[node] for node in G.nodes()
                                     ],
                                 },
                                 index=list(G.nodes()),

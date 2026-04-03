@@ -1,6 +1,7 @@
+import pickle
+
 import networkx as nx
 import pandas as pd
-import pickle
 
 pd.set_option("display.max_rows", 10000)
 pd.set_option("display.min_rows", 2000)

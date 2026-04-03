@@ -1,8 +1,9 @@
 import argparse
 import ast
-import pandas as pd
-import numpy as np
 import os
+
+import numpy as np
+import pandas as pd
 
 conspiracy_topic = [
     "911truth",
@@ -71,7 +72,9 @@ neutral_topic = [
     "volvo",
 ]
 
-DEFAULT_QUARTERS_PATH = "/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv"
+DEFAULT_QUARTERS_PATH = (
+    "/scratch/mmani_root/mmani0/shared_data/pushshift_python/Resources/Data/yearly_quarters.csv"
+)
 DEFAULT_SOURCE_DIR = "/scratch/mmani_root/mmani0/shared_data/hot/csv_labelz/"
 DEFAULT_OUTPUT_ROOT = "/scratch/mmani_root/mmani0/shared_data/hot/csv_ekoz/quarters/"
 
@@ -160,12 +163,8 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
 
     for j in range(len(quarters)):
         label_data_tmp = label_data.copy(deep=True)
-        lower_utc = label_data_tmp["utc"].astype("int64") >= quarters.iloc[j, 3].astype(
-            "int64"
-        )
-        upper_utc = label_data_tmp["utc"].astype("int64") <= quarters.iloc[j, 5].astype(
-            "int64"
-        )
+        lower_utc = label_data_tmp["utc"].astype("int64") >= quarters.iloc[j, 3].astype("int64")
+        upper_utc = label_data_tmp["utc"].astype("int64") <= quarters.iloc[j, 5].astype("int64")
         label_data_tmp = label_data_tmp[lower_utc & upper_utc]
 
         if len(label_data_tmp) <= 5:
@@ -173,17 +172,11 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
             continue
 
         if topic_matter == "conspiracy":
-            label_data_tmp["label"] = label_data_tmp["refs"].apply(
-                lambda x: conspiracy_labler(x)
-            )
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(lambda x: conspiracy_labler(x))
         elif topic_matter == "political":
-            label_data_tmp["label"] = label_data_tmp["refs"].apply(
-                lambda x: political_labler(x)
-            )
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(lambda x: political_labler(x))
         elif topic_matter == "neutral":
-            label_data_tmp["label"] = label_data_tmp["refs"].apply(
-                lambda x: neutral_labler(x)
-            )
+            label_data_tmp["label"] = label_data_tmp["refs"].apply(lambda x: neutral_labler(x))
 
         quarter_dir = os.path.join(out_dir, "eko_" + quarters.iloc[j, 6])
         if os.path.isfile(os.path.join(quarter_dir, fname)):
@@ -257,13 +250,11 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
             olappers = ~(off_mask | on_mask)
 
             summary_tmp.loc[off_mask, "off_topic"] = (
-                summary_tmp.loc[off_mask, "off_topic"]
-                - summary_tmp.loc[off_mask, "on_topic"]
+                summary_tmp.loc[off_mask, "off_topic"] - summary_tmp.loc[off_mask, "on_topic"]
             )
             summary_tmp.loc[off_mask, "on_topic"] = 0
             summary_tmp.loc[on_mask, "on_topic"] = (
-                summary_tmp.loc[on_mask, "on_topic"]
-                - summary_tmp.loc[on_mask, "off_topic"]
+                summary_tmp.loc[on_mask, "on_topic"] - summary_tmp.loc[on_mask, "off_topic"]
             )
             summary_tmp.loc[on_mask, "off_topic"] = 0
 
@@ -286,9 +277,7 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
             gamma_naives += [gamma_naive]
             seperation_naives += [4 * alpha_naive * beta_naive]
             isolation_naives += [alpha_naive / (alpha_naive + beta_naive)]
-            echochamberness_naives += [
-                alpha_naive / (alpha_naive + beta_naive + gamma_naive)
-            ]
+            echochamberness_naives += [alpha_naive / (alpha_naive + beta_naive + gamma_naive)]
 
             alpha_totality = alpha_frame["on_topic"].sum() / I
             beta_totality = beta_frame["off_topic"].sum() / I
@@ -303,20 +292,13 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
             ]
 
             alpha_variance = (
-                np.ceil(
-                    alpha_frame["on_topic"] / (1 + alpha_frame["on_topic"].var())
-                ).sum()
-                / I
+                np.ceil(alpha_frame["on_topic"] / (1 + alpha_frame["on_topic"].var())).sum() / I
             )
             beta_variance = (
-                np.ceil(
-                    beta_frame["off_topic"] / (1 + beta_frame["off_topic"].var())
-                ).sum()
-                / I
+                np.ceil(beta_frame["off_topic"] / (1 + beta_frame["off_topic"].var())).sum() / I
             )
             gamma_variance = (
-                np.ceil(gamma_frame["total"] / (1 + gamma_frame["total"].var())).sum()
-                / I
+                np.ceil(gamma_frame["total"] / (1 + gamma_frame["total"].var())).sum() / I
             )
             alpha_variances += [alpha_variance]
             beta_variances += [beta_variance]
@@ -329,34 +311,27 @@ def meta_tricks(data, fname, topic_matter, quarters, out_dir):
 
             alpha_logvariance = (
                 np.ceil(
-                    alpha_frame["on_topic"]
-                    / (1 + np.log(1 + alpha_frame["on_topic"].var()))
+                    alpha_frame["on_topic"] / (1 + np.log(1 + alpha_frame["on_topic"].var()))
                 ).sum()
                 / I
             )
             beta_logvariance = (
                 np.ceil(
-                    beta_frame["off_topic"]
-                    / (1 + np.log(1 + beta_frame["off_topic"].var()))
+                    beta_frame["off_topic"] / (1 + np.log(1 + beta_frame["off_topic"].var()))
                 ).sum()
                 / I
             )
             gamma_logvariance = (
-                np.ceil(
-                    gamma_frame["total"] / (1 + np.log(1 + gamma_frame["total"].var()))
-                ).sum()
+                np.ceil(gamma_frame["total"] / (1 + np.log(1 + gamma_frame["total"].var()))).sum()
                 / I
             )
             alpha_logvariances += [alpha_logvariance]
             beta_logvariances += [beta_logvariance]
             gamma_logvariances += [gamma_logvariance]
             seperation_logvariances += [4 * alpha_logvariance * beta_logvariance]
-            isolation_logvariances += [
-                alpha_logvariance / (alpha_logvariance + beta_logvariance)
-            ]
+            isolation_logvariances += [alpha_logvariance / (alpha_logvariance + beta_logvariance)]
             echochamberness_logvariances += [
-                alpha_logvariance
-                / (alpha_logvariance + beta_logvariance + gamma_logvariance)
+                alpha_logvariance / (alpha_logvariance + beta_logvariance + gamma_logvariance)
             ]
 
         df = pd.DataFrame(

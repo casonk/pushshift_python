@@ -35,9 +35,7 @@ class query:
         defaults to query both comments and submissions.
     """
 
-    def __init__(
-        self, query_type, query, time_range, time_format="unix", post_type=None
-    ):
+    def __init__(self, query_type, query, time_range, time_format="unix", post_type=None):
         """
         Initilization of query object.
         """
@@ -122,11 +120,11 @@ class query:
                 is_video = "nan"
             try:
                 title = post["title"]
-                title = r"{}".format(title)
+                title = rf"{title}"
             except KeyError:
                 title = "nan"
             author = post["author"]
-            author = r"{}".format(author)
+            author = rf"{author}"
             try:
                 author_premium = post["author_premium"]
             except:
@@ -134,13 +132,13 @@ class query:
             if p_type_ == "comment":
                 try:
                     body = post["body"]
-                    body = r"{}".format(body)
+                    body = rf"{body}"
                 except KeyError:
                     body = "nan"
             elif p_type_ == "submission":
                 try:
                     body = post["selftext"]
-                    body = r"{}".format(body)
+                    body = rf"{body}"
                 except KeyError:
                     body = "nan"
             post_type = p_type_
@@ -196,9 +194,7 @@ class pushshift_file_query(query):
         defaults to query both comments and submissions.
     """
 
-    def __init__(
-        self, query_type, query, time_range, time_format="unix", post_type=None
-    ):
+    def __init__(self, query_type, query, time_range, time_format="unix", post_type=None):
         """
         Initilization of query object.
         """
@@ -230,9 +226,7 @@ class pushshift_file_query(query):
 
         with open(self.working_file, "rb") as file_handle:
             buffer = ""
-            reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(
-                file_handle
-            )
+            reader = zstandard.ZstdDecompressor(max_window_size=2**31).stream_reader(file_handle)
             while True:
                 chunk = reader.read(2**27).decode()
                 if not chunk:
@@ -278,7 +272,7 @@ class pushshift_file_query(query):
             "author_premium",
         ]
         if self.oversized:
-            self.write_path = str(Path.cwd() / "{}.csv".format(self.query))
+            self.write_path = str(Path.cwd() / f"{self.query}.csv")
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
@@ -291,13 +285,11 @@ class pushshift_file_query(query):
             Helper function to parse comment json objects.
             """
 
-            for line, file_bytes_processed in self.read_lines_zst():
+            for line, _file_bytes_processed in self.read_lines_zst():
                 self.line_counter += 1
                 if self.line_counter % 1000000 == 0:
                     print(
-                        "  >> Processed {} Posts, Found {} Posts".format(
-                            self.line_counter, self.post_counter
-                        )
+                        f"  >> Processed {self.line_counter} Posts, Found {self.post_counter} Posts"
                     )
                 try:
                     _post = json.loads(line)
@@ -312,22 +304,14 @@ class pushshift_file_query(query):
                                     if post_data["post_type"] == "comment":
                                         try:
                                             if self.oversized:
-                                                self.csv_writer.writerow(
-                                                    list(post_data.values())
-                                                )
+                                                self.csv_writer.writerow(list(post_data.values()))
                                             else:
-                                                self.comments = append_row(
-                                                    self.comments, post_data
-                                                )
+                                                self.comments = append_row(self.comments, post_data)
                                         except KeyboardInterrupt:
                                             if self.oversized:
-                                                self.csv_writer.writerow(
-                                                    list(post_data.values())
-                                                )
+                                                self.csv_writer.writerow(list(post_data.values()))
                                             else:
-                                                self.comments = append_row(
-                                                    self.comments, post_data
-                                                )
+                                                self.comments = append_row(self.comments, post_data)
                                             print(
                                                 "Keyboard Interrupt Detected, please Interrupt again to break parent function."
                                             )
@@ -335,18 +319,14 @@ class pushshift_file_query(query):
                                     elif post_data["post_type"] == "submission":
                                         try:
                                             if self.oversized:
-                                                self.csv_writer.writerow(
-                                                    list(post_data.values())
-                                                )
+                                                self.csv_writer.writerow(list(post_data.values()))
                                             else:
                                                 self.submissions = append_row(
                                                     self.submissions, post_data
                                                 )
                                         except KeyboardInterrupt:
                                             if self.oversized:
-                                                self.csv_writer.writerow(
-                                                    list(post_data.values())
-                                                )
+                                                self.csv_writer.writerow(list(post_data.values()))
                                             else:
                                                 self.submissions = append_row(
                                                     self.submissions, post_data
@@ -387,7 +367,7 @@ class pushshift_file_query(query):
                     for time in self.time_list:
                         if time in file.name:
                             self.working_file = str(file.as_posix())
-                            print("> Parsing : {}".format(file.name))
+                            print(f"> Parsing : {file.name}")
                             try:
                                 search(self=self, _post_type="submission")
                             except KeyboardInterrupt:
@@ -397,22 +377,13 @@ class pushshift_file_query(query):
                                 break
                             self.file_counter += 1
                             print(
-                                "   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}".format(
-                                    self.file_counter,
-                                    self.line_counter,
-                                    self.post_counter,
-                                    self.errors,
-                                )
+                                f"   >>> Total Files Parsed : {self.file_counter}, Total Posts Parsed : {self.line_counter}, Total Posts Collected : {self.post_counter}, Total Errors Found : {self.errors}"
                             )
                 except KeyboardInterrupt:
-                    print(
-                        "Keyboard Interrupt Detected, your object's values are secure"
-                    )
+                    print("Keyboard Interrupt Detected, your object's values are secure")
                     break
 
-        all_comment_files = [
-            comment_file for comment_file in self.comment_folder_path.iterdir()
-        ]
+        all_comment_files = [comment_file for comment_file in self.comment_folder_path.iterdir()]
         if self.post_type == "submission":
             pass
         else:
@@ -421,7 +392,7 @@ class pushshift_file_query(query):
                     for time in self.time_list:
                         if time in file.name:
                             self.working_file = str(file.as_posix())
-                            print("> Parsing : {}".format(file.name))
+                            print(f"> Parsing : {file.name}")
                             try:
                                 search(self=self, _post_type="comment")
                             except KeyboardInterrupt:
@@ -431,17 +402,10 @@ class pushshift_file_query(query):
                                 break
                             self.file_counter += 1
                             print(
-                                "   >>> Total Files Parsed : {}, Total Posts Parsed : {}, Total Posts Collected : {}, Total Errors Found : {}".format(
-                                    self.file_counter,
-                                    self.line_counter,
-                                    self.post_counter,
-                                    self.errors,
-                                )
+                                f"   >>> Total Files Parsed : {self.file_counter}, Total Posts Parsed : {self.line_counter}, Total Posts Collected : {self.post_counter}, Total Errors Found : {self.errors}"
                             )
                 except KeyboardInterrupt:
-                    print(
-                        "Keyboard Interrupt Detected, your object's values are secure"
-                    )
+                    print("Keyboard Interrupt Detected, your object's values are secure")
                     break
 
         if self.oversized:
@@ -505,9 +469,7 @@ class pushshift_web_query(query):
         defaults to query both comments and submissions.
     """
 
-    def __init__(
-        self, query_type, query, time_range, time_format="unix", post_type=None
-    ):
+    def __init__(self, query_type, query, time_range, time_format="unix", post_type=None):
         """
         Initilization of query object.
         """
@@ -522,14 +484,14 @@ class pushshift_web_query(query):
         try:
             if self.type == "subreddit":
                 self.comment_url = "https://api.pushshift.io/reddit/search/{}/?after={}&before={}&subreddit={}&size={}".format(
-                    str("comment"),
+                    "comment",
                     str(self.current_time),
                     str(self.before),
                     str(self.query),
                     "12345",
                 )
                 self.submission_url = "https://api.pushshift.io/reddit/search/{}/?after={}&before={}&subreddit={}&size={}".format(
-                    str("submission"),
+                    "submission",
                     str(self.current_time),
                     str(self.before),
                     str(self.query),
@@ -537,14 +499,14 @@ class pushshift_web_query(query):
                 )
             elif self.type == "keyword":
                 self.comment_url = "https://api.pushshift.io/reddit/search/{}/?q={}&after={}&before={}&size={}".format(
-                    str("comment"),
+                    "comment",
                     str(self.query),
                     str(self.current_time),
                     str(self.before),
                     "12345",
                 )
                 self.submission_url = "https://api.pushshift.io/reddit/search/{}/?q={}&after={}&before={}&size={}".format(
-                    str("submission"),
+                    "submission",
                     str(self.query),
                     str(self.current_time),
                     str(self.before),
@@ -584,8 +546,8 @@ class pushshift_web_query(query):
             "author_premium",
         ]
         if self.oversized:
-            if _path == None:
-                self.write_path = str(Path.cwd() / "{}.csv".format(self.query))
+            if _path is None:
+                self.write_path = str(Path.cwd() / f"{self.query}.csv")
             else:
                 self.write_path = _path
             self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
@@ -705,9 +667,7 @@ class pushshift_web_query(query):
                         try:
                             save(self=self, _post_type="submission")
                         except KeyboardInterrupt:
-                            print(
-                                "Keyboard Interrupt Detected, your object's values are secure"
-                            )
+                            print("Keyboard Interrupt Detected, your object's values are secure")
                             break
 
         def collect_comments(self):
@@ -728,9 +688,7 @@ class pushshift_web_query(query):
                         try:
                             save(self=self, _post_type="comment")
                         except KeyboardInterrupt:
-                            print(
-                                "Keyboard Interrupt Detected, your object's values are secure"
-                            )
+                            print("Keyboard Interrupt Detected, your object's values are secure")
                             break
 
         collect_submissions(self=self)

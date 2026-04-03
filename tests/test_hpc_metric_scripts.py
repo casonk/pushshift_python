@@ -15,9 +15,7 @@ def load_module(relative_path, module_name):
 
 
 def test_metric_maker_uses_safe_reference_parsing():
-    metric_maker = load_module(
-        "Great_Lakes_HPC/pys/metric_maker.py", "metric_maker_test"
-    )
+    metric_maker = load_module("Great_Lakes_HPC/pys/metric_maker.py", "metric_maker_test")
 
     assert metric_maker.conspiracy_labler("['conspiracy']") == 1
     assert metric_maker.neutral_labler("['python']") == 1

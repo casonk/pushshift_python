@@ -1,6 +1,6 @@
-import pandas as pd
 import pickle
-import os
+
+import pandas as pd
 
 pd.set_option("display.max_rows", 10000)
 pd.set_option("display.min_rows", 2000)
@@ -32,18 +32,14 @@ def olapper(r):
     sub_sets = {}
     for date in _center_dates:
         sub_sets[date] = {}
-        with open(
-            (id_l + date + ("/SUB_SETS_{}_{}_{}.pkl").format(j, k, r)), "rb"
-        ) as ssh:
+        with open((id_l + date + (f"/SUB_SETS_{j}_{k}_{r}.pkl")), "rb") as ssh:
             sub_sets[date] = pickle.load(ssh)
         print(date, "SUB_SET")
 
     auth_sets = {}
     for date in _center_dates:
         auth_sets[date] = {}
-        with open(
-            (id_l + date + ("/AUTH_SETS_{}_{}_{}.pkl").format(j, k, r)), "rb"
-        ) as ash:
+        with open((id_l + date + (f"/AUTH_SETS_{j}_{k}_{r}.pkl")), "rb") as ash:
             auth_sets[date] = pickle.load(ash)
         print(date, "AUTH_SET")
 
@@ -85,7 +81,7 @@ def olapper(r):
                 olap[date1][date2][set1] = best_set
             print(date1, date2, "OLAPPED")
 
-    with open((id_l + ("/UTIL/OLAP_{}_{}_{}.pkl").format(j, k, r)), "wb") as olh:
+    with open((id_l + (f"/UTIL/OLAP_{j}_{k}_{r}.pkl")), "wb") as olh:
         pickle.dump(olap, olh)
 
     print(r, "OLAP PICKLED")

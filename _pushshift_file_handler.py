@@ -32,24 +32,22 @@ class file_handler:
         self.headers = headers
         self.files = files
         self.path_out = path_out
-        if self.path_out == None:
+        if self.path_out is None:
             self.path_out = os.getcwd()
         self.log = [
-            "files = {}".format(self.files),
-            "path_out = {}".format(self.path_out),
+            f"files = {self.files}",
+            f"path_out = {self.path_out}",
         ]
         self.errors = 0
         self.written = 0
         with open(self.path_out, "w", newline="", encoding="utf-8") as out_file:
             writer = csv.writer(out_file, delimiter=",")
-            if self.headers != None:
+            if self.headers is not None:
                 writer.writerow(self.headers)
-            if self.files == None:
-                print(
-                    'file list is empty! please specify files=["file_1", ... , "file_n"]'
-                )
+            if self.files is None:
+                print('file list is empty! please specify files=["file_1", ... , "file_n"]')
             for file in self.files:
-                with open(file, "r", newline="", encoding="utf-8") as in_file:
+                with open(file, newline="", encoding="utf-8") as in_file:
                     reader = csv.reader(in_file, delimiter=",")
                     next(reader, None)  # skip the headers
                     for row in reader:
@@ -59,12 +57,10 @@ class file_handler:
                         except csv.Error:
                             self.log.append(row)
                             self.errors += 1
-        self.log.append("rows written = {}".format(self.written))
-        self.log.append("erraneous rows = {}".format(self.errors))
+        self.log.append(f"rows written = {self.written}")
+        self.log.append(f"erraneous rows = {self.errors}")
         print(
-            "file combined, {} rows written, {} errors found. check file_handler.log for more details.".format(
-                self.written, self.errors
-            )
+            f"file combined, {self.written} rows written, {self.errors} errors found. check file_handler.log for more details."
         )
 
 
