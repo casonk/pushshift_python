@@ -4,6 +4,7 @@ Uses ``dyno_lab.module.load_module_by_path`` in place of the custom
 ``load_module`` helper defined in test_hpc_metric_scripts.py, and exercises
 the main package via ``dyno_lab.fs.TempWorkdir`` for file-based operations.
 """
+
 from __future__ import annotations
 
 import pytest
@@ -17,6 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 # ── fixtures ──────────────────────────────────────────────────────────────
+
 
 @pytest.fixture(scope="module")
 def metric_maker():
@@ -38,6 +40,7 @@ def quarterly_metric_maker():
 
 # ── HPC metric_maker tests ────────────────────────────────────────────────
 
+
 def test_metric_maker_conspiracy_label(metric_maker):
     assert metric_maker.conspiracy_labler("['conspiracy']") == 1
 
@@ -53,6 +56,7 @@ def test_metric_maker_rejects_unsafe_reference(metric_maker):
 
 # ── HPC quarterly_metric_maker tests ─────────────────────────────────────
 
+
 def test_quarterly_political_label(quarterly_metric_maker):
     assert quarterly_metric_maker.political_labler("['antiwork']") == 1
 
@@ -67,6 +71,7 @@ def test_quarterly_rejects_dict_shape(quarterly_metric_maker):
 
 
 # ── file_handler tests using TempWorkdir ──────────────────────────────────
+
 
 def test_file_handler_combine_merges_two_csvs():
     from _pushshift_file_handler import file_handler
