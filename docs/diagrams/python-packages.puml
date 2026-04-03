@@ -9,6 +9,7 @@ rectangle "_pushshift_modeling\n1 python file" as _pushshift_modeling
 rectangle "_pushshift_queries\n1 python file" as _pushshift_queries
 rectangle "_pushshift_scalers\n1 python file" as _pushshift_scalers
 rectangle "_pushshift_subreddits\n1 python file" as _pushshift_subreddits
+rectangle "conftest\n1 python file" as conftest
 rectangle "pushshift_python\n1 python file" as pushshift_python
 _pushshift_community --> _pushshift_scalers
 _pushshift_queries --> _pushshift_scalers
