@@ -6,14 +6,16 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import auc
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import f1_score
-from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import roc_curve
+from sklearn.metrics import (
+    accuracy_score,
+    auc,
+    confusion_matrix,
+    f1_score,
+    precision_recall_curve,
+    precision_score,
+    recall_score,
+    roc_curve,
+)
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
@@ -72,15 +74,11 @@ class modeling:
         T = data[data.label == 1]
 
         if method == "up":
-            upsampled = resample(
-                T, replace=True, n_samples=len(F), random_state=self.rs
-            )
+            upsampled = resample(T, replace=True, n_samples=len(F), random_state=self.rs)
             resampled = pd.concat([F, upsampled])
 
         if method == "down":
-            downsampled = resample(
-                F, replace=True, n_samples=len(T), random_state=self.rs
-            )
+            downsampled = resample(F, replace=True, n_samples=len(T), random_state=self.rs)
             resampled = pd.concat([downsampled, T])
 
         self.y_train = resampled.label
@@ -110,9 +108,7 @@ class modeling:
         return self.precision_recall_thresh[model]
 
     def fptpt(self, model):
-        self.fpr_tpr_thresh[model] = roc_curve(
-            self.y_test, self.prediction_scores[model]
-        )
+        self.fpr_tpr_thresh[model] = roc_curve(self.y_test, self.prediction_scores[model])
 
         return self.fpr_tpr_thresh[model]
 
@@ -139,9 +135,7 @@ class modeling:
 
     def plot_ro_curve(self, model):
         plt.figure()
-        plt.plot(
-            self.fpr_tpr_thresh[model][0], self.fpr_tpr_thresh[model][1], linewidth=3
-        )
+        plt.plot(self.fpr_tpr_thresh[model][0], self.fpr_tpr_thresh[model][1], linewidth=3)
         plt.title("ROC")
         plt.xlabel(r"FP \%")
         plt.ylabel(r"TP \%")
@@ -155,8 +149,7 @@ class modeling:
         if rfe:
             self.rfe = RFE(self.lr).fit(self.X_train, self.y_train)
             self.supports = {
-                self.X.columns[col]: self.rfe.ranking_[col]
-                for col in range(len(self.X.columns))
+                self.X.columns[col]: self.rfe.ranking_[col] for col in range(len(self.X.columns))
             }
         self.models["lr"] = self.lr
         self.predictions["lr"] = self.lr.predict(self.X_test)
@@ -194,9 +187,7 @@ class modeling:
         return self.rf
 
     def support_vector_classifier(self, c=1, kern="rbf"):
-        self.svc = SVC(C=c, kernel=kern, random_state=self.rs).fit(
-            self.X_train, self.y_train
-        )
+        self.svc = SVC(C=c, kernel=kern, random_state=self.rs).fit(self.X_train, self.y_train)
         self.models["svc"] = self.svc
         self.predictions["svc"] = self.svc.predict(self.X_test)
         self.prediction_scores["svc"] = self.score_predictions("svc")

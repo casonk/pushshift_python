@@ -1,7 +1,7 @@
-import matplotlib.pyplot as plt
-import pandas as pd
 import pickle
 import warnings
+
+import pandas as pd
 
 warnings.filterwarnings("ignore")
 
@@ -202,9 +202,7 @@ irrel = [i.lower() for i in irrel]
 
 def subtlie(sub):
     sub_mask = trimmed_df["Subreddit"] == sub
-    sub_auths[sub] = (
-        trimmed_df[sub_mask]["Source"].append(trimmed_df[sub_mask]["Target"]).unique()
-    )
+    sub_auths[sub] = trimmed_df[sub_mask]["Source"].append(trimmed_df[sub_mask]["Target"]).unique()
     sub_size[sub] = sub_size.get(sub, []) + [len(sub_auths[sub])]
     sub_posts[sub] = sub_posts.get(sub, []) + [trimmed_df[sub_mask]["Count"].sum()]
     source_mask = trimmed_df["Source"].isin(sub_auths[sub])
@@ -215,9 +213,7 @@ def subtlie(sub):
     sub_i[sub] = sub_i.get(sub, []) + [internal_links]
     external_links = total_links - internal_links
     sub_e[sub] = sub_e.get(sub, []) + [external_links]
-    sub_ei[sub] = sub_ei.get(sub, []) + [
-        (external_links - internal_links) / total_links
-    ]
+    sub_ei[sub] = sub_ei.get(sub, []) + [(external_links - internal_links) / total_links]
     # print(sub, date)
     # print(sub_ei[sub])
     # print()
@@ -233,7 +229,7 @@ sub_e = {}
 sub_ei = {}
 
 for date in _center_dates:
-    df = pd.read_pickle((id_l + date + "/EDGE_LIST_RAW__best_fit.pkl"))
+    df = pd.read_pickle(id_l + date + "/EDGE_LIST_RAW__best_fit.pkl")
     source_mask = df["Source"].isin(irrel)
     target_mask = df["Target"].isin(irrel)
     trimmed_df = df[(~source_mask) & (~target_mask)]
@@ -294,8 +290,8 @@ i_data = pd.DataFrame(sub_i, index=_center_dates)
 size_data = pd.DataFrame(sub_size, index=_center_dates)
 post_data = pd.DataFrame(sub_posts, index=_center_dates)
 
-ei_data.to_pickle((id_l + "/SUBALITK/SUBALITK_EI_DATA__best_fit_control.pkl"))
-e_data.to_pickle((id_l + "/SUBALITK/SUBALITK_E_DATA__best_fit_control.pkl"))
-i_data.to_pickle((id_l + "/SUBALITK/SUBALITK_I_DATA__best_fit_control.pkl"))
-size_data.to_pickle((id_l + "/SUBALITK/SUBALITK_S_DATA__best_fit_control.pkl"))
-post_data.to_pickle((id_l + "/SUBALITK/SUBALITK_P_DATA__best_fit_control.pkl"))
+ei_data.to_pickle(id_l + "/SUBALITK/SUBALITK_EI_DATA__best_fit_control.pkl")
+e_data.to_pickle(id_l + "/SUBALITK/SUBALITK_E_DATA__best_fit_control.pkl")
+i_data.to_pickle(id_l + "/SUBALITK/SUBALITK_I_DATA__best_fit_control.pkl")
+size_data.to_pickle(id_l + "/SUBALITK/SUBALITK_S_DATA__best_fit_control.pkl")
+post_data.to_pickle(id_l + "/SUBALITK/SUBALITK_P_DATA__best_fit_control.pkl")

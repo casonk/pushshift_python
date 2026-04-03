@@ -1,8 +1,9 @@
-import pandas as pd
-import networkx as nx
-from networkx.algorithms import community
-import pickle
 import os
+import pickle
+
+import networkx as nx
+import pandas as pd
+from networkx.algorithms import community
 
 pd.set_option("display.max_rows", 10000)
 pd.set_option("display.min_rows", 2000)
@@ -29,23 +30,23 @@ id_l = "/home/casonk/path/mmani_root/mmani0/shared_data/hot/push_file/IDL/"
 
 for i in range(len(start_dates)):
     date = _center_dates[i]
-    trimmed_df = pd.read_pickle((id_l + date + ("/TRIMMED_DF_{}_{}.pkl").format(j, k)))
+    trimmed_df = pd.read_pickle(id_l + date + (f"/TRIMMED_DF_{j}_{k}.pkl"))
 
     dG = nx.DiGraph()
     for info in trimmed_df.values:
         dG.add_edge(info[0], info[1], subreddit=info[2], weight=int(info[3]))
     print(date, j, k)
 
-    with open((id_l + date + ("/dG_{}_{}.pkl").format(j, k)), "wb") as dGh:
+    with open((id_l + date + (f"/dG_{j}_{k}.pkl")), "wb") as dGh:
         pickle.dump(dG, dGh)
 
 
 def ecu(r):
     for date in _center_dates:
-        if os.path.isfile((id_l + date + ("/dLC_{}_{}_{}.pkl").format(j, k, r))):
+        if os.path.isfile(id_l + date + (f"/dLC_{j}_{k}_{r}.pkl")):
             print("pass dlc:", date, r)
             continue
-        with open((id_l + date + ("/dG_{}_{}.pkl").format(j, k)), "rb") as dGh:
+        with open((id_l + date + (f"/dG_{j}_{k}.pkl")), "rb") as dGh:
             dG = pickle.load(dGh)
 
         dlc = community.louvain_communities(
@@ -53,7 +54,7 @@ def ecu(r):
         )
         print(date, len(dlc), r)
 
-        with open((id_l + date + ("/dLC_{}_{}_{}.pkl").format(j, k, r)), "wb") as dlch:
+        with open((id_l + date + (f"/dLC_{j}_{k}_{r}.pkl")), "wb") as dlch:
             pickle.dump(dlc, dlch)
 
 

@@ -42,7 +42,7 @@ class api_agent:
             "username": self.user_agent,
             "password": self.user_pass,
         }
-        self.headers = {"User-Agent": "{}/0.0.0".format(self.application_name)}
+        self.headers = {"User-Agent": f"{self.application_name}/0.0.0"}
         request = requests.post(
             "https://www.reddit.com/api/v1/access_token",
             auth=auth,
@@ -75,7 +75,7 @@ class api_agent:
             if status == 200:
                 break
             time.sleep(5 * retry)
-            print(" >> rety_#: {}".format(retry))
+            print(f" >> rety_#: {retry}")
             if retry % 3 == 0:
                 self.renew_auth_token()
                 print("\nAUTH_RENEWED\n")
@@ -117,13 +117,11 @@ class api_agent:
                 if _before == _after:
                     break
                 else:
-                    print("   >>> after : {}".format(_after))
+                    print(f"   >>> after : {_after}")
                     _subreddits = self.get_top_subreddits(_payload)
                     _before = _after
         self.subreddits_df = pd.read_csv(self.subreddits_path, low_memory=False)
-        self.subreddits_df = self.subreddits_df.sort_values(
-            by="num_subscribers", ascending=False
-        )
+        self.subreddits_df = self.subreddits_df.sort_values(by="num_subscribers", ascending=False)
         self.subreddits_df.to_csv(
             path_or_buf=self.subreddits_path, sep=",", na_rep="nan", index="subreddit"
         )

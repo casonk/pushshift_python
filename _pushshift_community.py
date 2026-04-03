@@ -32,7 +32,7 @@ class community:
         """
 
         self.name = name
-        if path == None:
+        if path is None:
             self.df = dataframe
         elif file_format == "csv":
             self.df = pd.read_csv(
@@ -86,16 +86,14 @@ class community:
                     subreddits.append(match[:])
             self.text_urls = pd.DataFrame(pd.Series(subreddits).value_counts())
             self.text_urls.columns = ["count"]
-            self.text_urls.index = self.text_urls.index.str.replace(
-                r"\\_", r"_", regex=True
-            )
+            self.text_urls.index = self.text_urls.index.str.replace(r"\\_", r"_", regex=True)
             self.text_url_references = pd.DataFrame(
                 self.text_urls.index.str.extract(subreddit_pattern)[1].value_counts()
             )
             self.text_url_references.columns = ["count"]
             self.text_url_references.index.name = "url"
 
-        if post_type == None:
+        if post_type is None:
             find_urls(frame=self.df)
         elif post_type == "comment":
             comment_mask = self.df["post_type"] == "comment"
@@ -130,7 +128,7 @@ class community:
             self.r_slash_references.columns = ["count"]
             self.r_slash_references.index.name = "r/subreddit"
 
-        if post_type == None:
+        if post_type is None:
             find_references(frame=self.df)
         elif post_type == "comment":
             comment_mask = self.df["post_type"] == "comment"
@@ -164,9 +162,7 @@ class community:
         self.authors["total_submissions"] = total_submissions
         total_submission_score = self.df[type_mask].groupby("author")["score"].sum()
         self.authors["total_submission_score"] = total_submission_score
-        total_submission_comments = (
-            self.df[type_mask].groupby("author")["num_comments"].sum()
-        )
+        total_submission_comments = self.df[type_mask].groupby("author")["num_comments"].sum()
         self.authors["total_submission_comments"] = total_submission_comments
         total_comments = self.df[~type_mask].groupby("author").size()
         self.authors["total_comments"] = total_comments
@@ -233,14 +229,10 @@ class community:
             "total_comment_score",
         ]
         try:
-            gini_dict = {
-                col + "_gini": make_gini(self.authors, col) for col in gini_cols
-            }
+            gini_dict = {col + "_gini": make_gini(self.authors, col) for col in gini_cols}
         except:
             self.authors()
-            gini_dict = {
-                col + "_gini": make_gini(self.authors, col) for col in gini_cols
-            }
+            gini_dict = {col + "_gini": make_gini(self.authors, col) for col in gini_cols}
         self.gini = pd.DataFrame(data=gini_dict, index=[self.name])
 
         return self.gini
@@ -268,14 +260,12 @@ class community:
         ]
         try:
             simpson_dict = {
-                col + "_simpson": make_simpson(self.authors, col)
-                for col in simpson_cols
+                col + "_simpson": make_simpson(self.authors, col) for col in simpson_cols
             }
         except:
             self.authors()
             simpson_dict = {
-                col + "_simpson": make_simpson(self.authors, col)
-                for col in simpson_cols
+                col + "_simpson": make_simpson(self.authors, col) for col in simpson_cols
             }
         self.simpson = pd.DataFrame(data=simpson_dict, index=[self.name])
 
@@ -304,14 +294,12 @@ class community:
         ]
         try:
             shannon_dict = {
-                col + "_shannon": make_shannon(self.authors, col)
-                for col in shannon_cols
+                col + "_shannon": make_shannon(self.authors, col) for col in shannon_cols
             }
         except:
             self.authors()
             shannon_dict = {
-                col + "_shannon": make_shannon(self.authors, col)
-                for col in shannon_cols
+                col + "_shannon": make_shannon(self.authors, col) for col in shannon_cols
             }
         self.shannon = pd.DataFrame(data=shannon_dict, index=[self.name])
 
@@ -342,14 +330,7 @@ class community:
 
     def features(
         self,
-        drop=[
-            "author_community_total_posts",
-            "author_community_total_post_score",
-            "url_ref",
-            "body_ref",
-            "url_label",
-            "body_label",
-        ],
+        drop=None,
     ):
         """
         Create feature dataframe.
@@ -359,17 +340,22 @@ class community:
         drop: DataFrame column to remove from feature anlysis.
         """
 
+        if drop is None:
+            drop = [
+                "author_community_total_posts",
+                "author_community_total_post_score",
+                "url_ref",
+                "body_ref",
+                "url_label",
+                "body_label",
+            ]
         self.features = pd.DataFrame()
         self.features["post_type"] = self.df["post_type"].copy()
         self.features["post_type"] = self.features["post_type"].replace(
             {"submission": 1, "comment": 0}
         )
-        self.features["year"] = (
-            pd.to_datetime(self.df["datetime"]).dt.year - 2005
-        ) / 17
-        self.features["day_of_year"] = (
-            pd.to_datetime(self.df["datetime"]).dt.dayofyear / 365
-        )
+        self.features["year"] = (pd.to_datetime(self.df["datetime"]).dt.year - 2005) / 17
+        self.features["day_of_year"] = pd.to_datetime(self.df["datetime"]).dt.dayofyear / 365
         seconds_in_day = 60 * 60 * 24
         self.features["time_of_day"] = self.df["created_utc"].apply(
             lambda x: x // seconds_in_day / seconds_in_day
@@ -466,15 +452,9 @@ class community:
             else:
                 return 0
 
-        self.features["url_label"] = self.features["url_ref"].apply(
-            lambda x: ref_label(x)
-        )
-        self.features["body_label"] = self.features["body_ref"].apply(
-            lambda x: ref_label(x)
-        )
-        self.features["label"] = (
-            self.features["url_label"] + self.features["body_label"]
-        )
+        self.features["url_label"] = self.features["url_ref"].apply(lambda x: ref_label(x))
+        self.features["body_label"] = self.features["body_ref"].apply(lambda x: ref_label(x))
+        self.features["label"] = self.features["url_label"] + self.features["body_label"]
 
         def label(val):
             if val > 0:
@@ -484,7 +464,7 @@ class community:
 
         self.features["label"] = self.features["label"].apply(lambda x: label(x))
 
-        if drop != False:
+        if drop:
             for feature in drop:
                 self.features.drop(feature, axis=1, inplace=True)
 

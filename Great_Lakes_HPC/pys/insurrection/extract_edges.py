@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 _end_dates = pd.Series(
     pd.date_range(start="2020-10-08", end="2021-03-31", freq="D", tz="America/New_York")
@@ -66,11 +66,7 @@ def raw_thresher(net, min_user_posts, min_sub_posts):
     asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
     smask = an["Subreddit"].isin(asubs)
     an[smask].to_pickle(
-        (
-            id_l
-            + _center_dates[i]
-            + ("/EDGE_LIST_RAW_{}_{}.pkl".format(min_user_posts, min_sub_posts))
-        )
+        id_l + _center_dates[i] + (f"/EDGE_LIST_RAW_{min_user_posts}_{min_sub_posts}.pkl")
     )
 
 
@@ -82,11 +78,7 @@ def unraw_thresher(net, max_user_posts, min_sub_posts):
     asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
     smask = an["Subreddit"].isin(asubs)
     an[smask].to_pickle(
-        (
-            id_l
-            + _center_dates[i]
-            + ("/EDGE_LIST_RAW_{}_{}.pkl".format(max_user_posts, min_sub_posts))
-        )
+        id_l + _center_dates[i] + (f"/EDGE_LIST_RAW_{max_user_posts}_{min_sub_posts}.pkl")
     )
 
 
@@ -102,15 +94,9 @@ def inraw_thresher(net, min_user_posts, max_user_posts, min_sub_posts):
     asubs = an["Subreddit"].value_counts()[asubs_mask].index.to_series()
     smask = an["Subreddit"].isin(asubs)
     an[smask].to_pickle(
-        (
-            id_l
-            + _center_dates[i]
-            + (
-                "/EDGE_LIST_RAW_{}_{}_{}.pkl".format(
-                    min_user_posts, max_user_posts, min_sub_posts
-                )
-            )
-        )
+        id_l
+        + _center_dates[i]
+        + (f"/EDGE_LIST_RAW_{min_user_posts}_{max_user_posts}_{min_sub_posts}.pkl")
     )
 
 
@@ -125,7 +111,7 @@ def raw_counter(net, min_user_posts):
     src_mask = an["Source"].isin(users)
     tgr_mask = an["Target"].isin(users)
     an[src_mask | tgr_mask].to_pickle(
-        (id_l + _center_dates[i] + ("/EDGE_LIST_RAW__{}.pkl".format(min_user_posts)))
+        id_l + _center_dates[i] + (f"/EDGE_LIST_RAW__{min_user_posts}.pkl")
     )
     print(_center_dates[i], min_user_posts)
 
@@ -141,7 +127,7 @@ def unraw_counter(net, max_user_posts):
     src_mask = an["Source"].isin(users)
     tgr_mask = an["Target"].isin(users)
     an[src_mask | tgr_mask].to_pickle(
-        (id_l + _center_dates[i] + ("/EDGE_LIST_RAW_{}__.pkl".format(max_user_posts)))
+        id_l + _center_dates[i] + (f"/EDGE_LIST_RAW_{max_user_posts}__.pkl")
     )
     print(_center_dates[i], max_user_posts)
 
@@ -161,11 +147,7 @@ def inraw_counter(net, min_user_posts, max_user_posts):
     src_mask = an["Source"].isin(users)
     tgr_mask = an["Target"].isin(users)
     an[src_mask | tgr_mask].to_pickle(
-        (
-            id_l
-            + _center_dates[i]
-            + ("/EDGE_LIST_RAW__{}_{}.pkl".format(min_user_posts, max_user_posts))
-        )
+        id_l + _center_dates[i] + (f"/EDGE_LIST_RAW__{min_user_posts}_{max_user_posts}.pkl")
     )
     print(_center_dates[i], min_user_posts, max_user_posts)
 
@@ -220,9 +202,7 @@ def mid90s(net):
     users = pd.concat([src_users, tgt_users]).unique()
     src_mask = an["Source"].isin(users)
     tgr_mask = an["Target"].isin(users)
-    an[src_mask | tgr_mask].to_pickle(
-        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
-    )
+    an[src_mask | tgr_mask].to_pickle(id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
     print(_center_dates[i], bsk, bsj, btk, btj)
 
 
@@ -276,9 +256,7 @@ def mad90s(net):
     users = pd.concat([src_users, tgt_users]).unique()
     src_mask = an["Source"].isin(users)
     tgr_mask = an["Target"].isin(users)
-    an[src_mask & tgr_mask].to_pickle(
-        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
-    )
+    an[src_mask & tgr_mask].to_pickle(id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_fit.pkl")
     print(_center_dates[i], bsk, bsj, btk, btj)
 
 
@@ -308,9 +286,7 @@ def mid90source(net):
     src_users = src_counts[(src_counts >= bsk) & (src_counts <= bsj)].index.to_series()
     users = src_users.unique()
     src_mask = an["Source"].isin(users)
-    an[src_mask].to_pickle(
-        (id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_source_fit.pkl")
-    )
+    an[src_mask].to_pickle(id_l + _center_dates[i] + "/EDGE_LIST_RAW__best_source_fit.pkl")
     print(_center_dates[i], bsk, bsj)
 
 
@@ -322,7 +298,7 @@ for i in range(len(start_dates)):
     # auth_net.to_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
     # auth_net.to_pickle((id_l + _center_dates[i] + '/AUTHOR_NET.pkl'))
     # auth_net = pd.read_pickle((id_l + _center_dates[i] + '/SELFLESS_AUTHOR_NET.pkl'))
-    auth_net = pd.read_pickle((id_l + _center_dates[i] + "/AUTHOR_NET.pkl"))
+    auth_net = pd.read_pickle(id_l + _center_dates[i] + "/AUTHOR_NET.pkl")
 
     # mid90s(auth_net)
     mad90s(auth_net)

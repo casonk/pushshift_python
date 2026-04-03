@@ -1,8 +1,9 @@
 import argparse
 import ast
-import pandas as pd
-import numpy as np
 import os
+
+import numpy as np
+import pandas as pd
 
 conspiracy_topic = [
     "911truth",
@@ -171,10 +172,7 @@ def meta_tricks(data, fname, topic_matter, out_dir):
 
     auths = label_data.groupby("author")
     summary = (
-        pd.DataFrame(auths["label"].value_counts())
-        .unstack()
-        .fillna(0)
-        .droplevel(level=0, axis=1)
+        pd.DataFrame(auths["label"].value_counts()).unstack().fillna(0).droplevel(level=0, axis=1)
     )
     try:
         summary.columns = ["off_topic", "on_topic"]
@@ -254,9 +252,7 @@ def meta_tricks(data, fname, topic_matter, out_dir):
         gamma_naives += [gamma_naive]
         seperation_naives += [4 * alpha_naive * beta_naive]
         isolation_naives += [alpha_naive / (alpha_naive + beta_naive)]
-        echochamberness_naives += [
-            alpha_naive / (alpha_naive + beta_naive + gamma_naive)
-        ]
+        echochamberness_naives += [alpha_naive / (alpha_naive + beta_naive + gamma_naive)]
 
         alpha_totality = alpha_frame["on_topic"].sum() / I
         beta_totality = beta_frame["off_topic"].sum() / I
@@ -271,16 +267,12 @@ def meta_tricks(data, fname, topic_matter, out_dir):
         ]
 
         alpha_variance = (
-            np.ceil(alpha_frame["on_topic"] / (1 + alpha_frame["on_topic"].var())).sum()
-            / I
+            np.ceil(alpha_frame["on_topic"] / (1 + alpha_frame["on_topic"].var())).sum() / I
         )
         beta_variance = (
-            np.ceil(beta_frame["off_topic"] / (1 + beta_frame["off_topic"].var())).sum()
-            / I
+            np.ceil(beta_frame["off_topic"] / (1 + beta_frame["off_topic"].var())).sum() / I
         )
-        gamma_variance = (
-            np.ceil(gamma_frame["total"] / (1 + gamma_frame["total"].var())).sum() / I
-        )
+        gamma_variance = np.ceil(gamma_frame["total"] / (1 + gamma_frame["total"].var())).sum() / I
         alpha_variances += [alpha_variance]
         beta_variances += [beta_variance]
         gamma_variances += [gamma_variance]
@@ -291,35 +283,23 @@ def meta_tricks(data, fname, topic_matter, out_dir):
         ]
 
         alpha_logvariance = (
-            np.ceil(
-                alpha_frame["on_topic"]
-                / (1 + np.log(1 + alpha_frame["on_topic"].var()))
-            ).sum()
+            np.ceil(alpha_frame["on_topic"] / (1 + np.log(1 + alpha_frame["on_topic"].var()))).sum()
             / I
         )
         beta_logvariance = (
-            np.ceil(
-                beta_frame["off_topic"]
-                / (1 + np.log(1 + beta_frame["off_topic"].var()))
-            ).sum()
+            np.ceil(beta_frame["off_topic"] / (1 + np.log(1 + beta_frame["off_topic"].var()))).sum()
             / I
         )
         gamma_logvariance = (
-            np.ceil(
-                gamma_frame["total"] / (1 + np.log(1 + gamma_frame["total"].var()))
-            ).sum()
-            / I
+            np.ceil(gamma_frame["total"] / (1 + np.log(1 + gamma_frame["total"].var()))).sum() / I
         )
         alpha_logvariances += [alpha_logvariance]
         beta_logvariances += [beta_logvariance]
         gamma_logvariances += [gamma_logvariance]
         seperation_logvariances += [4 * alpha_logvariance * beta_logvariance]
-        isolation_logvariances += [
-            alpha_logvariance / (alpha_logvariance + beta_logvariance)
-        ]
+        isolation_logvariances += [alpha_logvariance / (alpha_logvariance + beta_logvariance)]
         echochamberness_logvariances += [
-            alpha_logvariance
-            / (alpha_logvariance + beta_logvariance + gamma_logvariance)
+            alpha_logvariance / (alpha_logvariance + beta_logvariance + gamma_logvariance)
         ]
 
     df = pd.DataFrame(
