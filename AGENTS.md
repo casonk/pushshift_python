@@ -42,6 +42,17 @@ This project uses but does not formally declare dependencies. Key imports includ
 - `.sbat` files are SLURM batch submission scripts.
 - Python scripts in `Great_Lakes_HPC/pys/` are the corresponding analysis jobs.
 
+## Local CI Verification
+
+Run before every push:
+
+```bash
+pre-commit run --all-files
+pytest -q
+```
+
+Do not push changes that have not passed all checks locally.
+
 ## Portfolio Standards Reference
 
 For portfolio-wide repository standards and baseline conventions, consult the control-plane repo at `./util-repos/traction-control` from the portfolio root.
