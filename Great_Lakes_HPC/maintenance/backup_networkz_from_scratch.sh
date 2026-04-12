@@ -23,7 +23,7 @@ echo
 csvz=($source_csvz*)
 for file in "${csvz[@]}"
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -frv -t $target_csvz
@@ -49,7 +49,7 @@ echo
 pklz=($source_pklz*)
 for file in "${pklz[@]}"
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -frv -t $target_pklz

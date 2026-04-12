@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 
 ###### SLURM  preable ######
 #||||||||||||||||||||||||||#
@@ -23,13 +23,13 @@ module load python3.8-anaconda/2021.05
 
 # Current Python Interpter #
 #||||||||||||||||||||||||||#
-echo 
+echo
 which python
 echo
 
 ##### Execute Workflow #####
 #||||||||||||||||||||||||||#
-echo -e "spinning up at: $(date)" 
+echo -e "spinning up at: $(date)"
 
 echo -e "Job submitted by $SLURM_SUBMIT_HOST"
 echo -e "Job ID $SLURM_JOBID"
@@ -44,4 +44,4 @@ echo -e "backing up data to turbo buffer"
 cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance
 ./backup_labelz_from_scratch.sh
 
-echo -e "spinning down at: $(date)" 
+echo -e "spinning down at: $(date)"

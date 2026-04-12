@@ -1,4 +1,4 @@
-# REFS-PUBLIC.md — Public References
+# REFS-PUBLIC.md - Public References
 
 > Record external public repositories, datasets, documentation, APIs, or other
 > public resources that this repository utilizes or depends on.
@@ -6,22 +6,17 @@
 
 ## Public Repositories
 
-<!-- External repos this project depends on, forks, or integrates with:
-- https://github.com/org/repo — description of usage
--->
+- No fixed external code repository is the main upstream; the repo centers on public Reddit data surfaces.
 
 ## Public Datasets and APIs
 
-<!-- Publicly accessible data sources, REST APIs, or external feeds consumed here:
-- https://example.com/dataset — description of usage
--->
+- https://pushshift.io/ - Pushshift API used for Reddit data collection
+- https://www.reddit.com/dev/api/ - Reddit OAuth and API reference for subreddit refresh helpers
 
 ## Documentation and Specifications
 
-<!-- Reference docs, RFCs, standards, or upstream project documentation:
-- https://docs.example.com — description
--->
+- No single public specification beyond the API surfaces above is required at the repo level; research workflows vary by experiment.
 
 ## Notes
 
-<!-- Any context about how these public references are used or versioned -->
+- Local research exports, models, and cluster jobs are repo-specific and stay out of this tracked public reference file.

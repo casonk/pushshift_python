@@ -25,13 +25,13 @@ i=0
 csvz=($source*.csv*)
 for file in "${csvz[@]}"
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -fv -t $target
 	echo
 
-	let "i+=1" 
+	let "i+=1"
 	echo "$i of $num_files files copied"
 	echo
 done

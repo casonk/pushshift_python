@@ -22,7 +22,7 @@ echo
 
 for file in $source
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -frv -t $target

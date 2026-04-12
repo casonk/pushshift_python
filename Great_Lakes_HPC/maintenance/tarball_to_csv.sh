@@ -20,13 +20,13 @@ i=0
 tarballz=($source*.csv*)
 for file in "${tarballz[@]}"
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "decompressing $f"
 	tar -fvxz $file -C $target
 	echo
 
-	let "i+=1" 
+	let "i+=1"
 	echo "$i of $num_files files untared"
 	echo
 done

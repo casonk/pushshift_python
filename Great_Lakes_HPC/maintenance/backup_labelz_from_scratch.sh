@@ -23,7 +23,7 @@ echo
 csvz=($source*.csv*)
 for file in "${csvz[@]}"
 
-do 
+do
 	f="$(basename -- $file)"
 	echo "copying $f"
 	cp $file -fv -t $target

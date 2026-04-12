@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 
 #||||||||||||||||||||||||||#
 #SBATCH --job-name=recip
@@ -27,13 +27,13 @@ pip install --user pandas==1.4.2
 
 # Current Python Interpter #
 #||||||||||||||||||||||||||#
-echo 
+echo
 which python
 echo
 
 ##### Execute Workflow #####
 #||||||||||||||||||||||||||#
-echo -e "spinning up at: $(date)" 
+echo -e "spinning up at: $(date)"
 
 echo -e "Job submitted by $SLURM_SUBMIT_HOST"
 echo -e "Job ID $SLURM_JOBID"
@@ -45,4 +45,4 @@ echo -e "Running in $(pwd) \n"
 python reciprocity.py
 
 
-echo -e "spinning down at: $(date)" 
+echo -e "spinning down at: $(date)"
