@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 
 #||||||||||||||||||||||||||#
 #SBATCH --job-name=GrapheD
@@ -28,13 +28,13 @@ pip install --user networkx==2.7.1
 
 # Current Python Interpter #
 #||||||||||||||||||||||||||#
-echo 
+echo
 which python
 echo
 
 ##### Execute Workflow #####
 #||||||||||||||||||||||||||#
-echo -e "spinning up at: $(date)" 
+echo -e "spinning up at: $(date)"
 
 echo -e "Job submitted by $SLURM_SUBMIT_HOST"
 echo -e "Job ID $SLURM_JOBID"
@@ -51,4 +51,4 @@ echo
 # cd /scratch/mmani_root/mmani0/shared_data/pushshift_python/Great_Lakes_HPC/maintenance/insurrection
 # ./backup_idlz_to_turbo.sh
 
-echo -e "spinning down at: $(date)" 
+echo -e "spinning down at: $(date)"

@@ -11,15 +11,15 @@
 %% Copyright (C) 2007-2011 Brian Amberg
 %% Copyright (C) 2011      Reinhold Kainhofer <reinhold@kainhofer.com>
 %%
-%% 24. October 2011: 
+%% 24. October 2011:
 %%     - The grid was broken when not explicitly specifying the column number, this has been fixed now.
 %%     - The perennial text border faded was still broken, it just faded to the other text border color, not to transparent. Now also fixed
 %%     - Implemented the noheaderbox, when no text is given, the box will have no header and the content will be moved up accordingly.
-%% 29. September 2011: 
-%%     - Finally fixed confusion with paper size handling and landscape. This required seperate handling of papersizes 
+%% 29. September 2011:
+%%     - Finally fixed confusion with paper size handling and landscape. This required seperate handling of papersizes
 %%       known to the geometry package and other packages.
 %% 26. September 2011:
-%%     - Reverted drawing of faded borders to manual method, as the current result does not work with evince, 
+%%     - Reverted drawing of faded borders to manual method, as the current result does not work with evince,
 %%       and produced spurious colored boxes with okular and acroread.
 %%     - Added one more example due to popular request
 %% 16. September 2011:
@@ -281,7 +281,7 @@
    bmargin=\baposter@basemargin,
    lmargin=\baposter@basemarginleft,
    rmargin=\baposter@basemarginright,
-   ]{geometry} 
+   ]{geometry}
 
 \usepackage{pgfpages}
 \if@landscape
@@ -647,9 +647,9 @@
   % This is the right way to do it, but it does not work with evince, and has problems during printing, so instead we do
   %\draw[color=#1,path fading=south] \baposterBoxGetShape;%
   % this
- %\foreach \x in {0,1,...,90} { \draw[color=#1!\x] ($(\baposter@box@name tnw)!{(100-\x)/100}!(\baposter@box@name sw)$) -- ($(\baposter@box@name tnw)!{(100-(\x+10))/100}!(\baposter@box@name sw)$); }% 
+ %\foreach \x in {0,1,...,90} { \draw[color=#1!\x] ($(\baposter@box@name tnw)!{(100-\x)/100}!(\baposter@box@name sw)$) -- ($(\baposter@box@name tnw)!{(100-(\x+10))/100}!(\baposter@box@name sw)$); }%
  %\foreach \x in {0,1,...,90} { \draw[color=#1!\x] ($(\baposter@box@name tne)!{(100-\x)/100}!(\baposter@box@name se)$) -- ($(\baposter@box@name tne)!{(100-(\x+10))/100}!(\baposter@box@name se)$); }%
-  \foreach \x in {0,1,...,99} { \draw[color=#1,opacity=\x/100] ($(\baposter@box@name tnw)!{(100-\x)/100}!(\baposter@box@name sw)$) -- ($(\baposter@box@name tnw)!{(100-(\x+1))/100}!(\baposter@box@name sw)$); }% 
+  \foreach \x in {0,1,...,99} { \draw[color=#1,opacity=\x/100] ($(\baposter@box@name tnw)!{(100-\x)/100}!(\baposter@box@name sw)$) -- ($(\baposter@box@name tnw)!{(100-(\x+1))/100}!(\baposter@box@name sw)$); }%
   \foreach \x in {0,1,...,99} { \draw[color=#1,opacity=\x/100] ($(\baposter@box@name tne)!{(100-\x)/100}!(\baposter@box@name se)$) -- ($(\baposter@box@name tne)!{(100-(\x+1))/100}!(\baposter@box@name se)$); }%
 }
 \newcommand{\baposter@box@drawborder@roundedsmall}[1]{
