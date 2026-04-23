@@ -30,6 +30,7 @@ rectangle "Great_Lakes_HPC/sbats/metric_maker.sbat\n5 detected tools" as source_
 rectangle "Great_Lakes_HPC/sbats/network_maker.sbat\n5 detected tools" as source_great_lakes_hpc_sbats_network_maker_sbat #E0F2FE
 rectangle "Great_Lakes_HPC/sbats/quarterly_metric_maker.sbat\n5 detected tools" as source_great_lakes_hpc_sbats_quarterly_metric_maker_sbat #E0F2FE
 rectangle "Great_Lakes_HPC/sbats/sbatch_preambles.txt\n0 detected tools" as source_great_lakes_hpc_sbats_sbatch_preambles_txt #E0F2FE
+rectangle "scripts/run_tachometer_profile.sh\n3 detected tools" as source_scripts_run_tachometer_profile_sh #E0F2FE
 cloud "actions/checkout" as tool_actions_checkout #FEF3C7
 cloud "actions/setup-python" as tool_actions_setup_python #FEF3C7
 cloud "backup_idlz_to_turbo.sh" as tool_backup_idlz_to_turbo_sh #FEF3C7
@@ -49,6 +50,9 @@ cloud "pytest" as tool_pytest #FEF3C7
 cloud "python" as tool_python #FEF3C7
 cloud "rm" as tool_rm #FEF3C7
 cloud "ruff" as tool_ruff #FEF3C7
+cloud "run" as tool_run #FEF3C7
+cloud "summarize" as tool_summarize #FEF3C7
+cloud "tachometer" as tool_tachometer #FEF3C7
 cloud "tar" as tool_tar #FEF3C7
 cloud "tee" as tool_tee #FEF3C7
 cloud "wc" as tool_wc #FEF3C7
@@ -161,8 +165,11 @@ source_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_module
 source_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_pip
 source_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_python
 source_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_which
+source_scripts_run_tachometer_profile_sh --> tool_run
+source_scripts_run_tachometer_profile_sh --> tool_summarize
+source_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as toolingGraphSummary
-Scanned 25 tooling entrypoints.
-Detected 23 third-party tools.
+Scanned 26 tooling entrypoints.
+Detected 26 third-party tools.
 end note
 @enduml
