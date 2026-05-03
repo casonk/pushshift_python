@@ -6,6 +6,7 @@ skinparam defaultFontName Monospace
 skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle ".github/workflows/ci.yml\n9 detected tools" as source_github_workflows_ci_yml #E0F2FE
+rectangle ".github/workflows/secret-scan.yml\n2 detected tools" as source_github_workflows_secret_scan_yml #E0F2FE
 rectangle "Great_Lakes_HPC/maintenance/back_it_all_up.sh\n5 detected tools" as source_great_lakes_hpc_maintenance_back_it_all_up_sh #E0F2FE
 rectangle "Great_Lakes_HPC/maintenance/backup_csvz_to_turbo.sh\n5 detected tools" as source_great_lakes_hpc_maintenance_backup_csvz_to_turbo_sh #E0F2FE
 rectangle "Great_Lakes_HPC/maintenance/backup_labelz_from_scratch.sh\n4 detected tools" as source_great_lakes_hpc_maintenance_backup_labelz_from_scratch_sh #E0F2FE
@@ -40,6 +41,7 @@ cloud "backup_networkz_from_scratch.sh" as tool_backup_networkz_from_scratch_sh 
 cloud "backup_quarterly_metricz_from_scratch.sh" as tool_backup_quarterly_metricz_from_scratch_sh #FEF3C7
 cloud "black" as tool_black #FEF3C7
 cloud "cp" as tool_cp #FEF3C7
+cloud "gitleaks/gitleaks-action" as tool_gitleaks_gitleaks_action #FEF3C7
 cloud "let" as tool_let #FEF3C7
 cloud "ls-files" as tool_ls_files #FEF3C7
 cloud "mkdir" as tool_mkdir #FEF3C7
@@ -66,6 +68,8 @@ source_github_workflows_ci_yml --> tool_pylint
 source_github_workflows_ci_yml --> tool_pytest
 source_github_workflows_ci_yml --> tool_ruff
 source_github_workflows_ci_yml --> tool_tee
+source_github_workflows_secret_scan_yml --> tool_actions_checkout
+source_github_workflows_secret_scan_yml --> tool_gitleaks_gitleaks_action
 source_great_lakes_hpc_maintenance_back_it_all_up_sh --> tool_cp
 source_great_lakes_hpc_maintenance_back_it_all_up_sh --> tool_let
 source_great_lakes_hpc_maintenance_back_it_all_up_sh --> tool_mkdir
@@ -169,7 +173,7 @@ source_scripts_run_tachometer_profile_sh --> tool_run
 source_scripts_run_tachometer_profile_sh --> tool_summarize
 source_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as toolingGraphSummary
-Scanned 26 tooling entrypoints.
-Detected 26 third-party tools.
+Scanned 27 tooling entrypoints.
+Detected 27 third-party tools.
 end note
 @enduml
