@@ -50,8 +50,8 @@ class modeling:
         self.y = self.df.label
         self.X = self.df.drop("label", axis=1)
         if timeseries:
-            l = len(self.y)
-            cut = int(np.ceil(3 * l / 4))
+            n = len(self.y)
+            cut = int(np.ceil(3 * n / 4))
             self.y_train = self.y.iloc[:cut]
             self.y_test = self.y.iloc[cut:]
             self.X_train = self.X.iloc[:cut]

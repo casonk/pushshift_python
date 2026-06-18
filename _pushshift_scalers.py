@@ -23,7 +23,7 @@ def string_scaler(col, df):
         s = str(string).encode("utf-8")
         try:
             unscaled_hash = float(crc32(s) & 0xFFFFFFFF)
-        except:
+        except Exception:
             unscaled_hash = np.nan
         string_hash = unscaled_hash / 2**32
         return string_hash

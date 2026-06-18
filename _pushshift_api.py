@@ -62,7 +62,7 @@ class api_agent:
                 )
                 status = r.status_code
                 print("> http response is:", status)
-            except:
+            except Exception:
                 r = ""
                 status = " NO HANDSHAKE "
                 print("> http response is:", status)
@@ -96,19 +96,19 @@ class api_agent:
                 for key in _subreddits["data"]["children"]:
                     try:
                         _title = str(key["data"]["title"])
-                    except:
+                    except Exception:
                         _title = "NA"
                     try:
                         _subscribers = str(key["data"]["subscribers"])
-                    except:
+                    except Exception:
                         _subscribers = "NA"
                     try:
                         _created_utc = str(key["data"]["created_utc"])
-                    except:
+                    except Exception:
                         _created_utc = "NA"
                     try:
                         _over18 = str(key["data"]["over18"])
-                    except:
+                    except Exception:
                         _over18 = "NA"
                     _after = key["data"]["name"]
                     _rho = [_title, _subscribers, _created_utc, _over18]

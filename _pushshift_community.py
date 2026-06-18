@@ -230,7 +230,7 @@ class community:
         ]
         try:
             gini_dict = {col + "_gini": make_gini(self.authors, col) for col in gini_cols}
-        except:
+        except Exception:
             self.authors()
             gini_dict = {col + "_gini": make_gini(self.authors, col) for col in gini_cols}
         self.gini = pd.DataFrame(data=gini_dict, index=[self.name])
@@ -262,7 +262,7 @@ class community:
             simpson_dict = {
                 col + "_simpson": make_simpson(self.authors, col) for col in simpson_cols
             }
-        except:
+        except Exception:
             self.authors()
             simpson_dict = {
                 col + "_simpson": make_simpson(self.authors, col) for col in simpson_cols
@@ -296,7 +296,7 @@ class community:
             shannon_dict = {
                 col + "_shannon": make_shannon(self.authors, col) for col in shannon_cols
             }
-        except:
+        except Exception:
             self.authors()
             shannon_dict = {
                 col + "_shannon": make_shannon(self.authors, col) for col in shannon_cols
@@ -365,7 +365,7 @@ class community:
             author_attribute_dictionary = self.authors[column].to_dict()
             feature_name = "author_community_" + column
             self.features[feature_name] = self.df["author"].apply(
-                lambda x: author_attribute_dictionary[x]
+                lambda x: author_attribute_dictionary[x]  # noqa: B023
             )
 
         G = self.gini()
@@ -418,7 +418,7 @@ class community:
         for feature in numeric_features:
             try:
                 self.features[feature] = numeric_scaler(feature, self.df)
-            except:
+            except Exception:
                 self.features[feature] = numeric_scaler(feature, self.features)
 
         string_features = [
@@ -432,7 +432,7 @@ class community:
             self.features[feature] = string_scaler(feature, self.df)
 
         def ref_label(ref):
-            if type(ref) == str:
+            if isinstance(ref, str):
                 ref = ref.lower()
             if ref in [
                 "actualconspiracies",
