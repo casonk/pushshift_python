@@ -55,7 +55,7 @@ class query:
         self.after_dt = datetime.fromtimestamp(self.after)
         try:
             self.post_type = post_type.lower()
-        except:
+        except Exception:
             self.post_type = post_type
 
     def create_common_data(self, p_type_, post):
@@ -80,7 +80,7 @@ class query:
                 url = "nan"
             try:
                 permalink = post["permalink"]
-            except:
+            except Exception:
                 permalink = "nan"
             created_utc = post["created_utc"]
             t = datetime.fromtimestamp(created_utc)
@@ -96,19 +96,19 @@ class query:
                 num_comments = "nan"
             try:
                 controversiality = post["controversiality"]
-            except:
+            except Exception:
                 controversiality = "nan"
             try:
                 total_awards_received = post["total_awards_received"]
-            except:
+            except Exception:
                 total_awards_received = "nan"
             try:
                 stickied = post["stickied"]
-            except:
+            except Exception:
                 stickied = "nan"
             try:
                 post_hint = post["post_hint"]
-            except:
+            except Exception:
                 post_hint = "nan"
             try:
                 is_self = post["is_self"]
@@ -127,7 +127,7 @@ class query:
             author = rf"{author}"
             try:
                 author_premium = post["author_premium"]
-            except:
+            except Exception:
                 author_premium = "nan"
             if p_type_ == "comment":
                 try:
@@ -273,7 +273,7 @@ class pushshift_file_query(query):
         ]
         if self.oversized:
             self.write_path = str(Path.cwd() / f"{self.query}.csv")
-            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
+            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")  # noqa: SIM115
             self.csv_writer = csv.writer(self.csv, delimiter=",")
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
@@ -293,9 +293,9 @@ class pushshift_file_query(query):
                     )
                 try:
                     _post = json.loads(line)
-                    if self.type == "subreddit":
-                        if int(_post["created_utc"]) >= int(self.after):
-                            if int(_post["created_utc"]) <= int(self.before):
+                    if self.type == "subreddit":  # noqa: SIM102
+                        if int(_post["created_utc"]) >= int(self.after):  # noqa: SIM102
+                            if int(_post["created_utc"]) <= int(self.before):  # noqa: SIM102
                                 if _post["subreddit"] == self.query:
                                     self.post_counter += 1
                                     post_data = self.create_common_data(
@@ -550,7 +550,7 @@ class pushshift_web_query(query):
                 self.write_path = str(Path.cwd() / f"{self.query}.csv")
             else:
                 self.write_path = _path
-            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")
+            self.csv = open(self.write_path, "w", newline="", encoding="utf-8")  # noqa: SIM115
             self.csv_writer = csv.writer(self.csv, delimiter=",", escapechar="\\")
             self.csv_writer.writerow(self.headers)
         self.df = pd.DataFrame(columns=self.headers)
@@ -572,7 +572,7 @@ class pushshift_web_query(query):
                     r = requests.get(url)
                     status = r.status_code
                     print("> http response is:", status)
-                except:
+                except Exception:
                     status = "NO HANDSHAKE WITH API"
                     print(status)
                 if status != 200:
@@ -589,7 +589,7 @@ class pushshift_web_query(query):
                             r = requests.get(url)
                             status = r.status_code
                             print("> retry http response is:", status)
-                        except:
+                        except Exception:
                             status = "NO HANDSHAKE WITH API"
                             print(status)
                         if status == 200:
@@ -697,7 +697,7 @@ class pushshift_web_query(query):
             if self.oversized:
                 self.csv.close()
             self.df = pd.read_csv(self.write_path, low_memory=False)
-        except:
+        except Exception:
             self.df = pd.concat([self.submissions, self.comments], ignore_index=True)
 
     def export(self, path, to_export="df", export_format="pkl"):
