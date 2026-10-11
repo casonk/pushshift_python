@@ -19,22 +19,17 @@ rectangle "Great_Lakes_HPC/maintenance/transfer_push_file_to_scratch.sh\n0 local
 rectangle "Great_Lakes_HPC/sbats/insurrection/GraphD.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_graphd_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/insurrection/extract_communities.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_extract_communities_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/insurrection/extract_edges.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_extract_edges_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/insurrection/extract_insurrection.sbat\n0 local shell edges\n5 external tools" as shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/insurrection/extract_insurrection.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/insurrection/map_communities.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_map_communities_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/insurrection/map_communities_util.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_map_communities_util_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/insurrection/pair_ids.sbat\n0 local shell edges\n5 external tools" as shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/insurrection/pair_ids.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/insurrection/reciprocity.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_insurrection_reciprocity_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/label_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_label_maker_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/metric_maker.sbat\n0 local shell edges\n5 external tools" as shell_great_lakes_hpc_sbats_metric_maker_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/network_maker.sbat\n0 local shell edges\n5 external tools" as shell_great_lakes_hpc_sbats_network_maker_sbat #DBEAFE
-rectangle "Great_Lakes_HPC/sbats/quarterly_metric_maker.sbat\n0 local shell edges\n5 external tools" as shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/label_maker.sbat\n0 local shell edges\n3 external tools" as shell_great_lakes_hpc_sbats_label_maker_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/metric_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_metric_maker_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/network_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_network_maker_sbat #DBEAFE
+rectangle "Great_Lakes_HPC/sbats/quarterly_metric_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/sbatch_preambles.txt\n0 local shell edges\n0 external tools" as shell_great_lakes_hpc_sbats_sbatch_preambles_txt #DBEAFE
 rectangle "scripts/run_tachometer_profile.sh\n0 local shell edges\n3 external tools" as shell_scripts_run_tachometer_profile_sh #DBEAFE
-cloud "backup_idlz_to_turbo.sh" as tool_backup_idlz_to_turbo_sh #FEF3C7
-cloud "backup_labelz_from_scratch.sh" as tool_backup_labelz_from_scratch_sh #FEF3C7
-cloud "backup_metricz_from_scratch.sh" as tool_backup_metricz_from_scratch_sh #FEF3C7
-cloud "backup_networkz_from_scratch.sh" as tool_backup_networkz_from_scratch_sh #FEF3C7
-cloud "backup_quarterly_metricz_from_scratch.sh" as tool_backup_quarterly_metricz_from_scratch_sh #FEF3C7
 cloud "cp" as tool_cp #FEF3C7
 cloud "let" as tool_let #FEF3C7
 cloud "mkdir" as tool_mkdir #FEF3C7
@@ -102,7 +97,6 @@ shell_great_lakes_hpc_sbats_insurrection_extract_edges_sbat --> tool_module
 shell_great_lakes_hpc_sbats_insurrection_extract_edges_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_insurrection_extract_edges_sbat --> tool_python
 shell_great_lakes_hpc_sbats_insurrection_extract_edges_sbat --> tool_which
-shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat --> tool_backup_idlz_to_turbo_sh
 shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat --> tool_module
 shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_insurrection_extract_insurrection_sbat --> tool_python
@@ -119,7 +113,6 @@ shell_great_lakes_hpc_sbats_insurrection_map_communities_util_sbat --> tool_modu
 shell_great_lakes_hpc_sbats_insurrection_map_communities_util_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_insurrection_map_communities_util_sbat --> tool_python
 shell_great_lakes_hpc_sbats_insurrection_map_communities_util_sbat --> tool_which
-shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat --> tool_backup_idlz_to_turbo_sh
 shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat --> tool_module
 shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_insurrection_pair_ids_sbat --> tool_python
@@ -128,21 +121,17 @@ shell_great_lakes_hpc_sbats_insurrection_reciprocity_sbat --> tool_module
 shell_great_lakes_hpc_sbats_insurrection_reciprocity_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_insurrection_reciprocity_sbat --> tool_python
 shell_great_lakes_hpc_sbats_insurrection_reciprocity_sbat --> tool_which
-shell_great_lakes_hpc_sbats_label_maker_sbat --> tool_backup_labelz_from_scratch_sh
 shell_great_lakes_hpc_sbats_label_maker_sbat --> tool_module
 shell_great_lakes_hpc_sbats_label_maker_sbat --> tool_python
 shell_great_lakes_hpc_sbats_label_maker_sbat --> tool_which
-shell_great_lakes_hpc_sbats_metric_maker_sbat --> tool_backup_metricz_from_scratch_sh
 shell_great_lakes_hpc_sbats_metric_maker_sbat --> tool_module
 shell_great_lakes_hpc_sbats_metric_maker_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_metric_maker_sbat --> tool_python
 shell_great_lakes_hpc_sbats_metric_maker_sbat --> tool_which
-shell_great_lakes_hpc_sbats_network_maker_sbat --> tool_backup_networkz_from_scratch_sh
 shell_great_lakes_hpc_sbats_network_maker_sbat --> tool_module
 shell_great_lakes_hpc_sbats_network_maker_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_network_maker_sbat --> tool_python
 shell_great_lakes_hpc_sbats_network_maker_sbat --> tool_which
-shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_backup_quarterly_metricz_from_scratch_sh
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_module
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_python
@@ -153,6 +142,6 @@ shell_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as shellGraphSummary
 Scanned 25 shell scripts.
 Detected 0 local shell edges.
-Detected 18 external tools.
+Detected 13 external tools.
 end note
 @enduml

@@ -8,9 +8,9 @@
   <text x="40" font-family="Monospace" font-size="17" fill="#0F172A" xml:space="preserve">
     <tspan x="40" y="126">Scanned 1 Python file.</tspan>
     <tspan x="40" y="148">pydeps produced no visible dependency graph for this target.</tspan>
-    <tspan x="40" y="170">No import statements were detected.</tspan>
+    <tspan x="40" y="170">Detected only stdlib import roots, so the graph would otherwise appear blank.</tspan>
     <tspan x="40" y="192">Relative imports: none</tspan>
-    <tspan x="40" y="214">Stdlib imports: none</tspan>
+    <tspan x="40" y="214">Stdlib imports: os</tspan>
     <tspan x="40" y="236">Other imports: none</tspan>
   </text>
 </svg>
