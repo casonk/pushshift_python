@@ -12,6 +12,11 @@ license = { file = "LICENSE" }
 authors = [{ name = "Cason Konzer" }]
 dynamic = ["dependencies"]
 
+[project.urls]
+Homepage = "https://github.com/casonk/pushshift_python"
+Repository = "https://github.com/casonk/pushshift_python"
+Changelog = "https://github.com/casonk/pushshift_python/blob/main/CHANGELOG.md"
+
 [tool.setuptools]
 py-modules = [
     "pushshift_python",
