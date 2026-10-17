@@ -21,7 +21,7 @@ Python wrapper library for Reddit community analytics using the Pushshift API. I
 
 ## Key Dependencies
 
-This project uses but does not formally declare dependencies. Key imports include:
+The build metadata reads runtime dependencies from `requirements.txt`. Key imports include:
 - `sklearn` (DecisionTreeClassifier, RandomForest, SVM, LogisticRegression)
 - `matplotlib`, `pandas`, `numpy`
 - `dateutil`

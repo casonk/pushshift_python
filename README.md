@@ -29,6 +29,16 @@ tests/                 # Public API and HPC smoke coverage
 
 ## Installation
 
+Install the published library in a virtual environment:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install pushshift-python
+```
+
+For development from a checkout:
+
 ```bash
 pip install -e .
 ```

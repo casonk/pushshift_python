@@ -1,0 +1,14 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    permissions:
+      contents: read
+      id-token: write
+    uses: casonk/.github/.github/workflows/python-publish.yml@main
+    with:
+      package-name: pushshift-python
