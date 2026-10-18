@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pushshift-python"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python wrapper for Reddit community analytics via the Pushshift API."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -37,7 +37,7 @@ dependencies = { file = ["requirements.txt"] }
 dev = [
     "pytest>=8",
     "ruff",
-    "dyno_lab @ git+https://github.com/casonk/dyno-lab.git",
+    "dyno-lab>=0.3.0",
 ]
 [tool.black]
 line-length = 100

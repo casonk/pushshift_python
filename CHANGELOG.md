@@ -4,6 +4,11 @@ All notable changes to `pushshift_python` are documented here.
 
 ## Unreleased
 
+## 0.1.1 - 2026-10-18
+
+- Replaced the development extra's Git URL with published `dyno-lab` so PyPI
+  accepts the distribution metadata.
+
 ## 0.1.0 - 2026-10-17
 
 - Packaged the public `pushshift_python` facade and its query, analytics,
