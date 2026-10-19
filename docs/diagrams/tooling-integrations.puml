@@ -6,6 +6,7 @@ skinparam defaultFontName Monospace
 skinparam componentStyle rectangle
 skinparam linetype ortho
 rectangle ".github/workflows/ci.yml\n1 detected tool" as source_github_workflows_ci_yml #E0F2FE
+rectangle ".github/workflows/python-publish.yml\n1 detected tool" as source_github_workflows_python_publish_yml #E0F2FE
 rectangle ".github/workflows/secret-scan.yml\n2 detected tools" as source_github_workflows_secret_scan_yml #E0F2FE
 rectangle "Great_Lakes_HPC/maintenance/back_it_all_up.sh\n5 detected tools" as source_great_lakes_hpc_maintenance_back_it_all_up_sh #E0F2FE
 rectangle "Great_Lakes_HPC/maintenance/backup_csvz_to_turbo.sh\n5 detected tools" as source_great_lakes_hpc_maintenance_backup_csvz_to_turbo_sh #E0F2FE
@@ -34,6 +35,7 @@ rectangle "Great_Lakes_HPC/sbats/sbatch_preambles.txt\n0 detected tools" as sour
 rectangle "scripts/run_tachometer_profile.sh\n3 detected tools" as source_scripts_run_tachometer_profile_sh #E0F2FE
 cloud "actions/checkout" as tool_actions_checkout #FEF3C7
 cloud "casonk/.github/.github/workflows/python-ci.yml" as tool_casonk_github_github_workflows_python_ci_yml #FEF3C7
+cloud "casonk/.github/.github/workflows/python-publish.yml" as tool_casonk_github_github_workflows_python_publish_yml #FEF3C7
 cloud "cp" as tool_cp #FEF3C7
 cloud "gitleaks/gitleaks-action" as tool_gitleaks_gitleaks_action #FEF3C7
 cloud "let" as tool_let #FEF3C7
@@ -49,6 +51,7 @@ cloud "tar" as tool_tar #FEF3C7
 cloud "wc" as tool_wc #FEF3C7
 cloud "which" as tool_which #FEF3C7
 source_github_workflows_ci_yml --> tool_casonk_github_github_workflows_python_ci_yml
+source_github_workflows_python_publish_yml --> tool_casonk_github_github_workflows_python_publish_yml
 source_github_workflows_secret_scan_yml --> tool_actions_checkout
 source_github_workflows_secret_scan_yml --> tool_gitleaks_gitleaks_action
 source_great_lakes_hpc_maintenance_back_it_all_up_sh --> tool_cp
@@ -148,7 +151,7 @@ source_scripts_run_tachometer_profile_sh --> tool_run
 source_scripts_run_tachometer_profile_sh --> tool_summarize
 source_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as toolingGraphSummary
-Scanned 27 tooling entrypoints.
-Detected 16 third-party tools.
+Scanned 28 tooling entrypoints.
+Detected 17 third-party tools.
 end note
 @enduml
