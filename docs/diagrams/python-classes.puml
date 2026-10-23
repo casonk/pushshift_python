@@ -1,4 +1,4 @@
-@startuml classes_pushshift_python
+@startuml classes_checkout
 set namespaceSeparator none
 class "api_agent" as _pushshift_api.api_agent {
   application_name
