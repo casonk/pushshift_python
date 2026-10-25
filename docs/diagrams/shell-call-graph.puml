@@ -29,7 +29,7 @@ rectangle "Great_Lakes_HPC/sbats/metric_maker.sbat\n0 local shell edges\n4 exter
 rectangle "Great_Lakes_HPC/sbats/network_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_network_maker_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/quarterly_metric_maker.sbat\n0 local shell edges\n4 external tools" as shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat #DBEAFE
 rectangle "Great_Lakes_HPC/sbats/sbatch_preambles.txt\n0 local shell edges\n0 external tools" as shell_great_lakes_hpc_sbats_sbatch_preambles_txt #DBEAFE
-rectangle "scripts/run_tachometer_profile.sh\n0 local shell edges\n3 external tools" as shell_scripts_run_tachometer_profile_sh #DBEAFE
+rectangle "scripts/run_tachometer_profile.sh\n0 local shell edges\n1 external tool" as shell_scripts_run_tachometer_profile_sh #DBEAFE
 cloud "cp" as tool_cp #FEF3C7
 cloud "let" as tool_let #FEF3C7
 cloud "mkdir" as tool_mkdir #FEF3C7
@@ -37,8 +37,6 @@ cloud "module" as tool_module #FEF3C7
 cloud "pip" as tool_pip #FEF3C7
 cloud "python" as tool_python #FEF3C7
 cloud "rm" as tool_rm #FEF3C7
-cloud "run" as tool_run #FEF3C7
-cloud "summarize" as tool_summarize #FEF3C7
 cloud "tachometer" as tool_tachometer #FEF3C7
 cloud "tar" as tool_tar #FEF3C7
 cloud "wc" as tool_wc #FEF3C7
@@ -136,12 +134,10 @@ shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_module
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_pip
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_python
 shell_great_lakes_hpc_sbats_quarterly_metric_maker_sbat --> tool_which
-shell_scripts_run_tachometer_profile_sh --> tool_run
-shell_scripts_run_tachometer_profile_sh --> tool_summarize
 shell_scripts_run_tachometer_profile_sh --> tool_tachometer
 note as shellGraphSummary
 Scanned 25 shell scripts.
 Detected 0 local shell edges.
-Detected 13 external tools.
+Detected 11 external tools.
 end note
 @enduml
