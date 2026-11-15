@@ -4,6 +4,7 @@
 [repository]
 # One line shown on GitHub. Keep it free of private repository names and local paths.
 description = "Python wrapper for Reddit community analytics via the Pushshift API, with ML classification and research tooling."
+topics = ["reddit", "pushshift", "nlp", "machine-learning", "python", "social-media", "community-analysis"]
 
 [main_branch]
 # Direct commits and pushes to main are refused unless this is true.
