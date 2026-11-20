@@ -7,7 +7,7 @@ name = "pushshift-python"
 version = "0.1.1"
 description = "Python wrapper for Reddit community analytics via the Pushshift API."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "Cason Konzer" }]
 dynamic = ["dependencies"]
@@ -41,11 +41,11 @@ dev = [
 ]
 [tool.black]
 line-length = 100
-target-version = ["py310"]
+target-version = ["py311"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 exclude = ["Great_Lakes_HPC/"]
 
 [tool.ruff.lint]
